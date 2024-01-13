@@ -22,7 +22,15 @@ const Task = ({ title }: Props) => {
         className="textarea overflow-hidden w-full textarea-bordered"
         defaultValue={title}
       />
-      <button className="btn btn-primary w-full btn-sm">ذخیره</button>
+      {text === title && (
+        <div className="flex w-full gap-x-1 ">
+          <button className="btn flex-1 btn-accent  btn-sm">حذف</button>
+          <button className="btn flex-1 btn-primary  btn-sm">انجام دادم</button>
+        </div>
+      )}
+      {text !== title && (
+        <button className="btn btn-neutral  w-full btn-sm">ذخیره</button>
+      )}
     </div>
   );
 };
