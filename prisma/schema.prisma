@@ -14,4 +14,5 @@ model Task {
   id    Int     @id @default(autoincrement())
   title String
   done  Boolean @default(false)
+  index Int     @default(0)
 }

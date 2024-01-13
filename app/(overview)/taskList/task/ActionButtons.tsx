@@ -12,7 +12,7 @@ export const ResumeTaskBtn = ({ display, onClick }: ButtonsProps) => {
   if (!display) return <></>;
   return (
     <button onClick={onClick} className="btn btn-neutral flex-1  w-full btn-sm">
-      فعال کردن تسک
+      ادامه دادن تسک
     </button>
   );
 };
