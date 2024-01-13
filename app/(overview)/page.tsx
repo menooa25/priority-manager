@@ -1,4 +1,4 @@
-import TaskList from "./task/TaskList";
+import TaskList from "./taskList/TaskList";
 
 export default function Home() {
   return (
