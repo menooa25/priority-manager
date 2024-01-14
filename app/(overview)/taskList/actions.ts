@@ -2,8 +2,12 @@
 import prisma from "@/prisma/client";
 
 export const createTask = async (title: string) => {
-  const count = await prisma.task.count();
-  await prisma.task.create({ data: { title, index: count } });
+  const upperTask = await prisma.task.findFirst({
+    orderBy: { index: "desc" },
+  });
+  await prisma.task.create({
+    data: { title, index: upperTask?.index && upperTask?.index + 1 },
+  });
 };
 
 export const changeTaskTitle = async (id: number, title: string) => {

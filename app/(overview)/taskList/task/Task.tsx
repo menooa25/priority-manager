@@ -18,8 +18,9 @@ import {
   DoneTask,
   IncreaseIndexBtn,
   ResumeTaskBtn,
-  SaveBtn
+  SaveBtn,
 } from "./ActionButtons";
+import useActions from "./useActions";
 
 interface Props {
   id?: number;
@@ -32,59 +33,25 @@ interface Props {
 const Task = ({ title, onSaved, done, id, index }: Props) => {
   const textareaRef: any = useRef();
   const [text, setText] = useState(title);
-  const router = useRouter();
   const { onScroll } = useNoScroll(textareaRef);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
-  const [loading, setLoading] = useState({
-    increaseIndex: false,
-    decreaseIndex: false,
+
+  const {
+    loading,
+    onSave,
+    onResumeTask,
+    onDone,
+    onDelete,
+    onDecreaseIndex,
+    onIncreaseIndex,
+  } = useActions({
+    done,
+    id,
+    index,
+    status,
+    text,
   });
-  const onSave = async () => {
-    if (status.itsNew) {
-      await createTask(text);
-      router.refresh();
-      onSaved && onSaved();
-    } else if (id && !done) {
-      await changeTaskTitle(id, text);
-      router.refresh();
-    }
-  };
-  const onResumeTask = async () => {
-    if (done && id) {
-      await resumeTask(id);
-      router.refresh();
-    }
-  };
-  const onDone = async () => {
-    if (id && !done) {
-      await doneTask(id);
-      router.refresh();
-    }
-  };
-  const onDelete = async () => {
-    if (id) {
-      await deleteTask(id);
-      router.refresh();
-    }
-  };
-  const onIncreaseIndex = async () => {
-    if (id && !done && index !== undefined) {
-      setLoading({ ...loading, increaseIndex: true });
-      await increaseTaskIndex(id, index);
-      setLoading({ ...loading, increaseIndex: false });
 
-      router.refresh();
-    }
-  };
-  const onDecreaseIndex = async () => {
-    if (id && !done && index !== undefined) {
-      setLoading({ ...loading, decreaseIndex: true });
-      await decreaseTaskIndex(id, index);
-      setLoading({ ...loading, decreaseIndex: false });
-
-      router.refresh();
-    }
-  };
   useEffect(() => {
     setStatus({
       itsNew: title === "",
@@ -135,7 +102,10 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
         />
         <DoneTask onClick={onDone} display={!done && !status.itsNew} />
       </div>
-      <SaveBtn display={status.itsEdited || status.itsNew} onClick={onSave} />
+      <SaveBtn
+        display={status.itsEdited || status.itsNew}
+        onClick={() => onSave(onSaved)}
+      />
     </div>
   );
 };
