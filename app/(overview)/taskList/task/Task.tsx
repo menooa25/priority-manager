@@ -1,19 +1,25 @@
 "use client";
 import useNoScroll from "@/app/hooks/useNoScroll";
 import { direction } from "direction";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import {
-  createTask,
   changeTaskTitle,
+  createTask,
+  decreaseTaskIndex,
   deleteTask,
   doneTask,
-  resumeTask,
   increaseTaskIndex,
-  decreaseTaskIndex,
+  resumeTask,
 } from "../actions";
-import { useRouter } from "next/navigation";
-import { DeleteTask, DoneTask, ResumeTaskBtn, SaveBtn } from "./ActionButtons";
+import {
+  DecreaseIndexBtn,
+  DeleteTask,
+  DoneTask,
+  IncreaseIndexBtn,
+  ResumeTaskBtn,
+  SaveBtn
+} from "./ActionButtons";
 
 interface Props {
   id?: number;
@@ -99,33 +105,19 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
           }  overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered`}
           defaultValue={title}
         />
-        {!done && (
-          <div className="flex flex-col rounded-2xl rounded-l-none">
-            <button
-              disabled={loading.increaseIndex}
-              onClick={() => onIncreaseIndex()}
-              className="btn  p-2 flex-1 rounded-2xl rounded-l-none rounded-b-none"
-            >
-              {loading.increaseIndex ? (
-                <span className="loading loading-xs loading-spinner" />
-              ) : (
-                <IoIosArrowUp />
-              )}
-            </button>
-            <hr />
-            <button
-              onClick={() => onDecreaseIndex()}
-              disabled={loading.decreaseIndex}
-              className="btn p-2 flex-1 rounded-2xl  rounded-l-none rounded-t-none"
-            >
-              {loading.decreaseIndex ? (
-                <span className="loading loading-xs loading-spinner" />
-              ) : (
-                <IoIosArrowDown />
-              )}
-            </button>
-          </div>
-        )}
+        <div className="flex flex-col rounded-2xl rounded-l-none">
+          <IncreaseIndexBtn
+            display={!done}
+            onClick={onIncreaseIndex}
+            loading={loading.increaseIndex}
+          />
+          <hr />
+          <DecreaseIndexBtn
+            display={!done}
+            onClick={onDecreaseIndex}
+            loading={loading.decreaseIndex}
+          />
+        </div>
       </div>
       <div className="flex w-full gap-x-1">
         <DeleteTask title={title} onClick={onDelete} display={done} />
