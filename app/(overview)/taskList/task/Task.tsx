@@ -1,17 +1,7 @@
 "use client";
 import useNoScroll from "@/app/hooks/useNoScroll";
 import { direction } from "direction";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import {
-  changeTaskTitle,
-  createTask,
-  decreaseTaskIndex,
-  deleteTask,
-  doneTask,
-  increaseTaskIndex,
-  resumeTask,
-} from "../actions";
 import {
   DecreaseIndexBtn,
   DeleteTask,
