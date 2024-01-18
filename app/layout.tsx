@@ -19,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={vazirmatn.className}>
-        <NavBar />
-        <AuthContainer>{children}</AuthContainer>
+        <AuthContainer>
+          <NavBar />
+          {children}
+        </AuthContainer>
       </body>
     </html>
   );
