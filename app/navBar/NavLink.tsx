@@ -15,7 +15,7 @@ const NavLink = ({ day, title }: Props) => {
     <button
       onClick={() => router.replace("/?" + params.toString())}
       role="tab"
-      className={`tab ${day === currentParam && "tab-active"}`}
+      className={`tab  ${day === currentParam && "tab-active"}`}
     >
       {title}
     </button>

@@ -6,7 +6,7 @@ const routs = [
 const NavBar = () => {
   return (
     <div className="flex justify-center">
-      <div role="tablist" className="tabs tabs-bordered">
+      <div role="tablist" className="tabs tabs-bordered ">
         {routs.map((r) => (
           <NavLink key={r.day} day={r.day} title={r.title} />
         ))}
