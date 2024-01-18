@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
 import Task from "./task/Task";
+import { useSession } from "next-auth/react";
 
 const AddTask = () => {
+  const session = useSession();
+  console.log(session);
   const [newClicked, setNewClicked] = useState(false);
   return (
     <div>
