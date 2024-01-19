@@ -1,7 +1,7 @@
 "use client";
 import useNoScroll from "@/app/hooks/useNoScroll";
 import { direction } from "direction";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   DecreaseIndexBtn,
   DeleteTask,
@@ -11,6 +11,8 @@ import {
   SaveBtn,
 } from "./ActionButtons";
 import useActions from "./useActions";
+import { useSession } from "next-auth/react";
+import { TaskContext } from "../TaskContextProvider";
 
 interface Props {
   id?: number;
@@ -25,7 +27,8 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
   const [text, setText] = useState(title);
   const { onScroll } = useNoScroll(textareaRef);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
-
+  const userEmail = useSession().data?.user?.email;
+  const { updateTaskList } = useContext(TaskContext);
   const {
     loading,
     onSave,
@@ -35,6 +38,8 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
     onDecreaseIndex,
     onIncreaseIndex,
   } = useActions({
+    updateTaskList,
+    userEmail,
     done,
     id,
     index,
@@ -78,7 +83,11 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
       </div>
       <div className="flex w-full gap-x-1">
         <DeleteTask title={title} onClick={onDelete} display={done} />
-        <ResumeTaskBtn display={done} onClick={onResumeTask} />
+        <ResumeTaskBtn
+          loading={loading.resume}
+          display={done}
+          onClick={onResumeTask}
+        />
       </div>
       <div
         className={`flex w-full gap-x-1 ${
@@ -90,7 +99,11 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
           onClick={onDelete}
           display={!done && !status.itsNew}
         />
-        <DoneTask onClick={onDone} display={!done && !status.itsNew} />
+        <DoneTask
+          loading={loading.done}
+          onClick={onDone}
+          display={!done && !status.itsNew}
+        />
       </div>
       <SaveBtn
         display={status.itsEdited || status.itsNew}

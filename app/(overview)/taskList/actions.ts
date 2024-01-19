@@ -1,12 +1,22 @@
 "use server";
 import prisma from "@/prisma/client";
 
-export const createTask = async (title: string) => {
+export const createTask = async (title: string, userEmail: string) => {
+  const user = await prisma.user.findUnique({
+    where: { email: userEmail },
+    select: { id: true },
+  });
+
+  if (!user?.id) return null;
   const upperTask = await prisma.task.findFirst({
     orderBy: { index: "desc" },
   });
   await prisma.task.create({
-    data: { title, index: upperTask?.index && upperTask?.index + 1 },
+    data: {
+      title,
+      userId: user?.id,
+      index: upperTask?.index && upperTask?.index + 1,
+    },
   });
 };
 
@@ -62,4 +72,14 @@ export const doneTask = async (id: number) => {
 };
 export const deleteTask = async (id: number) => {
   await prisma.task.delete({ where: { id } });
+};
+
+export const getTaskList = async (userEmail: string) => {
+  const user = await prisma.user.findUnique({
+    where: { email: userEmail },
+    select: { id: true },
+  });
+
+  if (!user?.id) return null;
+  return await prisma.task.findMany({ where: { userId: user.id } });
 };

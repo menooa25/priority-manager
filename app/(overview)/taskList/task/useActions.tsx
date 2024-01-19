@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   changeTaskTitle,
   createTask,
@@ -15,42 +15,60 @@ interface Props {
   done: boolean;
   index?: number;
   text: string;
+  updateTaskList: () => void;
+  userEmail?: string | null;
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
-const useActions = ({ done, id, index, status, text }: Props) => {
-  const router = useRouter();
+const useActions = ({
+  done,
+  id,
+  index,
+  status,
+  text,
+  userEmail,
+  updateTaskList,
+}: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
     decreaseIndex: false,
+    done: false,
+    resume: false,
   });
 
   const onSave = async (callBack?: () => void) => {
-    if (status.itsNew) {
-      await createTask(text);
-      router.refresh();
+    if (status.itsNew && userEmail) {
+      await createTask(text, userEmail);
+      updateTaskList();
       callBack && callBack();
     } else if (id && !done) {
       await changeTaskTitle(id, text);
-      router.refresh();
+      updateTaskList();
     }
   };
   const onResumeTask = async () => {
     if (done && id) {
+      setLoading({ ...loading, resume: true });
+
       await resumeTask(id);
-      router.refresh();
+      setLoading({ ...loading, resume: true });
+
+      updateTaskList();
     }
   };
   const onDone = async () => {
     if (id && !done) {
+      setLoading({ ...loading, done: true });
+
       await doneTask(id);
-      router.refresh();
+      setLoading({ ...loading, done: false });
+      updateTaskList();
     }
   };
   const onDelete = async () => {
     if (id) {
       await deleteTask(id);
-      router.refresh();
+      updateTaskList();
     }
   };
   const onIncreaseIndex = async () => {
@@ -59,7 +77,7 @@ const useActions = ({ done, id, index, status, text }: Props) => {
       await increaseTaskIndex(id, index);
       setLoading({ ...loading, increaseIndex: false });
 
-      router.refresh();
+      updateTaskList();
     }
   };
   const onDecreaseIndex = async () => {
@@ -68,7 +86,7 @@ const useActions = ({ done, id, index, status, text }: Props) => {
       await decreaseTaskIndex(id, index);
       setLoading({ ...loading, decreaseIndex: false });
 
-      router.refresh();
+      updateTaskList();
     }
   };
   return {

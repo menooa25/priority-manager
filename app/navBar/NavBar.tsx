@@ -1,4 +1,4 @@
-import Avatar from "./Avatar";
+import Account from "./Account";
 import NavLink from "./NavLink";
 const routs = [
   { title: "فردا", day: "tomorrow" },
@@ -19,7 +19,7 @@ const NavBar = () => {
       </div>
 
       <div className="flex pt-2 pr-2 justify-end">
-        <Avatar />
+        <Account />
       </div>
     </div>
   );

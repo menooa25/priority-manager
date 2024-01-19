@@ -10,11 +10,15 @@ interface ButtonsProps {
   loading?: boolean;
 }
 
-export const ResumeTaskBtn = ({ display, onClick }: ButtonsProps) => {
+export const ResumeTaskBtn = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return <></>;
   return (
     <button onClick={onClick} className="btn btn-neutral flex-1  w-full btn-sm">
-      ادامه دادن تسک
+      {loading ? (
+        <span className="loading loading-xs loading-spinner" />
+      ) : (
+        "ادامه دادن تسک"
+      )}
     </button>
   );
 };
@@ -27,12 +31,16 @@ export const SaveBtn = ({ onClick, display = true }: ButtonsProps) => {
     </button>
   );
 };
-export const DoneTask = ({ display, onClick }: ButtonsProps) => {
+export const DoneTask = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return null;
 
   return (
     <button onClick={onClick} className="btn flex-1 btn-primary w-full btn-sm">
-      انجام دادم
+      {loading ? (
+        <span className="loading loading-xs loading-spinner" />
+      ) : (
+        "انجام دادم"
+      )}
     </button>
   );
 };
