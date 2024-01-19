@@ -23,11 +23,15 @@ export const ResumeTaskBtn = ({ display, onClick, loading }: ButtonsProps) => {
   );
 };
 
-export const SaveBtn = ({ onClick, display = true }: ButtonsProps) => {
+export const SaveBtn = ({ onClick, display = true, loading }: ButtonsProps) => {
   if (!display) return null;
   return (
     <button onClick={onClick} className="btn flex-1 btn-neutral  w-full btn-sm">
-      ذخیره
+      {loading ? (
+        <span className="loading loading-xs loading-spinner" />
+      ) : (
+        "ذخیره"
+      )}
     </button>
   );
 };

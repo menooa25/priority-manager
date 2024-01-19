@@ -8,15 +8,13 @@ import {
   increaseTaskIndex,
   resumeTask,
 } from "../actions";
-import { useRouter } from "next/navigation";
-
+import { useSession } from "next-auth/react";
 interface Props {
   id?: number;
   done: boolean;
   index?: number;
   text: string;
   updateTaskList: () => void;
-  userEmail?: string | null;
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
@@ -26,7 +24,6 @@ const useActions = ({
   index,
   status,
   text,
-  userEmail,
   updateTaskList,
 }: Props) => {
   const [loading, setLoading] = useState({
@@ -34,15 +31,22 @@ const useActions = ({
     decreaseIndex: false,
     done: false,
     resume: false,
+    save: false,
   });
-
   const onSave = async (callBack?: () => void) => {
-    if (status.itsNew && userEmail) {
-      await createTask(text, userEmail);
+    if (status.itsNew) {
+      setLoading({ ...loading, save: true });
+
+      await createTask(text);
+      setLoading({ ...loading, save: false });
+
       updateTaskList();
       callBack && callBack();
     } else if (id && !done) {
+      setLoading({ ...loading, save: true });
+
       await changeTaskTitle(id, text);
+      setLoading({ ...loading, save: false });
       updateTaskList();
     }
   };

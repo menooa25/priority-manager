@@ -12,7 +12,7 @@ const TaskList = () => {
   const userEmail = useSession().data?.user?.email;
   const requestForTaskList = async () => {
     if (!userEmail) return null;
-    const resp = await getTaskList(userEmail);
+    const resp = await getTaskList();
     if (resp) setTaskList(resp);
   };
   useEffect(() => {

@@ -27,7 +27,6 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
   const [text, setText] = useState(title);
   const { onScroll } = useNoScroll(textareaRef);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
-  const userEmail = useSession().data?.user?.email;
   const { updateTaskList } = useContext(TaskContext);
   const {
     loading,
@@ -39,7 +38,6 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
     onIncreaseIndex,
   } = useActions({
     updateTaskList,
-    userEmail,
     done,
     id,
     index,
@@ -106,6 +104,7 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
         />
       </div>
       <SaveBtn
+        loading={loading.save}
         display={status.itsEdited || status.itsNew}
         onClick={() => onSave(onSaved)}
       />

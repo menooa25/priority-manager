@@ -1,20 +1,27 @@
 "use server";
+import { auth } from "@/auth";
 import prisma from "@/prisma/client";
-
-export const createTask = async (title: string, userEmail: string) => {
+const getUserId = async () => {
+  const userEmail = (await auth())?.user?.email;
+  if (!userEmail) return null;
   const user = await prisma.user.findUnique({
     where: { email: userEmail },
     select: { id: true },
   });
 
-  if (!user?.id) return null;
+  return user?.id;
+};
+
+export const createTask = async (title: string) => {
+  const userId = await getUserId();
+  if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
     orderBy: { index: "desc" },
   });
   await prisma.task.create({
     data: {
       title,
-      userId: user?.id,
+      userId,
       index: upperTask?.index && upperTask?.index + 1,
     },
   });
@@ -74,12 +81,12 @@ export const deleteTask = async (id: number) => {
   await prisma.task.delete({ where: { id } });
 };
 
-export const getTaskList = async (userEmail: string) => {
-  const user = await prisma.user.findUnique({
-    where: { email: userEmail },
-    select: { id: true },
-  });
+export const getTaskList = async () => {
+  const userId = await getUserId();
+  if (!userId) return null;
 
-  if (!user?.id) return null;
-  return await prisma.task.findMany({ where: { userId: user.id } });
+  return await prisma.task.findMany({
+    where: { userId },
+    orderBy: { done: "asc" },
+  });
 };
