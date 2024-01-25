@@ -1,10 +1,11 @@
 "use client";
-
-import { SubmitHandler, useForm } from "react-hook-form";
-import DetailInput from "../DetailInput";
-import { updateGoalDetail } from "../../../actions";
 import { Detail } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { FaGear } from "react-icons/fa6";
+import { updateGoalDetail } from "../../../actions";
+import DetailInput from "../DetailInput";
+import Options from "./Options";
 type Inputs = {
   why: string;
   how: string;
@@ -13,16 +14,17 @@ type Inputs = {
 interface Props {
   goalId: number;
   init: Detail | null;
-  closeModal:() => void
+  closeModal: () => void;
 }
-const DetailForm = ({ goalId, init ,closeModal}: Props) => {
+const DetailForm = ({ goalId, init, closeModal }: Props) => {
   const { register, handleSubmit, setValue } = useForm<Inputs>();
   const [loading, setLoading] = useState(false);
+ 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setLoading(true);
     await updateGoalDetail({ ...data, goalId });
     setLoading(false);
-    closeModal()
+    closeModal();
   };
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const DetailForm = ({ goalId, init ,closeModal}: Props) => {
   }, [init]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-2">
+      <Options/>
       <DetailInput
         label="به چه دلیلی این هدف را انتخاب کردید ؟"
         register={{ ...register("why") }}

@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes open-gear {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(250deg);
+  }
+}
+@keyframes close-gear {
+  0% {
+    transform: rotate(250deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.open-options {
+  animation: open-gear 1s;
+  animation-timing-function: linear;
+}
+.close-options {
+  animation: close-gear 1s;
+  animation-timing-function: linear;
+}
 *::-webkit-scrollbar {
   width: 5px; /* width of the entire scrollbar */
 }
