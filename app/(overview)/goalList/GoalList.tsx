@@ -1,25 +1,30 @@
 "use client";
 import Goal from "./goal/Goal";
 import AddGoal from "./AddGoal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Goal as GoalSchima } from "@prisma/client";
 import { getGoalList } from "./actions";
 import { useSession } from "next-auth/react";
 import GoalContextProvider from "./GoalContextProvider";
 import Skeleton from "./Skeleton";
+import { TopLoadingContext } from "@/app/components/TopLoading";
 
 const GoalList = () => {
   const [goalList, setGoalList] = useState<GoalSchima[]>([]);
   const [loading, setLoading] = useState(true);
   const [noAnimation, setNoAnimation] = useState("");
+  const { completeLoading, startLoading: startTopLoading } =
+    useContext(TopLoadingContext);
   const userEmail = useSession().data?.user?.email;
   const startLoading = () => {
+    startTopLoading();
     setNoAnimation("no-animation");
     setLoading(true);
   };
   const endLoading = () => {
     setLoading(false);
     setTimeout(() => setNoAnimation(""), 210);
+    completeLoading();
   };
   const requestForGoalList = async () => {
     startLoading();

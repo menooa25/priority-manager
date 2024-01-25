@@ -9,11 +9,13 @@ export const TopLoadingContext = createContext({
 
 const TopLoading = ({ children }: PropsWithChildren) => {
   const ref: any = useRef();
+  const startLoading = () => ref.current.continuousStart();
+  const completeLoading = () => ref.current.complete();
   return (
-    <div>
+    <TopLoadingContext.Provider value={{ completeLoading, startLoading }}>
       <LoadingBar color="#f11946" ref={ref} />
       {children}
-    </div>
+    </TopLoadingContext.Provider>
   );
 };
 

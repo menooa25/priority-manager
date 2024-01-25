@@ -3,6 +3,7 @@ import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import NavBar from "./navBar/NavBar";
 import AuthContainer from "./AuthContainer";
+import TopLoading from "./components/TopLoading";
 
 const vazirmatn = Vazirmatn({ subsets: ["latin", "arabic", "latin-ext"] });
 
@@ -20,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={vazirmatn.className}>
         <AuthContainer>
-          <NavBar />
-          {children}
+          <TopLoading>
+            <NavBar />
+            {children}
+          </TopLoading>
         </AuthContainer>
       </body>
     </html>
