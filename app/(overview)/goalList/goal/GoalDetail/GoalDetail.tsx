@@ -14,7 +14,7 @@ interface Props {
   goalIsDone: boolean;
 }
 const GoalDetail = ({ goalId, goalIsDone }: Props) => {
-  const { modalId, openModal, closeModal } = useModal();
+  const { modalId, openModal, closeModal, isOpen } = useModal();
   const [lastDetail, setLastDetail] = useState<Detail | null>(null);
   const [onFetching, setOnFetching] = useState(false);
 
@@ -42,13 +42,17 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
         {onFetching ? (
           <Eskeleton />
         ) : (
-          <AllowedOptionsProvider>
-            <DetailForm
-              closeModal={closeModal}
-              init={lastDetail}
-              goalId={goalId}
-            />
-          </AllowedOptionsProvider>
+          <>
+            {isOpen && (
+              <AllowedOptionsProvider>
+                <DetailForm
+                  closeModal={closeModal}
+                  init={lastDetail}
+                  goalId={goalId}
+                />
+              </AllowedOptionsProvider>
+            )}
+          </>
         )}
       </Modal>
     </>

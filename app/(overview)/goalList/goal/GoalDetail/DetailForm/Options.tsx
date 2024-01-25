@@ -1,10 +1,12 @@
 "use client";
 
 import classNames from "classnames";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaGear } from "react-icons/fa6";
+import { AllowedOptionsContext } from "../AllowedOptionsProvider";
 
 const Options = () => {
+  const { allow, allowedOptions } = useContext(AllowedOptionsContext);
   const [open, setOpen] = useState<"not-clicked" | "open" | "close">(
     "not-clicked"
   );
@@ -21,7 +23,6 @@ const Options = () => {
     else if (open === "open") setOpen("close");
     else if (open === "close") setOpen("open");
   };
-
   return (
     <div className="relative h-6 flex items-center overflow-hidden">
       <FaGear
@@ -37,20 +38,35 @@ const Options = () => {
       >
         <label className="label cursor-pointer p-0">
           <span className="label-text text-nowrap flex items-start ">
-            جرا
-            <input type="checkbox" className="checkbox checkbox-xs ml-1" />
+            چرا
+            <input
+              onChange={({ target: { checked } }) => allow("why", checked)}
+              checked={allowedOptions.why}
+              type="checkbox"
+              className="checkbox checkbox-xs mt-px  ml-1"
+            />
           </span>
         </label>
         <label className="label cursor-pointer p-0">
           <span className="label-text text-nowrap flex items-start ">
             چگونه
-            <input type="checkbox" className="checkbox checkbox-xs ml-1" />
+            <input
+              checked={allowedOptions.how}
+              onChange={({ target: { checked } }) => allow("how", checked)}
+              type="checkbox"
+              className="checkbox checkbox-xs mt-px ml-1"
+            />
           </span>
         </label>
         <label className="label cursor-pointer p-0">
           <span className="label-text text-nowrap flex items-start ">
             جه زمانی
-            <input type="checkbox" className="checkbox checkbox-xs ml-1" />
+            <input
+              checked={allowedOptions.when}
+              onChange={({ target: { checked } }) => allow("when", checked)}
+              type="checkbox"
+              className="checkbox checkbox-xs mt-px ml-1"
+            />
           </span>
         </label>
       </div>

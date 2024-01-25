@@ -3,9 +3,12 @@
 import { PropsWithChildren, createContext, useState } from "react";
 type Options = "why" | "how" | "when";
 export const AllowedOptionsContext = createContext({
-  allow: (option: Options) => {},
-  disallow: (option: Options) => {},
-  allowedOptions: {},
+  allow: (option: Options, isAllowed: boolean) => {},
+  allowedOptions: {
+    why: true,
+    how: true,
+    when: true,
+  },
 });
 const AllowedOptionsProvider = ({ children }: PropsWithChildren) => {
   const [allowedOptions, setAllowedOptions] = useState({
@@ -13,14 +16,12 @@ const AllowedOptionsProvider = ({ children }: PropsWithChildren) => {
     how: true,
     when: true,
   });
-  const allow = (option: Options) => {
-    setAllowedOptions({ ...allowedOptions, [option]: true });
+  const allow = (option: Options, isAllowed: boolean) => {
+    setAllowedOptions({ ...allowedOptions, [option]: isAllowed });
   };
-  const disallow = (option: Options) => {
-    setAllowedOptions({ ...allowedOptions, [option]: false });
-  };
+
   return (
-    <AllowedOptionsContext.Provider value={{ allowedOptions, allow, disallow }}>
+    <AllowedOptionsContext.Provider value={{ allowedOptions, allow }}>
       {children}
     </AllowedOptionsContext.Provider>
   );

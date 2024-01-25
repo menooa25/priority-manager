@@ -117,9 +117,9 @@ export const updateGoalDetail = async ({
   when,
   why,
 }: {
-  why?: string;
-  when?: string;
-  how?: string;
+  why: string | null;
+  when: string | null;
+  how: string | null;
   goalId: number;
 }) => {
   const detail = await prisma.detail.count({ where: { goalId } });
