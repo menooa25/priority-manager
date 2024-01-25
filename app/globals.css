@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+*::-webkit-scrollbar {
+  width: 5px; /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-black bg-opacity-50; /* color of the scroll thumb */
+  border-radius: 10px; /* roundness of the scroll thumb */
+}

@@ -43,7 +43,7 @@ export const DoneGoal = ({ display, onClick, loading }: ButtonsProps) => {
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (
-        "انجام دادم"
+        "به هدفم رسیدم"
       )}
     </button>
   );
