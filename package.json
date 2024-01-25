@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "prebuild" : "npx prisma generate",
+    "start": "npx prisma migrate deploy && next start",
     "lint": "next lint"
   },
   "dependencies": {

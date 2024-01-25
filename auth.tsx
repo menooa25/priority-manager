@@ -10,10 +10,12 @@ export const config = {
   //     logo: "https://next-auth.js.org/img/logo/logo-sm.png",
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
+  redirectProxyUrl: process.env.AUTH_REDIRECT_PROXY_URL || undefined,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      redirectProxyUrl: process.env.AUTH_REDIRECT_PROXY_URL || undefined,
     }),
   ],
   callbacks: {

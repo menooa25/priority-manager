@@ -10,7 +10,7 @@ interface ButtonsProps {
   loading?: boolean;
 }
 
-export const ResumeTaskBtn = ({ display, onClick, loading }: ButtonsProps) => {
+export const ResumeGoalBtn = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return <></>;
   return (
     <button onClick={onClick} className="btn btn-neutral flex-1  w-full btn-sm">
@@ -35,7 +35,7 @@ export const SaveBtn = ({ onClick, display = true, loading }: ButtonsProps) => {
     </button>
   );
 };
-export const DoneTask = ({ display, onClick, loading }: ButtonsProps) => {
+export const DoneGoal = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return null;
 
   return (
@@ -48,7 +48,7 @@ export const DoneTask = ({ display, onClick, loading }: ButtonsProps) => {
     </button>
   );
 };
-export const DeleteTask = ({
+export const DeleteGoal = ({
   display,
   onClick,
   title,
@@ -66,9 +66,11 @@ export const DeleteTask = ({
       </button>
       <Modal id={modalId}>
         <div className="text-right">
-          <span>هستید؟</span>
-          <span className="font-bold">&nbsp;{title}&nbsp;</span>
-          <span>آیا مایل به حذف</span>
+          <div dir="rtl" className="flex flex-col justify-center items-center">
+            <span>آیا مایل به حذف</span>
+            <span className="font-bold">&nbsp;{title}&nbsp;</span>
+            <span>هستید؟</span>
+          </div>
           <div className="flex gap-x-1 mt-2">
             <button
               onClick={() => {

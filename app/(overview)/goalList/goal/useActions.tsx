@@ -1,20 +1,19 @@
 import { useState } from "react";
 import {
-  changeTaskTitle,
-  createTask,
-  decreaseTaskIndex,
-  deleteTask,
-  doneTask,
-  increaseTaskIndex,
-  resumeTask,
+  changeGoalTitle,
+  createGoal,
+  decreaseGoalIndex,
+  deleteGoal,
+  doneGoal,
+  increaseGoalIndex,
+  resumeGoal,
 } from "../actions";
-import { useSession } from "next-auth/react";
 interface Props {
   id?: number;
   done: boolean;
   index?: number;
   text: string;
-  updateTaskList: () => void;
+  updateGoalList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
@@ -24,7 +23,7 @@ const useActions = ({
   index,
   status,
   text,
-  updateTaskList,
+  updateGoalList: updateGoalList,
 }: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
@@ -37,66 +36,66 @@ const useActions = ({
     if (status.itsNew) {
       setLoading({ ...loading, save: true });
 
-      await createTask(text);
+      await createGoal(text);
       setLoading({ ...loading, save: false });
 
-      updateTaskList();
+      updateGoalList();
       callBack && callBack();
     } else if (id && !done) {
       setLoading({ ...loading, save: true });
 
-      await changeTaskTitle(id, text);
+      await changeGoalTitle(id, text);
       setLoading({ ...loading, save: false });
-      updateTaskList();
+      updateGoalList();
     }
   };
-  const onResumeTask = async () => {
+  const onResumeGoal = async () => {
     if (done && id) {
       setLoading({ ...loading, resume: true });
 
-      await resumeTask(id);
+      await resumeGoal(id);
       setLoading({ ...loading, resume: true });
 
-      updateTaskList();
+      updateGoalList();
     }
   };
   const onDone = async () => {
     if (id && !done) {
       setLoading({ ...loading, done: true });
 
-      await doneTask(id);
+      await doneGoal(id);
       setLoading({ ...loading, done: false });
-      updateTaskList();
+      updateGoalList();
     }
   };
   const onDelete = async () => {
     if (id) {
-      await deleteTask(id);
-      updateTaskList();
+      await deleteGoal(id);
+      updateGoalList();
     }
   };
   const onIncreaseIndex = async () => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
-      await increaseTaskIndex(id, index);
+      await increaseGoalIndex(id, index);
       setLoading({ ...loading, increaseIndex: false });
 
-      updateTaskList();
+      updateGoalList();
     }
   };
   const onDecreaseIndex = async () => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
-      await decreaseTaskIndex(id, index);
+      await decreaseGoalIndex(id, index);
       setLoading({ ...loading, decreaseIndex: false });
 
-      updateTaskList();
+      updateGoalList();
     }
   };
   return {
     loading,
     onSave,
-    onResumeTask,
+    onResumeGoal,
     onDone,
     onDelete,
     onIncreaseIndex,

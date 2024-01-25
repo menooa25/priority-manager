@@ -19,7 +19,7 @@ const Account = () => {
         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-20"
       >
         <li>
-          <span onClick={() => signOut()}>خریج</span>
+          <span onClick={() => signOut()}>خروج</span>
         </li>
       </ul>
     </div>

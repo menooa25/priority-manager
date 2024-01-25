@@ -2,17 +2,17 @@
 import useNoScroll from "@/app/hooks/useNoScroll";
 import { direction } from "direction";
 import { useContext, useEffect, useRef, useState } from "react";
+import { GoalContext } from "../GoalContextProvider";
 import {
   DecreaseIndexBtn,
-  DeleteTask,
-  DoneTask,
+  DeleteGoal,
+  DoneGoal,
   IncreaseIndexBtn,
-  ResumeTaskBtn,
+  ResumeGoalBtn,
   SaveBtn,
 } from "./ActionButtons";
 import useActions from "./useActions";
-import { useSession } from "next-auth/react";
-import { TaskContext } from "../TaskContextProvider";
+import GoalDetail from "./GoalDetail";
 
 interface Props {
   id?: number;
@@ -22,22 +22,22 @@ interface Props {
   onSaved?: () => void;
 }
 
-const Task = ({ title, onSaved, done, id, index }: Props) => {
+const Goal = ({ title, onSaved, done, id, index }: Props) => {
   const textareaRef: any = useRef();
   const [text, setText] = useState(title);
   const { onScroll } = useNoScroll(textareaRef);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
-  const { updateTaskList } = useContext(TaskContext);
+  const { updateGoalList } = useContext(GoalContext);
   const {
     loading,
     onSave,
-    onResumeTask,
+    onResumeGoal,
     onDone,
     onDelete,
     onDecreaseIndex,
     onIncreaseIndex,
   } = useActions({
-    updateTaskList,
+    updateGoalList,
     done,
     id,
     index,
@@ -53,18 +53,19 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
   }, [title, text]);
   return (
     <div>
-      <div className="flex items-stretch mb-1">
+      <div className="flex items-stretch ">
         <textarea
           disabled={done}
           onScroll={(e) => onScroll(e)}
           onChange={({ target: { value } }) => setText(value)}
           ref={textareaRef}
           dir={direction(text)}
-          className={`textarea rounded-2xl ${
+          className={`textarea rounded-2xl rounded-bl-none ${
             !done && "rounded-r-none"
           }  overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered`}
           defaultValue={title}
         />
+
         <div className="flex flex-col rounded-2xl rounded-l-none">
           <IncreaseIndexBtn
             display={!done}
@@ -79,12 +80,15 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
           />
         </div>
       </div>
-      <div className="flex w-full gap-x-1">
-        <DeleteTask title={title} onClick={onDelete} display={done} />
-        <ResumeTaskBtn
+      <div className="flex ">
+        <GoalDetail />
+      </div>
+      <div className="flex w-full gap-x-1 mt-1">
+        <DeleteGoal title={title} onClick={onDelete} display={done} />
+        <ResumeGoalBtn
           loading={loading.resume}
           display={done}
-          onClick={onResumeTask}
+          onClick={onResumeGoal}
         />
       </div>
       <div
@@ -92,12 +96,12 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
           (status.itsEdited || status.itsNew) && "mb-1"
         }`}
       >
-        <DeleteTask
+        <DeleteGoal
           title={title}
           onClick={onDelete}
           display={!done && !status.itsNew}
         />
-        <DoneTask
+        <DoneGoal
           loading={loading.done}
           onClick={onDone}
           display={!done && !status.itsNew}
@@ -112,4 +116,4 @@ const Task = ({ title, onSaved, done, id, index }: Props) => {
   );
 };
 
-export default Task;
+export default Goal;

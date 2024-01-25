@@ -1,7 +1,7 @@
 import Account from "./Account";
 import NavLink from "./NavLink";
 const routs = [
-  { title: "فردا", day: "tomorrow" },
+  // { title: "فردا", day: "tomorrow" },
   { title: "همه", day: "" },
 ];
 const NavBar = () => {

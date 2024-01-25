@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import Task from "./task/Task";
+import Goal from "./goal/Goal";
 
-const AddTask = () => {
+const AddGoal = () => {
   const [newClicked, setNewClicked] = useState(false);
   return (
     <div>
       {newClicked && (
-        <Task
+        <Goal
           done={false}
           onSaved={() => setNewClicked(!newClicked)}
           title=""
@@ -25,4 +25,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default AddGoal;

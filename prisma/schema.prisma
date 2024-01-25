@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Task {
+model Goal {
   id     Int     @id @default(autoincrement())
   title  String
   done   Boolean @default(false)
@@ -54,7 +54,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  tasks         Task[]
+  goals         Goal[]
 }
 
 model VerificationToken {
