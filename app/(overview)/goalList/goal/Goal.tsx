@@ -60,9 +60,11 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
           onChange={({ target: { value } }) => setText(value)}
           ref={textareaRef}
           dir={direction(text)}
-          className={`textarea rounded-2xl rounded-bl-none ${
+          className={`textarea rounded-2xl ${
             !done && "rounded-r-none"
-          }  overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered`}
+          }  overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered ${
+            id && "rounded-bl-none"
+          }`}
           defaultValue={title}
         />
 
@@ -80,9 +82,11 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
           />
         </div>
       </div>
-      <div className="flex ">
-        <GoalDetail />
-      </div>
+      {id && (
+        <div className="flex ">
+          <GoalDetail />
+        </div>
+      )}
       <div className="flex w-full gap-x-1 mt-1">
         <DeleteGoal title={title} onClick={onDelete} display={done} />
         <ResumeGoalBtn

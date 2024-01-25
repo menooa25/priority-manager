@@ -1,20 +1,20 @@
 "use client";
 
-import Collapse from "@/app/components/Collapse";
+import Modal from "@/app/components/Modal";
+import useModal from "@/app/hooks/useModal";
 
 const GoalDetail = () => {
+  const { modalId, openModal } = useModal();
   return (
-    <div>
-      <Collapse
-        title={
-          <span className="bg-base-200 rounded-b-lg rounded-t-none px-7 ">
-            جزئیات
-          </span>
-        }
+    <>
+      <button
+        onClick={() => openModal()}
+        className="bg-base-200 rounded-b-lg rounded-t-none  px-7 "
       >
-        <span>this is detail</span>
-      </Collapse>
-    </div>
+        جزئیات
+      </button>
+      <Modal id={modalId}>ss</Modal>
+    </>
   );
 };
 

@@ -17,6 +17,16 @@ model Goal {
   index  Int     @default(0)
   User   User    @relation(fields: [userId], references: [id])
   userId String
+  Detail Detail?
+}
+
+model Detail {
+  id     Int     @id @default(autoincrement())
+  why    String? @db.Text
+  when   String? @db.Text
+  how    String? @db.Text
+  goal   Goal    @relation(fields: [goalId], references: [id])
+  goalId Int     @unique
 }
 
 model Account {
