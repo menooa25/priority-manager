@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import DetailInput from "../DetailInput";
 import { updateGoalDetail } from "../../../actions";
 import { Detail } from "@prisma/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 type Inputs = {
   why: string;
   how: string;
@@ -16,9 +16,11 @@ interface Props {
 }
 const DetailForm = ({ goalId, init }: Props) => {
   const { register, handleSubmit, setValue } = useForm<Inputs>();
-
+  const [loading, setLoading] = useState(false);
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    updateGoalDetail({ ...data, goalId });
+    setLoading(true);
+    await updateGoalDetail({ ...data, goalId });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -55,8 +57,16 @@ const DetailForm = ({ goalId, init }: Props) => {
         placeholder="چطور ؟"
       />
 
-      <button type="submit" className="btn btn-sm btn-primary mt-3">
-        ثبت تغییرات
+      <button
+        type="submit"
+        disabled={loading}
+        className="btn btn-sm btn-primary mt-3 "
+      >
+        {loading ? (
+          <span className="loading loading-xs loading-spinner" />
+        ) : (
+          "ثبت تغییرات"
+        )}
       </button>
     </form>
   );

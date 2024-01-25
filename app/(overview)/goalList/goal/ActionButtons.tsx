@@ -17,7 +17,7 @@ export const ResumeGoalBtn = ({ display, onClick, loading }: ButtonsProps) => {
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (
-        "ادامه دادن تسک"
+        "ادامه دادن هدف"
       )}
     </button>
   );

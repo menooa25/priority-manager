@@ -18,7 +18,7 @@ const AddGoal = () => {
           onClick={() => setNewClicked(!newClicked)}
           className="btn  btn-outline btn-sm w-full"
         >
-          افزودن تسک
+          افزودن هدف
         </button>
       )}
     </div>

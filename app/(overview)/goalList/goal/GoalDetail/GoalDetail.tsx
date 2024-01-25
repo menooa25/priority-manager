@@ -2,19 +2,12 @@
 
 import Modal from "@/app/components/Modal";
 import useModal from "@/app/hooks/useModal";
-import DetailInput from "./DetailInput";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { getDetail, updateGoalDetail } from "../../actions";
-import { useEffect, useState } from "react";
-import DetailForm from "./DetailForm/DetailForm";
 import { Detail } from "@prisma/client";
+import { useState } from "react";
+import { getDetail } from "../../actions";
+import DetailForm from "./DetailForm/DetailForm";
 import Eskeleton from "./DetailForm/Eskeleton";
 
-type Inputs = {
-  why: string;
-  how: string;
-  when: string;
-};
 interface Props {
   goalId: number;
 }

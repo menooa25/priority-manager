@@ -11,26 +11,31 @@ import Skeleton from "./Skeleton";
 const GoalList = () => {
   const [goalList, setGoalList] = useState<GoalSchima[]>([]);
   const [loading, setLoading] = useState(true);
+  const [noAnimation, setNoAnimation] = useState("");
   const userEmail = useSession().data?.user?.email;
   const requestForGoalList = async () => {
+    setNoAnimation("no-animation");
     setLoading(true);
     if (!userEmail) {
       setLoading(false);
+      setTimeout(() => setNoAnimation(""), 210);
       return null;
     }
     const resp = await getGoalList();
     if (resp) {
       setGoalList(resp);
       setLoading(false);
+      setTimeout(() => setNoAnimation(""), 210);
     }
   };
   useEffect(() => {
     requestForGoalList();
   }, [userEmail]);
-  // if (loading) return <Skeleton />;
+
+  if (loading && goalList.length === 0) return <Skeleton />;
   return (
     <GoalContextProvider updateGoalList={requestForGoalList}>
-      <div className="flex  w-full md:w-96 flex-col gap-y-3">
+      <div className={"flex  w-full md:w-96 flex-col gap-y-3 " + noAnimation}>
         {goalList.map((t, i) => (
           <div key={t.id}>
             <Goal done={t.done} id={t.id} index={t.index} title={t.title} />
