@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import prisma from "@/prisma/client";
+import { Detail } from "@prisma/client";
 const getUserId = async () => {
   const userEmail = (await auth())?.user?.email;
   if (!userEmail) return null;
@@ -108,4 +109,30 @@ export const getGoalList = async () => {
     where: { userId },
     orderBy: [{ done: "asc" }, { index: "desc" }],
   });
+};
+
+export const updateGoalDetail = async ({
+  goalId,
+  how,
+  when,
+  why,
+}: {
+  why?: string;
+  when?: string;
+  how?: string;
+  goalId: number;
+}) => {
+  const detail = await prisma.detail.count({ where: { goalId } });
+  if (detail)
+    return await prisma.detail.update({
+      where: { goalId },
+      data: { why, when, how },
+    });
+  return await prisma.detail.create({
+    data: { why, when, how, goalId },
+  });
+};
+
+export const getDetail = async (goalId: number) => {
+  return await prisma.detail.findUnique({ where: { goalId } });
 };

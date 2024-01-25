@@ -12,7 +12,7 @@ import {
   SaveBtn,
 } from "./ActionButtons";
 import useActions from "./useActions";
-import GoalDetail from "./GoalDetail";
+import GoalDetail from "./GoalDetail/GoalDetail";
 
 interface Props {
   id?: number;
@@ -84,7 +84,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
       </div>
       {id && (
         <div className="flex ">
-          <GoalDetail />
+          <GoalDetail goalId={id} />
         </div>
       )}
       <div className="flex w-full gap-x-1 mt-1">
