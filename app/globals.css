@@ -19,12 +19,38 @@
   }
 }
 
+@keyframes open-options {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 208px;
+  }
+}
+@keyframes close-options {
+  0% {
+    width: 208px;
+  }
+  100% {
+    width: 0px;
+  }
+}
+
 .open-options {
   animation: open-gear 1s;
   animation-timing-function: linear;
 }
 .close-options {
   animation: close-gear 1s;
+  animation-timing-function: linear;
+}
+.open-options-width {
+  animation: open-options 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+.close-options-width {
+  animation: close-options 1s;
   animation-timing-function: linear;
 }
 *::-webkit-scrollbar {

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { getDetail } from "../../actions";
 import DetailForm from "./DetailForm/DetailForm";
 import Eskeleton from "./DetailForm/Eskeleton";
+import AllowedOptionsProvider from "./AllowedOptionsProvider";
 
 interface Props {
   goalId: number;
@@ -41,11 +42,13 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
         {onFetching ? (
           <Eskeleton />
         ) : (
-          <DetailForm
-            closeModal={closeModal}
-            init={lastDetail}
-            goalId={goalId}
-          />
+          <AllowedOptionsProvider>
+            <DetailForm
+              closeModal={closeModal}
+              init={lastDetail}
+              goalId={goalId}
+            />
+          </AllowedOptionsProvider>
         )}
       </Modal>
     </>

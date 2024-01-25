@@ -9,18 +9,51 @@ const Options = () => {
     "not-clicked"
   );
   const gearClass = classNames({
-    "cursor-pointer": true,
     "open-options": open === "open",
     "close-options": open === "close",
+  });
+  const optionsClass = classNames({
+    "open-options-width": open === "open",
+    "close-options-width": open === "close",
   });
   const onGearClick = () => {
     if (open === "not-clicked") setOpen("open");
     else if (open === "open") setOpen("close");
     else if (open === "close") setOpen("open");
   };
+
   return (
-    <div className="flex justify-end">
-      <FaGear onClick={onGearClick} className={gearClass + " "} />
+    <div className="relative h-6 flex items-center overflow-hidden">
+      <FaGear
+        size={22}
+        onClick={onGearClick}
+        className={"cursor-pointer ml-auto z-10 block " + gearClass}
+      />
+      <div
+        className={
+          "form-control flex-row gap-x-2 top-0 bottom-0 h-6  border-b border-b-primary bg-primary mr-2 bg-opacity-10 pl-2 rounded-l-lg  right-0 w-0 absolute " +
+          optionsClass
+        }
+      >
+        <label className="label cursor-pointer p-0">
+          <span className="label-text text-nowrap flex items-start ">
+            جرا
+            <input type="checkbox" className="checkbox checkbox-xs ml-1" />
+          </span>
+        </label>
+        <label className="label cursor-pointer p-0">
+          <span className="label-text text-nowrap flex items-start ">
+            چگونه
+            <input type="checkbox" className="checkbox checkbox-xs ml-1" />
+          </span>
+        </label>
+        <label className="label cursor-pointer p-0">
+          <span className="label-text text-nowrap flex items-start ">
+            جه زمانی
+            <input type="checkbox" className="checkbox checkbox-xs ml-1" />
+          </span>
+        </label>
+      </div>
     </div>
   );
 };
