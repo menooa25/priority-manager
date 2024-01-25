@@ -13,14 +13,16 @@ type Inputs = {
 interface Props {
   goalId: number;
   init: Detail | null;
+  closeModal:() => void
 }
-const DetailForm = ({ goalId, init }: Props) => {
+const DetailForm = ({ goalId, init ,closeModal}: Props) => {
   const { register, handleSubmit, setValue } = useForm<Inputs>();
   const [loading, setLoading] = useState(false);
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setLoading(true);
     await updateGoalDetail({ ...data, goalId });
     setLoading(false);
+    closeModal()
   };
 
   useEffect(() => {

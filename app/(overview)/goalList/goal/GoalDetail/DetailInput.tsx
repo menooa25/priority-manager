@@ -21,7 +21,7 @@ const DetailInput = ({ placeholder, register, label }: Props) => {
         {...register}
         onScroll={onScroll}
         dir={direction("آ")}
-        className="textarea textarea-bordered rounded-md w-full mr-auto max-w-sm"
+        className="textarea textarea-bordered rounded-md w-full mr-auto "
         placeholder={placeholder}
       />
     </label>

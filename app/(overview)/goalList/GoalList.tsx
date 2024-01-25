@@ -13,19 +13,24 @@ const GoalList = () => {
   const [loading, setLoading] = useState(true);
   const [noAnimation, setNoAnimation] = useState("");
   const userEmail = useSession().data?.user?.email;
-  const requestForGoalList = async () => {
+  const startLoading = () => {
     setNoAnimation("no-animation");
     setLoading(true);
+  };
+  const endLoading = () => {
+    setLoading(false);
+    setTimeout(() => setNoAnimation(""), 210);
+  };
+  const requestForGoalList = async () => {
+    startLoading();
     if (!userEmail) {
-      setLoading(false);
-      setTimeout(() => setNoAnimation(""), 210);
+      endLoading();
       return null;
     }
     const resp = await getGoalList();
     if (resp) {
       setGoalList(resp);
-      setLoading(false);
-      setTimeout(() => setNoAnimation(""), 210);
+      endLoading();
     }
   };
   useEffect(() => {

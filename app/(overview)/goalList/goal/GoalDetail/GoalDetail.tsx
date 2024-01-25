@@ -10,9 +10,10 @@ import Eskeleton from "./DetailForm/Eskeleton";
 
 interface Props {
   goalId: number;
+  goalIsDone: boolean;
 }
-const GoalDetail = ({ goalId }: Props) => {
-  const { modalId, openModal } = useModal();
+const GoalDetail = ({ goalId, goalIsDone }: Props) => {
+  const { modalId, openModal, closeModal } = useModal();
   const [lastDetail, setLastDetail] = useState<Detail | null>(null);
   const [onFetching, setOnFetching] = useState(false);
 
@@ -30,7 +31,9 @@ const GoalDetail = ({ goalId }: Props) => {
           openModal();
           fetchDetail();
         }}
-        className="bg-base-200 rounded-b-lg rounded-t-none  px-7 "
+        className={`bg-base-200 rounded-b-lg rounded-t-none  px-7 ${
+          goalIsDone && "bg-base-300"
+        }`}
       >
         جزئیات
       </button>
@@ -38,7 +41,11 @@ const GoalDetail = ({ goalId }: Props) => {
         {onFetching ? (
           <Eskeleton />
         ) : (
-          <DetailForm init={lastDetail} goalId={goalId} />
+          <DetailForm
+            closeModal={closeModal}
+            init={lastDetail}
+            goalId={goalId}
+          />
         )}
       </Modal>
     </>

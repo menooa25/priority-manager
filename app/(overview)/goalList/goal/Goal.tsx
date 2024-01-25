@@ -84,7 +84,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
       </div>
       {id && (
         <div className="flex ">
-          <GoalDetail goalId={id} />
+          <GoalDetail goalId={id} goalIsDone={done}/>
         </div>
       )}
       <div className="flex w-full gap-x-1 mt-1">
