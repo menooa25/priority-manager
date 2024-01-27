@@ -11,7 +11,7 @@ import {
   ResumeGoalBtn,
   SaveBtn,
 } from "./ActionButtons";
-import useActions from "./useActions";
+import useTaskLikeActions from "../../../hooks/useTaskLikeActions";
 import GoalDetail from "./GoalDetail/GoalDetail";
 
 interface Props {
@@ -31,13 +31,13 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
   const {
     loading,
     onSave,
-    onResumeGoal,
+    onResume,
     onDone,
     onDelete,
     onDecreaseIndex,
     onIncreaseIndex,
-  } = useActions({
-    updateGoalList,
+  } = useTaskLikeActions({
+    updateList: updateGoalList,
     done,
     id,
     index,
@@ -84,7 +84,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
       </div>
       {id && (
         <div className="flex ">
-          <GoalDetail goalId={id} goalIsDone={done}/>
+          <GoalDetail goalId={id} goalIsDone={done} />
         </div>
       )}
       <div className="flex w-full gap-x-1 mt-1">
@@ -92,7 +92,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
         <ResumeGoalBtn
           loading={loading.resume}
           display={done}
-          onClick={onResumeGoal}
+          onClick={onResume}
         />
       </div>
       <div

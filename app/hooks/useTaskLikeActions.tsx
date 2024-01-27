@@ -7,23 +7,23 @@ import {
   doneGoal,
   increaseGoalIndex,
   resumeGoal,
-} from "../actions";
+} from "../(overview)/goalList/actions";
 interface Props {
   id?: number;
   done: boolean;
   index?: number;
   text: string;
-  updateGoalList: () => void;
+  updateList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
-const useActions = ({
+const useTaskLikeActions = ({
   done,
   id,
   index,
   status,
   text,
-  updateGoalList: updateGoalList,
+  updateList,
 }: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
@@ -39,24 +39,24 @@ const useActions = ({
       await createGoal(text);
       setLoading({ ...loading, save: false });
 
-      updateGoalList();
+      updateList();
       callBack && callBack();
     } else if (id && !done) {
       setLoading({ ...loading, save: true });
 
       await changeGoalTitle(id, text);
       setLoading({ ...loading, save: false });
-      updateGoalList();
+      updateList();
     }
   };
-  const onResumeGoal = async () => {
+  const onResume = async () => {
     if (done && id) {
       setLoading({ ...loading, resume: true });
 
       await resumeGoal(id);
       setLoading({ ...loading, resume: true });
 
-      updateGoalList();
+      updateList();
     }
   };
   const onDone = async () => {
@@ -65,13 +65,13 @@ const useActions = ({
 
       await doneGoal(id);
       setLoading({ ...loading, done: false });
-      updateGoalList();
+      updateList();
     }
   };
   const onDelete = async () => {
     if (id) {
       await deleteGoal(id);
-      updateGoalList();
+      updateList();
     }
   };
   const onIncreaseIndex = async () => {
@@ -80,7 +80,7 @@ const useActions = ({
       await increaseGoalIndex(id, index);
       setLoading({ ...loading, increaseIndex: false });
 
-      updateGoalList();
+      updateList();
     }
   };
   const onDecreaseIndex = async () => {
@@ -89,13 +89,13 @@ const useActions = ({
       await decreaseGoalIndex(id, index);
       setLoading({ ...loading, decreaseIndex: false });
 
-      updateGoalList();
+      updateList();
     }
   };
   return {
     loading,
     onSave,
-    onResumeGoal,
+    onResume,
     onDone,
     onDelete,
     onIncreaseIndex,
@@ -103,4 +103,4 @@ const useActions = ({
   };
 };
 
-export default useActions;
+export default useTaskLikeActions;

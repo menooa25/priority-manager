@@ -13,7 +13,11 @@ const NavLink = ({ href, title }: Props) => {
     "tab-active font-bold": pathName === href,
   });
   return (
-    <Link href={href} role="tab" className={"tab text-nowrap  " + linkCasses}>
+    <Link
+      href={href}
+      role="tab"
+      className={"tab text-nowrap tracking-tight " + linkCasses}
+    >
       {title}
     </Link>
   );
