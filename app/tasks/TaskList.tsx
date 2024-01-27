@@ -7,6 +7,7 @@ import { getTaskList } from "./actions";
 import Skeleton from "../components/goalAndTask/Skeleton";
 import AddTask from "./AddTask";
 import TaskContextProvider from "./TaskContextProvider";
+import Task from "./Task";
 
 const TaskList = () => {
   const [taskList, setTaskList] = useState<TaskSchema[]>([]);
@@ -38,6 +39,12 @@ const TaskList = () => {
   return (
     <TaskContextProvider updateTaskList={requestForTaskList}>
       <div className={"flex w-full flex-col gap-y-3"}>
+        {taskList.map(({ id, done, index, title }, i) => (
+          <div key={id}>
+            <Task id={id} done={done} title={title} index={index} />
+            {taskList.length - 1 !== i && <hr className="mt-2" />}
+          </div>
+        ))}
         <AddTask />
       </div>
     </TaskContextProvider>

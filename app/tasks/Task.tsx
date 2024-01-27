@@ -61,7 +61,7 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
         className={status.itsNew ? "rounded-bl-none" : ""}
         itsNew={status.itsNew}
       />
-      <SelectGoal goalId={goalId} setGoalId={setGoalId} />
+      {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
       <div className="mt-2">
         <SaveBtn
           disabled={!goalId}
