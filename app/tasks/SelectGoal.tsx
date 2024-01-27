@@ -46,7 +46,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
     );
   return (
     <>
-      <div className={"dropdown dropdown-left "}>
+      <div className={"dropdown dropdown-top md:dropdown-left "}>
         <div
           dir={direction(goalTitle ?? "")}
           tabIndex={0}
