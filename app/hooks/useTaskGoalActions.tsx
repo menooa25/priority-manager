@@ -35,7 +35,7 @@ const useTaskGoalActions = ({
     save: false,
   });
   const onSave = async (callBack?: () => void) => {
-    if (status.itsNew) {
+    if (status.itsNew && text) {
       setLoading({ ...loading, save: true });
 
       await createGoal(text);
