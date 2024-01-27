@@ -1,5 +1,5 @@
 "use client";
-import { PropsWithChildren, createContext, useRef } from "react";
+import { PropsWithChildren, createContext, useRef, useState } from "react";
 import LoadingBar from "react-top-loading-bar";
 
 export const TopLoadingContext = createContext({
@@ -9,12 +9,19 @@ export const TopLoadingContext = createContext({
 
 const TopLoading = ({ children }: PropsWithChildren) => {
   const ref: any = useRef();
-  const startLoading = () => ref.current.continuousStart();
-  const completeLoading = () => ref.current.complete();
+  const [noAnimation, setNoAnimation] = useState("");
+  const startLoading = () => {
+    ref.current.continuousStart();
+    setNoAnimation("no-animation");
+  };
+  const completeLoading = () => {
+    ref.current.complete();
+    setTimeout(() => setNoAnimation(""), 350);
+  };
   return (
     <TopLoadingContext.Provider value={{ completeLoading, startLoading }}>
       <LoadingBar color="#f11946" ref={ref} />
-      {children}
+      <div className={noAnimation}>{children}</div>
     </TopLoadingContext.Provider>
   );
 };

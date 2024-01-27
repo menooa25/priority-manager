@@ -18,7 +18,7 @@ interface Props {
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
-const useTaskLikeActions = ({
+const useTaskGoalActions = ({
   done,
   id,
   index,
@@ -105,4 +105,4 @@ const useTaskLikeActions = ({
   };
 };
 
-export default useTaskLikeActions;
+export default useTaskGoalActions;

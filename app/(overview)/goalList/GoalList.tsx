@@ -12,18 +12,15 @@ import { TopLoadingContext } from "@/app/components/TopLoading";
 const GoalList = () => {
   const [goalList, setGoalList] = useState<GoalSchima[]>([]);
   const [loading, setLoading] = useState(true);
-  const [noAnimation, setNoAnimation] = useState("");
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
   const userEmail = useSession().data?.user?.email;
   const startLoading = () => {
     startTopLoading();
-    setNoAnimation("no-animation");
     setLoading(true);
   };
   const endLoading = () => {
     setLoading(false);
-    setTimeout(() => setNoAnimation(""), 210);
     completeLoading();
   };
   const requestForGoalList = async () => {
@@ -45,7 +42,7 @@ const GoalList = () => {
   if (loading && goalList.length === 0) return <Skeleton />;
   return (
     <GoalContextProvider updateGoalList={requestForGoalList}>
-      <div className={"flex  w-full flex-col gap-y-3 " + noAnimation}>
+      <div className={"flex  w-full flex-col gap-y-3 "}>
         {goalList.map((t, i) => (
           <div key={t.id}>
             <Goal done={t.done} id={t.id} index={t.index} title={t.title} />

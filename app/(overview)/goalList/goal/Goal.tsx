@@ -2,7 +2,7 @@
 import TaskareaIndexChng from "@/app/components/TaskareaIndexChng/TaskareaIndexChng";
 import { direction } from "direction";
 import { useContext, useEffect, useState } from "react";
-import useTaskLikeActions from "../../../hooks/useTaskLikeActions";
+import useTaskGoalActions from "../../../hooks/useTaskGoalActions";
 import { GoalContext } from "../GoalContextProvider";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn, SaveBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
@@ -27,7 +27,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
     onDelete,
     onDecreaseIndex,
     onIncreaseIndex,
-  } = useTaskLikeActions({
+  } = useTaskGoalActions({
     model: "goal",
     updateList: updateGoalList,
     done,
