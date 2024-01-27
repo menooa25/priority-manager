@@ -1,12 +1,11 @@
 "use client";
-import useNoScroll from "@/app/hooks/useNoScroll";
+import TaskareaIndexChng from "@/app/components/TaskareaIndexChng/TaskareaIndexChng";
 import { direction } from "direction";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useTaskLikeActions from "../../../hooks/useTaskLikeActions";
 import { GoalContext } from "../GoalContextProvider";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn, SaveBtn } from "./ActionButtons";
-import useTaskLikeActions from "../../../hooks/useTaskLikeActions";
 import GoalDetail from "./GoalDetail/GoalDetail";
-import TaskareaIndexChng from "@/app/components/TaskareaIndexChng/TaskareaIndexChng";
 
 interface Props {
   id?: number;
@@ -29,6 +28,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
     onDecreaseIndex,
     onIncreaseIndex,
   } = useTaskLikeActions({
+    model: "goal",
     updateList: updateGoalList,
     done,
     id,

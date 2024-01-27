@@ -9,6 +9,7 @@ import {
   resumeGoal,
 } from "../(overview)/goalList/actions";
 interface Props {
+  model: "goal" | "task";
   id?: number;
   done: boolean;
   index?: number;
@@ -24,6 +25,7 @@ const useTaskLikeActions = ({
   status,
   text,
   updateList,
+  model,
 }: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
@@ -77,7 +79,7 @@ const useTaskLikeActions = ({
   const onIncreaseIndex = async () => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
-      await increaseGoalIndex(id, index);
+      if (model === "goal") await increaseGoalIndex(id, index);
       setLoading({ ...loading, increaseIndex: false });
 
       updateList();
@@ -86,7 +88,7 @@ const useTaskLikeActions = ({
   const onDecreaseIndex = async () => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
-      await decreaseGoalIndex(id, index);
+      if (model === "goal") await decreaseGoalIndex(id, index);
       setLoading({ ...loading, decreaseIndex: false });
 
       updateList();

@@ -1,17 +1,6 @@
 "use server";
-import { auth } from "@/auth";
+import { getUserId } from "@/app/actions";
 import prisma from "@/prisma/client";
-import { Detail } from "@prisma/client";
-const getUserId = async () => {
-  const userEmail = (await auth())?.user?.email;
-  if (!userEmail) return null;
-  const user = await prisma.user.findUnique({
-    where: { email: userEmail },
-    select: { id: true },
-  });
-
-  return user?.id;
-};
 
 export const createGoal = async (title: string) => {
   const userId = await getUserId();

@@ -33,6 +33,7 @@ model Detail {
 model Task {
   id          Int     @id @default(autoincrement())
   description String? @db.Text
+  index       Int     @default(0)
   goal        Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
   goalId      Int
 }
