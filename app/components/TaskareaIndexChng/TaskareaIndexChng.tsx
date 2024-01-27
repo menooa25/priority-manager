@@ -13,7 +13,6 @@ interface Props {
   defaultValue: string;
   onClick: { increase: () => void; decrease: () => void };
   done: boolean;
-  id?: number;
   loading: { increase: boolean; decrease: boolean };
 }
 const TaskareaIndexChng = ({
@@ -23,7 +22,6 @@ const TaskareaIndexChng = ({
   done,
   onChange,
   onClick,
-  id,
   loading,
 }: Props) => {
   const textareaRef: any = useRef();
@@ -33,7 +31,7 @@ const TaskareaIndexChng = ({
     "rounded-r-none": !done,
     "overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered":
       true,
-    "rounded-bl-none": id,
+    [className ?? ""]: className,
   });
   return (
     <div className="flex items-stretch ">

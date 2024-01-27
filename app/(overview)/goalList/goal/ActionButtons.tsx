@@ -2,7 +2,6 @@
 
 import Modal from "@/app/components/Modal";
 import useModal from "@/app/hooks/useModal";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 interface ButtonsProps {
   display: boolean;

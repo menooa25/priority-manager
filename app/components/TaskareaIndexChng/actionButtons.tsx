@@ -19,9 +19,9 @@ export const IncreaseIndexBtn = ({
       className="btn  p-2 flex-1 rounded-2xl rounded-l-none rounded-b-none"
     >
       {loading ? (
-        <span className="loading loading-xs loading-spinner" />
+        <span className="loading w-3 loading-spinner " />
       ) : (
-        <IoIosArrowUp />
+        <IoIosArrowUp size={12} />
       )}
     </button>
   );
@@ -39,9 +39,9 @@ export const DecreaseIndexBtn = ({
       className="btn p-2 flex-1 rounded-2xl  rounded-l-none rounded-t-none"
     >
       {loading ? (
-        <span className="loading loading-xs loading-spinner" />
+        <span className="loading w-3 loading-spinner" />
       ) : (
-        <IoIosArrowDown />
+        <IoIosArrowDown size={12} />
       )}
     </button>
   );
