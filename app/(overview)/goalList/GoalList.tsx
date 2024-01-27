@@ -45,7 +45,7 @@ const GoalList = () => {
   if (loading && goalList.length === 0) return <Skeleton />;
   return (
     <GoalContextProvider updateGoalList={requestForGoalList}>
-      <div className={"flex  w-full md:w-96 flex-col gap-y-3 " + noAnimation}>
+      <div className={"flex  w-full flex-col gap-y-3 " + noAnimation}>
         {goalList.map((t, i) => (
           <div key={t.id}>
             <Goal done={t.done} id={t.id} index={t.index} title={t.title} />

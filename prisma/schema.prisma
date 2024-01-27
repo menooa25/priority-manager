@@ -25,7 +25,7 @@ model Detail {
   why    String? @db.Text
   when   String? @db.Text
   how    String? @db.Text
-  goal   Goal    @relation(fields: [goalId], references: [id])
+  goal   Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
   goalId Int     @unique
 }
 

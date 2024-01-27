@@ -1,24 +1,21 @@
 "use client";
-import { useSearchParams, useRouter } from "next/navigation";
+import classNames from "classnames";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Props {
   title: string;
-  day: string;
+  href: string;
 }
-const NavLink = ({ day, title }: Props) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentParam = searchParams.get("day") ?? "";
-  const params = new URLSearchParams(searchParams.toString());
-  params.set("day", day);
+const NavLink = ({ href, title }: Props) => {
+  const pathName = usePathname();
+  const linkCasses = classNames({
+    "tab-active font-bold": pathName === href,
+  });
   return (
-    <button
-      onClick={() => router.replace("/?" + params.toString())}
-      role="tab"
-      className={`tab  ${day === currentParam && "tab-active"}`}
-    >
+    <Link href={href} role="tab" className={"tab text-nowrap  " + linkCasses}>
       {title}
-    </button>
+    </Link>
   );
 };
 

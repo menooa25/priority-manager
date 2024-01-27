@@ -22,7 +22,6 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
     setOnFetching(true);
     const savedDetails = await getDetail(goalId);
     setLastDetail(savedDetails);
-
     setOnFetching(false);
   };
   return (
