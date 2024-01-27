@@ -8,7 +8,7 @@ export const getTaskList = async () => {
 
   return await prisma.task.findMany({
     where: { goal: { userId } },
-    orderBy: [{ done: "asc" }, { goal: { index: "desc" } }],
+    orderBy: [{ done: "asc" }, { index: "desc" }],
   });
 };
 

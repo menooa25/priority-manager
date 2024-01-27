@@ -40,16 +40,17 @@ const useTaskGoalActions = ({
   const onSave = async (callBack?: () => void) => {
     if (status.itsNew && text) {
       setLoading({ ...loading, save: true });
-      if (model === "task" && goalId) await createTask(text, goalId);
-      else await createGoal(text);
+      if (model === "task") {
+        if (goalId) await createTask(text, goalId);
+      } else await createGoal(text);
       setLoading({ ...loading, save: false });
 
       updateList();
       callBack && callBack();
     } else if (id && !done) {
       setLoading({ ...loading, save: true });
-
-      await changeGoalTitle(id, text);
+      if (model === "task") {
+      } else await changeGoalTitle(id, text);
       setLoading({ ...loading, save: false });
       updateList();
     }

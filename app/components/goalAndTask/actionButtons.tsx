@@ -4,11 +4,21 @@ interface ButtonsProps {
   display: boolean;
   onClick: () => void;
   loading?: boolean;
+  disabled?: boolean;
 }
-export const SaveBtn = ({ onClick, display = true, loading }: ButtonsProps) => {
+export const SaveBtn = ({
+  onClick,
+  display = true,
+  loading,
+  disabled,
+}: ButtonsProps) => {
   if (!display) return null;
   return (
-    <button onClick={onClick} className="btn flex-1 btn-neutral  w-full btn-sm">
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className="btn flex-1 btn-neutral  w-full btn-sm"
+    >
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (

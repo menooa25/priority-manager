@@ -30,11 +30,12 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
     onDecreaseIndex,
     onIncreaseIndex,
   } = useTaskGoalActions({
-    model: "goal",
+    model: "task",
     updateList: updateTaskList,
     done,
     id,
     index,
+    goalId,
     status,
     text,
   });
@@ -63,9 +64,10 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
       <SelectGoal goalId={goalId} setGoalId={setGoalId} />
       <div className="mt-2">
         <SaveBtn
-          loading={false}
+          disabled={!goalId}
+          loading={loading.save}
           display={status.itsEdited || status.itsNew}
-          onClick={() => {}}
+          onClick={() => onSave(onSaved)}
         />
       </div>
     </div>
