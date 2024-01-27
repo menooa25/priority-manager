@@ -54,10 +54,13 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
         done={done}
         onChange={setText}
         loading={{
-          decrease: false,
-          increase: false,
+          decrease: loading.decreaseIndex,
+          increase: loading.increaseIndex,
         }}
-        onClick={{ decrease: () => {}, increase: () => {} }}
+        onClick={{
+          decrease: onDecreaseIndex,
+          increase: onIncreaseIndex,
+        }}
         className={status.itsNew ? "rounded-bl-none" : ""}
         itsNew={status.itsNew}
       />

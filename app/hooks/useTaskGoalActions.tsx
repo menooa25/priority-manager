@@ -8,7 +8,11 @@ import {
   increaseGoalIndex,
   resumeGoal,
 } from "../(overview)/goalList/actions";
-import { createTask } from "../tasks/actions";
+import {
+  createTask,
+  decreaseTaskIndex,
+  increaseTaskIndex,
+} from "../tasks/actions";
 interface Props {
   model: "goal" | "task";
   id?: number;
@@ -89,6 +93,7 @@ const useTaskGoalActions = ({
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
       if (model === "goal") await increaseGoalIndex(id, index);
+      else await increaseTaskIndex(id, index);
       setLoading({ ...loading, increaseIndex: false });
 
       updateList();
@@ -98,6 +103,7 @@ const useTaskGoalActions = ({
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
       if (model === "goal") await decreaseGoalIndex(id, index);
+      else await decreaseTaskIndex(id, index);
       setLoading({ ...loading, decreaseIndex: false });
 
       updateList();

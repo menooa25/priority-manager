@@ -34,3 +34,44 @@ export const getGoalList = async () => {
   const goalList = await prisma.goal.findMany({ where: { userId } });
   return goalList;
 };
+
+export const increaseTaskIndex = async (id: number, currentIndex: number) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const upperTask = await prisma.task.findFirst({
+    where: {
+      goal: { userId },
+      index: { gt: currentIndex },
+    },
+    orderBy: { index: "asc" },
+  });
+  if (upperTask) {
+    await prisma.task.update({
+      where: { id, goal: { userId } },
+      data: { index: upperTask.index },
+    });
+    await prisma.task.update({
+      where: { id: upperTask.id, goal: { userId } },
+      data: { index: currentIndex },
+    });
+  }
+};
+export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const downerTask = await prisma.task.findFirst({
+    where: { index: { lt: currentIndex, not: -1 }, goal: { userId } },
+    orderBy: { index: "desc" },
+  });
+
+  if (downerTask) {
+    await prisma.task.update({
+      where: { id, goal: { userId } },
+      data: { index: downerTask.index },
+    });
+    await prisma.task.update({
+      where: { id: downerTask.id, goal: { userId } },
+      data: { index: currentIndex },
+    });
+  }
+};
