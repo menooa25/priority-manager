@@ -15,7 +15,7 @@ interface Props {
   done: boolean;
   loading: { increase: boolean; decrease: boolean };
 }
-const TaskareaIndexChng = ({
+const TextareaIndexChng = ({
   className,
   defaultValue,
   dir,
@@ -62,4 +62,4 @@ const TaskareaIndexChng = ({
   );
 };
 
-export default TaskareaIndexChng;
+export default TextareaIndexChng;

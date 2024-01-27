@@ -22,18 +22,7 @@ export const ResumeGoalBtn = ({ display, onClick, loading }: ButtonsProps) => {
   );
 };
 
-export const SaveBtn = ({ onClick, display = true, loading }: ButtonsProps) => {
-  if (!display) return null;
-  return (
-    <button onClick={onClick} className="btn flex-1 btn-neutral  w-full btn-sm">
-      {loading ? (
-        <span className="loading loading-xs loading-spinner" />
-      ) : (
-        "ذخیره"
-      )}
-    </button>
-  );
-};
+
 export const DoneGoal = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return null;
 

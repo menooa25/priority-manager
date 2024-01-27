@@ -4,9 +4,8 @@ import AddGoal from "./AddGoal";
 import { useContext, useEffect, useState } from "react";
 import { Goal as GoalSchima } from "@prisma/client";
 import { getGoalList } from "./actions";
-import { useSession } from "next-auth/react";
 import GoalContextProvider from "./GoalContextProvider";
-import Skeleton from "./Skeleton";
+import Skeleton from "../../components/goalAndTask/Skeleton";
 import { TopLoadingContext } from "@/app/components/TopLoading";
 
 const GoalList = () => {
@@ -14,7 +13,6 @@ const GoalList = () => {
   const [loading, setLoading] = useState(true);
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
-  const userEmail = useSession().data?.user?.email;
   const startLoading = () => {
     startTopLoading();
     setLoading(true);
@@ -25,10 +23,7 @@ const GoalList = () => {
   };
   const requestForGoalList = async () => {
     startLoading();
-    if (!userEmail) {
-      endLoading();
-      return null;
-    }
+
     const resp = await getGoalList();
     if (resp) {
       setGoalList(resp);
@@ -37,7 +32,7 @@ const GoalList = () => {
   };
   useEffect(() => {
     requestForGoalList();
-  }, [userEmail]);
+  }, []);
 
   if (loading && goalList.length === 0) return <Skeleton />;
   return (

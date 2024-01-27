@@ -5,7 +5,18 @@ interface ButtonsProps {
   onClick: () => void;
   loading?: boolean;
 }
-
+export const SaveBtn = ({ onClick, display = true, loading }: ButtonsProps) => {
+  if (!display) return null;
+  return (
+    <button onClick={onClick} className="btn flex-1 btn-neutral  w-full btn-sm">
+      {loading ? (
+        <span className="loading loading-xs loading-spinner" />
+      ) : (
+        "ذخیره"
+      )}
+    </button>
+  );
+};
 export const IncreaseIndexBtn = ({
   display,
   onClick,

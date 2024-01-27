@@ -1,11 +1,12 @@
 "use client";
-import TaskareaIndexChng from "@/app/components/TaskareaIndexChng/TaskareaIndexChng";
+import TextareaIndexChng from "@/app/components/goalAndTask/TextareaIndexChng";
 import { direction } from "direction";
 import { useContext, useEffect, useState } from "react";
 import useTaskGoalActions from "../../../hooks/useTaskGoalActions";
 import { GoalContext } from "../GoalContextProvider";
-import { DeleteGoal, DoneGoal, ResumeGoalBtn, SaveBtn } from "./ActionButtons";
+import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
+import { SaveBtn } from "@/app/components/goalAndTask/actionButtons";
 
 interface Props {
   id?: number;
@@ -45,7 +46,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
   }, [title, text]);
   return (
     <div>
-      <TaskareaIndexChng
+      <TextareaIndexChng
         defaultValue={title}
         dir={direction(text)}
         done={done}
