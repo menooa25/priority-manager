@@ -4,7 +4,6 @@ import { Goal } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getGoalList } from "./actions";
-import classNames from "classnames";
 import { direction } from "direction";
 
 interface Props {
@@ -33,15 +32,17 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
     if (goalId) {
       setGoalTitle(goalList?.find(({ id }) => id === goalId)?.title);
     }
-  }, [goalId]);
+  }, [goalId, goalList]);
   if (itsPreSet && goalTitle)
     return (
-      <div
-        dir={direction(goalTitle ?? "")}
-        className="btn  btn-sm rounded-lg font-normal rounded-t-none "
-      >
-        {goalTitle}
-      </div>
+      <>
+        <div
+          dir={direction(goalTitle ?? "")}
+          className="btn block max-w-[80%] overflow-auto btn-sm rounded-lg font-normal rounded-t-none "
+        >
+          {goalTitle}
+        </div>
+      </>
     );
   return (
     <>
