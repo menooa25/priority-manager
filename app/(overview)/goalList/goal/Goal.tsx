@@ -3,16 +3,10 @@ import useNoScroll from "@/app/hooks/useNoScroll";
 import { direction } from "direction";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GoalContext } from "../GoalContextProvider";
-import {
-  DecreaseIndexBtn,
-  DeleteGoal,
-  DoneGoal,
-  IncreaseIndexBtn,
-  ResumeGoalBtn,
-  SaveBtn,
-} from "./ActionButtons";
+import { DeleteGoal, DoneGoal, ResumeGoalBtn, SaveBtn } from "./ActionButtons";
 import useTaskLikeActions from "../../../hooks/useTaskLikeActions";
 import GoalDetail from "./GoalDetail/GoalDetail";
+import TaskareaIndexChng from "@/app/components/TaskareaIndexChng/TaskareaIndexChng";
 
 interface Props {
   id?: number;
@@ -23,9 +17,7 @@ interface Props {
 }
 
 const Goal = ({ title, onSaved, done, id, index }: Props) => {
-  const textareaRef: any = useRef();
   const [text, setText] = useState(title);
-  const { onScroll } = useNoScroll(textareaRef);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
   const { updateGoalList } = useContext(GoalContext);
   const {
@@ -53,35 +45,18 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
   }, [title, text]);
   return (
     <div>
-      <div className="flex items-stretch ">
-        <textarea
-          disabled={done}
-          onScroll={(e) => onScroll(e)}
-          onChange={({ target: { value } }) => setText(value)}
-          ref={textareaRef}
-          dir={direction(text)}
-          className={`textarea rounded-2xl ${
-            !done && "rounded-r-none"
-          }  overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered ${
-            id && "rounded-bl-none"
-          }`}
-          defaultValue={title}
-        />
-
-        <div className="flex flex-col rounded-2xl rounded-l-none">
-          <IncreaseIndexBtn
-            display={!done}
-            onClick={onIncreaseIndex}
-            loading={loading.increaseIndex}
-          />
-          <hr />
-          <DecreaseIndexBtn
-            display={!done}
-            onClick={onDecreaseIndex}
-            loading={loading.decreaseIndex}
-          />
-        </div>
-      </div>
+      <TaskareaIndexChng
+        defaultValue={title}
+        dir={direction(text)}
+        done={done}
+        onChange={setText}
+        loading={{
+          decrease: loading.decreaseIndex,
+          increase: loading.increaseIndex,
+        }}
+        onClick={{ decrease: onDecreaseIndex, increase: onIncreaseIndex }}
+        id={id}
+      />
       {id && (
         <div className="flex ">
           <GoalDetail goalId={id} goalIsDone={done} />
