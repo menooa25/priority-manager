@@ -14,6 +14,7 @@ interface Props {
   onClick: { increase: () => void; decrease: () => void };
   done: boolean;
   loading: { increase: boolean; decrease: boolean };
+  itsNew?: boolean;
 }
 const TextareaIndexChng = ({
   className,
@@ -23,12 +24,13 @@ const TextareaIndexChng = ({
   onChange,
   onClick,
   loading,
+  itsNew,
 }: Props) => {
   const textareaRef: any = useRef();
   const { onScroll } = useNoScroll(textareaRef);
   const textareaClass = classNames({
     "textarea rounded-2xl": true,
-    "rounded-r-none": !done,
+    "rounded-r-none": !done && !itsNew,
     "overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered":
       true,
     [className ?? ""]: className,
@@ -47,13 +49,13 @@ const TextareaIndexChng = ({
 
       <div className="flex flex-col rounded-2xl rounded-l-none">
         <IncreaseIndexBtn
-          display={!done}
+          display={!done && !itsNew}
           onClick={onClick.increase}
           loading={loading.increase}
         />
         <hr />
         <DecreaseIndexBtn
-          display={!done}
+          display={!done && !itsNew}
           onClick={onClick.decrease}
           loading={loading.decrease}
         />

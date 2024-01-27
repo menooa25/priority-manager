@@ -20,7 +20,7 @@ const TopLoading = ({ children }: PropsWithChildren) => {
   };
   return (
     <TopLoadingContext.Provider value={{ completeLoading, startLoading }}>
-      <LoadingBar color="#f11946" ref={ref} />
+      <LoadingBar color="#65c3c8" ref={ref} />
       <div className={noAnimation}>{children}</div>
     </TopLoadingContext.Provider>
   );

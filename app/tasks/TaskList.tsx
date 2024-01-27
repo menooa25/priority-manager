@@ -37,7 +37,7 @@ const TaskList = () => {
 
   return (
     <TaskContextProvider updateTaskList={requestForTaskList}>
-      <div className={"flex  w-full flex-col gap-y-3 "}>
+      <div className={"flex w-full flex-col gap-y-3"}>
         <AddTask />
       </div>
     </TaskContextProvider>

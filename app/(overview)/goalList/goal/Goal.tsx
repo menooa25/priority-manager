@@ -57,6 +57,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
         }}
         onClick={{ decrease: onDecreaseIndex, increase: onIncreaseIndex }}
         className={id ? "rounded-bl-none" : ""}
+        itsNew={status.itsNew}
       />
       {id && (
         <div className="flex ">
