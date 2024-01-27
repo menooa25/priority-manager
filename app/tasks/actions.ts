@@ -27,3 +27,10 @@ export const createTask = async (title: string, goalId: number) => {
     },
   });
 };
+
+export const getGoalList = async () => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const goalList = await prisma.goal.findMany({ where: { userId } });
+  return goalList;
+};
