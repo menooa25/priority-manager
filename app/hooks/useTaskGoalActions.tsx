@@ -8,12 +8,14 @@ import {
   increaseGoalIndex,
   resumeGoal,
 } from "../(overview)/goalList/actions";
+import { createTask } from "../tasks/actions";
 interface Props {
   model: "goal" | "task";
   id?: number;
   done: boolean;
   index?: number;
   text: string;
+  goalId?: number;
   updateList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
 }
@@ -25,6 +27,7 @@ const useTaskGoalActions = ({
   status,
   text,
   updateList,
+  goalId,
   model,
 }: Props) => {
   const [loading, setLoading] = useState({
@@ -37,8 +40,8 @@ const useTaskGoalActions = ({
   const onSave = async (callBack?: () => void) => {
     if (status.itsNew && text) {
       setLoading({ ...loading, save: true });
-
-      await createGoal(text);
+      if (model === "task" && goalId) await createTask(text, goalId);
+      else await createGoal(text);
       setLoading({ ...loading, save: false });
 
       updateList();
@@ -52,6 +55,7 @@ const useTaskGoalActions = ({
     }
   };
   const onResume = async () => {
+    if (model === "task") return null;
     if (done && id) {
       setLoading({ ...loading, resume: true });
 
@@ -62,6 +66,8 @@ const useTaskGoalActions = ({
     }
   };
   const onDone = async () => {
+    if (model === "task") return null;
+
     if (id && !done) {
       setLoading({ ...loading, done: true });
 
@@ -71,6 +77,8 @@ const useTaskGoalActions = ({
     }
   };
   const onDelete = async () => {
+    if (model === "task") return null;
+
     if (id) {
       await deleteGoal(id);
       updateList();

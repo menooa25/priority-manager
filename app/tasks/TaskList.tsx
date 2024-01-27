@@ -6,6 +6,7 @@ import { TopLoadingContext } from "../components/TopLoading";
 import { getTaskList } from "./actions";
 import Skeleton from "../components/goalAndTask/Skeleton";
 import AddTask from "./AddTask";
+import TaskContextProvider from "./TaskContextProvider";
 
 const TaskList = () => {
   const [taskList, setTaskList] = useState<TaskSchema[]>([]);
@@ -20,7 +21,7 @@ const TaskList = () => {
     setLoading(false);
     completeLoading();
   };
-  const requestForGoalList = async () => {
+  const requestForTaskList = async () => {
     startLoading();
 
     const resp = await getTaskList();
@@ -30,14 +31,16 @@ const TaskList = () => {
     }
   };
   useEffect(() => {
-    requestForGoalList();
+    requestForTaskList();
   }, []);
   if (loading && taskList.length === 0) return <Skeleton />;
 
   return (
-    <div className={"flex  w-full flex-col gap-y-3 "}>
-      <AddTask />
-    </div>
+    <TaskContextProvider updateTaskList={requestForTaskList}>
+      <div className={"flex  w-full flex-col gap-y-3 "}>
+        <AddTask />
+      </div>
+    </TaskContextProvider>
   );
 };
 
