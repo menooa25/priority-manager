@@ -149,3 +149,12 @@ export const deleteTask = async (id: number) => {
     where: { id, goal: { userId } },
   });
 };
+
+export const changeTaskTitle = async (id: number, title: string) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  await prisma.task.update({
+    where: { id, goal: { userId } },
+    data: { title },
+  });
+};

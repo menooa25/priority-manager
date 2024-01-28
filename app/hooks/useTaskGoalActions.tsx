@@ -16,6 +16,7 @@ import {
   changeTaskDone,
   increaseTaskGoalIndex,
   decreaseTaskGoalIndex,
+  changeTaskTitle,
 } from "../tasks/actions";
 interface Props {
   model: "goal" | "task";
@@ -62,6 +63,7 @@ const useTaskGoalActions = ({
     } else if (id && !done) {
       setLoading({ ...loading, save: true });
       if (model === "task") {
+        await changeTaskTitle(id, text);
       } else await changeGoalTitle(id, text);
       setLoading({ ...loading, save: false });
       updateList();

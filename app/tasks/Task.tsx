@@ -49,7 +49,6 @@ const Task = ({ done, title, id, index, onSaved, indexInGoal }: Props) => {
       itsEdited: text !== title,
     });
   }, [title, text]);
-
   return (
     <div>
       <TextareaIndexChng
@@ -89,9 +88,9 @@ const Task = ({ done, title, id, index, onSaved, indexInGoal }: Props) => {
           display={!done && !status.itsNew}
         />
       </div>
-      <div>
+      <div className={status.itsEdited ? "mt-1" : ""}>
         <SaveBtn
-          disabled={!goalId}
+          disabled={Boolean(!goalId && !id)}
           loading={loading.save}
           display={status.itsEdited || status.itsNew}
           onClick={() => onSave(onSaved)}
