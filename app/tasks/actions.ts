@@ -12,6 +12,7 @@ export const getTaskList = async (goalId: number | undefined = undefined) => {
   return await prisma.task.findMany({
     where: { goal: { userId }, goalId },
     orderBy: [{ done: "asc" }, { ...orderBy }],
+    include: { goal: { select: { title: true } } },
   });
 };
 

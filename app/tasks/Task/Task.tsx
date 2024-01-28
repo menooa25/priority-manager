@@ -1,13 +1,14 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import useTaskGoalActions from "../hooks/useTaskGoalActions";
-import TextareaIndexChng from "../components/goalAndTask/TextareaIndexChng";
+import useTaskGoalActions from "../../hooks/useTaskGoalActions";
+import TextareaIndexChng from "../../components/goalAndTask/TextareaIndexChng";
 import { direction } from "direction";
-import { SaveBtn } from "../components/goalAndTask/actionButtons";
-import { TaskContext } from "./TaskContextProvider";
+import { SaveBtn } from "../../components/goalAndTask/actionButtons";
+import { TaskContext } from "../TaskContextProvider";
 import SelectGoal from "./SelectGoal";
 import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
+import TaskGoal from "./TaskGoal";
 
 interface Props {
   id?: number;
@@ -16,9 +17,18 @@ interface Props {
   index?: number;
   onSaved?: () => void;
   indexInGoal?: number;
+  goalTitle?: string;
 }
 
-const Task = ({ done, title, id, index, onSaved, indexInGoal }: Props) => {
+const Task = ({
+  done,
+  title,
+  id,
+  index,
+  onSaved,
+  indexInGoal,
+  goalTitle,
+}: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
   const { updateTaskList, isGoalFiltered } = useContext(TaskContext);
@@ -64,10 +74,10 @@ const Task = ({ done, title, id, index, onSaved, indexInGoal }: Props) => {
           decrease: onDecreaseIndex,
           increase: onIncreaseIndex,
         }}
-        className={status.itsNew ? "rounded-bl-none" : ""}
         itsNew={status.itsNew}
       />
       {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
+      {!status.itsNew && goalTitle && <TaskGoal goalTitle={goalTitle} />}
       <div className="flex w-full gap-x-1 mt-1">
         <DeleteTask title={title} onClick={onDelete} display={done} />
         <ResumeTaskBtn

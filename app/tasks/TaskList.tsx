@@ -5,19 +5,20 @@ import { useContext, useEffect, useState } from "react";
 import { TopLoadingContext } from "../components/TopLoading";
 import { getTaskList } from "./actions";
 import Skeleton from "../components/goalAndTask/Skeleton";
-import AddTask from "./AddTask";
+import AddTask from "./Task/AddTask";
 import TaskContextProvider from "./TaskContextProvider";
-import Task from "./Task";
+import Task from "./Task/Task";
 import { useSearchParams } from "next/navigation";
 
 const TaskList = () => {
-  const [taskList, setTaskList] = useState<TaskSchema[]>([]);
+  const [taskList, setTaskList] = useState<
+    (TaskSchema & { goal: { title: string } })[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
   const goalId = useSearchParams().get("goal");
   const goalIdNum = goalId && !isNaN(+goalId) ? +goalId : undefined;
-
   const startLoading = () => {
     startTopLoading();
     setLoading(true);
@@ -46,7 +47,7 @@ const TaskList = () => {
       updateTaskList={requestForTaskList}
     >
       <div className={"flex w-full flex-col gap-y-3"}>
-        {taskList.map(({ id, done, index, title, indexInGoal }, i) => (
+        {taskList.map(({ id, done, index, title, indexInGoal, goal }, i) => (
           <div key={id}>
             <Task
               id={id}
@@ -54,6 +55,7 @@ const TaskList = () => {
               title={title}
               indexInGoal={indexInGoal}
               index={index}
+              goalTitle={goal.title}
             />
             {taskList.length - 1 !== i && <hr className="mt-2" />}
           </div>

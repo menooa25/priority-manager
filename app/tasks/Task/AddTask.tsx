@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Task from "./Task";
-import useClickedOutside from "../hooks/useClickedOutside";
+import useClickedOutside from "../../hooks/useClickedOutside";
 
 const AddTask = () => {
   const [newClicked, setNewClicked] = useState(false);

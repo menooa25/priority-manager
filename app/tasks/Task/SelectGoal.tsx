@@ -3,7 +3,7 @@
 import { Goal } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getGoalList } from "./actions";
+import { getGoalList } from "../actions";
 import { direction } from "direction";
 
 interface Props {
