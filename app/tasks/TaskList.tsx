@@ -8,12 +8,15 @@ import Skeleton from "../components/goalAndTask/Skeleton";
 import AddTask from "./AddTask";
 import TaskContextProvider from "./TaskContextProvider";
 import Task from "./Task";
+import { useSearchParams } from "next/navigation";
 
 const TaskList = () => {
   const [taskList, setTaskList] = useState<TaskSchema[]>([]);
   const [loading, setLoading] = useState(true);
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
+  const goalId = useSearchParams().get("goal");
+
   const startLoading = () => {
     startTopLoading();
     setLoading(true);
@@ -23,9 +26,11 @@ const TaskList = () => {
     completeLoading();
   };
   const requestForTaskList = async () => {
+    let goalIdNum = goalId && !isNaN(+goalId) ? +goalId : undefined;
+
     startLoading();
 
-    const resp = await getTaskList();
+    const resp = await getTaskList(goalIdNum);
     if (resp) {
       setTaskList(resp);
       endLoading();
@@ -33,7 +38,7 @@ const TaskList = () => {
   };
   useEffect(() => {
     requestForTaskList();
-  }, []);
+  }, [goalId]);
   if (loading && taskList.length === 0) return <Skeleton />;
 
   return (

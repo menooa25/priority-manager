@@ -2,12 +2,12 @@
 import prisma from "@/prisma/client";
 import { getUserId } from "../actions";
 
-export const getTaskList = async () => {
+export const getTaskList = async (goalId: number | undefined=undefined) => {
   const userId = await getUserId();
   if (!userId) return null;
 
   return await prisma.task.findMany({
-    where: { goal: { userId } },
+    where: { goal: { userId }, goalId },
     orderBy: [{ done: "asc" }, { index: "desc" }],
   });
 };

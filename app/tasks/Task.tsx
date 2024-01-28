@@ -86,7 +86,7 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
           display={!done && !status.itsNew}
         />
       </div>
-      <div className="mt-1">
+      <div>
         <SaveBtn
           disabled={!goalId}
           loading={loading.save}
