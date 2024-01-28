@@ -1,11 +1,17 @@
 "use client";
 import { useState } from "react";
 import Task from "./Task";
+import useClickedOutside from "../hooks/useClickedOutside";
 
 const AddTask = () => {
   const [newClicked, setNewClicked] = useState(false);
+  const onOutsdieClick = () => {
+    setNewClicked(false);
+  };
+  const { ref } = useClickedOutside(onOutsdieClick);
+
   return (
-    <div>
+    <div ref={ref}>
       {newClicked && (
         <Task
           done={false}
