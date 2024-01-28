@@ -66,7 +66,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
           <LinkToTask goalId={id} goalIsDone={done} />
         </div>
       )}
-      <div className="flex w-full gap-x-1 mt-1">
+      <div className="flex w-full gap-x-1 mt-2">
         <DeleteGoal title={title} onClick={onDelete} display={done} />
         <ResumeGoalBtn
           loading={loading.resume}
