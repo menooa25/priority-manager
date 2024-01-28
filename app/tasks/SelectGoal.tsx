@@ -38,7 +38,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
       <>
         <div
           dir={direction(goalTitle ?? "")}
-          className="btn flex flex-col justify-center min-w-48 max-w-[80%] overflow-auto text-right btn-sm rounded-lg font-normal rounded-t-none p-1 align-middle "
+          className="btn flex flex-col justify-center min-w-56 max-w-[80%] overflow-auto text-right btn-sm rounded-lg font-normal rounded-t-none p-1 align-middle "
         >
           {goalTitle}
         </div>
@@ -51,7 +51,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
           dir={direction(goalTitle ?? "")}
           tabIndex={0}
           role="button"
-          className="btn flex flex-col justify-center min-w-48 max-w-[80%] overflow-auto text-right btn-sm rounded-lg font-normal rounded-t-none p-1 align-middle"
+          className="btn flex flex-col justify-center min-w-56 max-w-[80%] overflow-auto text-right btn-sm rounded-lg font-normal rounded-t-none p-1 align-middle"
         >
           {goalTitle ? goalTitle : "هدفی را برای این فعالیت انتخاب کنید"}
         </div>

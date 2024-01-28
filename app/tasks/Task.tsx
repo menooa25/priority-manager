@@ -7,6 +7,7 @@ import { direction } from "direction";
 import { SaveBtn } from "../components/goalAndTask/actionButtons";
 import { TaskContext } from "./TaskContextProvider";
 import SelectGoal from "./SelectGoal";
+import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 
 interface Props {
   id?: number;
@@ -65,7 +66,27 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
         itsNew={status.itsNew}
       />
       {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
-      <div className="mt-2">
+      <div className="flex w-full gap-x-1 mt-1">
+        <DeleteTask title={title} onClick={onDelete} display={done} />
+        <ResumeTaskBtn
+          loading={loading.resume}
+          display={done}
+          onClick={onResume}
+        />
+      </div>
+      <div className={"flex w-full gap-x-1 mt-1"}>
+        <DeleteTask
+          title={title}
+          onClick={onDelete}
+          display={!done && !status.itsNew}
+        />
+        <DoneTask
+          loading={loading.done}
+          onClick={onDone}
+          display={!done && !status.itsNew}
+        />
+      </div>
+      <div className="mt-1">
         <SaveBtn
           disabled={!goalId}
           loading={loading.save}

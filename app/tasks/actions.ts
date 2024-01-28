@@ -75,3 +75,20 @@ export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
     });
   }
 };
+
+export const changeTaskDone = async (id: number, isDone: boolean) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  await prisma.task.update({
+    where: { id, goal: { userId } },
+    data: { done: isDone },
+  });
+};
+
+export const deleteTask = async (id: number) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  await prisma.task.delete({
+    where: { id, goal: { userId } },
+  });
+};

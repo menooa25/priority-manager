@@ -11,7 +11,9 @@ import {
 import {
   createTask,
   decreaseTaskIndex,
+  deleteTask,
   increaseTaskIndex,
+  changeTaskDone,
 } from "../tasks/actions";
 interface Props {
   model: "goal" | "task";
@@ -60,32 +62,28 @@ const useTaskGoalActions = ({
     }
   };
   const onResume = async () => {
-    if (model === "task") return null;
     if (done && id) {
       setLoading({ ...loading, resume: true });
-
-      await resumeGoal(id);
-      setLoading({ ...loading, resume: true });
+      if (model === "task") await changeTaskDone(id, false);
+      else await resumeGoal(id);
+      setLoading({ ...loading, resume: false });
 
       updateList();
     }
   };
   const onDone = async () => {
-    if (model === "task") return null;
-
     if (id && !done) {
       setLoading({ ...loading, done: true });
-
-      await doneGoal(id);
+      if (model === "task") await changeTaskDone(id, true);
+      else await doneGoal(id);
       setLoading({ ...loading, done: false });
       updateList();
     }
   };
   const onDelete = async () => {
-    if (model === "task") return null;
-
     if (id) {
-      await deleteGoal(id);
+      if (model === "task") await deleteTask(id);
+      else await deleteGoal(id);
       updateList();
     }
   };
