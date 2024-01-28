@@ -1,14 +1,17 @@
 "use server";
 import prisma from "@/prisma/client";
 import { getUserId } from "../actions";
+import { Prisma } from "@prisma/client";
 
-export const getTaskList = async (goalId: number | undefined=undefined) => {
+export const getTaskList = async (goalId: number | undefined = undefined) => {
   const userId = await getUserId();
   if (!userId) return null;
-
+  const orderBy: Prisma.TaskOrderByWithRelationInput = goalId
+    ? { indexInGoal: "desc" }
+    : { index: "desc" };
   return await prisma.task.findMany({
     where: { goal: { userId }, goalId },
-    orderBy: [{ done: "asc" }, { index: "desc" }],
+    orderBy: [{ done: "asc" }, { ...orderBy }],
   });
 };
 
@@ -19,11 +22,16 @@ export const createTask = async (title: string, goalId: number) => {
     orderBy: { index: "desc" },
     where: { goal: { userId } },
   });
+  const upperTaskInGoal = await prisma.task.findFirst({
+    orderBy: { indexInGoal: "desc" },
+    where: { goal: { userId }, goalId },
+  });
   await prisma.task.create({
     data: {
       title,
       goalId,
       index: upperTask ? upperTask.index + 1 : 0,
+      indexInGoal: upperTaskInGoal ? upperTaskInGoal.indexInGoal + 1 : 0,
     },
   });
 };
@@ -56,6 +64,32 @@ export const increaseTaskIndex = async (id: number, currentIndex: number) => {
     });
   }
 };
+
+export const increaseTaskGoalIndex = async (
+  id: number,
+  currentGoalIndex: number
+) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const upperTask = await prisma.task.findFirst({
+    where: {
+      goal: { userId },
+      indexInGoal: { gt: currentGoalIndex },
+    },
+    orderBy: { indexInGoal: "asc" },
+  });
+  if (upperTask) {
+    await prisma.task.update({
+      where: { id, goal: { userId } },
+      data: { indexInGoal: upperTask.indexInGoal },
+    });
+    await prisma.task.update({
+      where: { id: upperTask.id, goal: { userId } },
+      data: { indexInGoal: currentGoalIndex },
+    });
+  }
+};
+
 export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
   const userId = await getUserId();
   if (!userId) return null;
@@ -72,6 +106,29 @@ export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
     await prisma.task.update({
       where: { id: downerTask.id, goal: { userId } },
       data: { index: currentIndex },
+    });
+  }
+};
+
+export const decreaseTaskGoalIndex = async (
+  id: number,
+  currentGoalIndex: number
+) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const downerTask = await prisma.task.findFirst({
+    where: { indexInGoal: { lt: currentGoalIndex, not: -1 }, goal: { userId } },
+    orderBy: { indexInGoal: "desc" },
+  });
+
+  if (downerTask) {
+    await prisma.task.update({
+      where: { id, goal: { userId } },
+      data: { indexInGoal: downerTask.indexInGoal },
+    });
+    await prisma.task.update({
+      where: { id: downerTask.id, goal: { userId } },
+      data: { indexInGoal: currentGoalIndex },
     });
   }
 };

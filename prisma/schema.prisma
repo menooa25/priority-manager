@@ -31,12 +31,13 @@ model Detail {
 }
 
 model Task {
-  id     Int     @id @default(autoincrement())
-  title  String  @db.Text
-  done   Boolean @default(false)
-  index  Int     @default(0)
-  goal   Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
-  goalId Int
+  id          Int     @id @default(autoincrement())
+  title       String  @db.Text
+  done        Boolean @default(false)
+  index       Int     @default(0)
+  indexInGoal Int     @default(0)
+  goal        Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  goalId      Int
 }
 
 // NextAuth
