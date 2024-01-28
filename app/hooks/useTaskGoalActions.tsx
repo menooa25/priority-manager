@@ -14,6 +14,8 @@ import {
   deleteTask,
   increaseTaskIndex,
   changeTaskDone,
+  increaseTaskGoalIndex,
+  decreaseTaskGoalIndex,
 } from "../tasks/actions";
 interface Props {
   model: "goal" | "task";
@@ -24,6 +26,8 @@ interface Props {
   goalId?: number;
   updateList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
+  isGoalFiltered?: boolean;
+  indexInGoal?: number;
 }
 
 const useTaskGoalActions = ({
@@ -35,6 +39,8 @@ const useTaskGoalActions = ({
   updateList,
   goalId,
   model,
+  isGoalFiltered,
+  indexInGoal,
 }: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
@@ -87,11 +93,16 @@ const useTaskGoalActions = ({
       updateList();
     }
   };
+
   const onIncreaseIndex = async () => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
       if (model === "goal") await increaseGoalIndex(id, index);
-      else await increaseTaskIndex(id, index);
+      else {
+        if (isGoalFiltered && indexInGoal !== undefined)
+          await increaseTaskGoalIndex(id, indexInGoal);
+        else await increaseTaskIndex(id, index);
+      }
       setLoading({ ...loading, increaseIndex: false });
 
       updateList();
@@ -101,7 +112,11 @@ const useTaskGoalActions = ({
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
       if (model === "goal") await decreaseGoalIndex(id, index);
-      else await decreaseTaskIndex(id, index);
+      else {
+        if (isGoalFiltered && indexInGoal !== undefined)
+          await decreaseTaskGoalIndex(id, indexInGoal);
+        else await decreaseTaskIndex(id, index);
+      }
       setLoading({ ...loading, decreaseIndex: false });
 
       updateList();

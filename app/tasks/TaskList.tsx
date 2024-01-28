@@ -16,6 +16,7 @@ const TaskList = () => {
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
   const goalId = useSearchParams().get("goal");
+  const goalIdNum = goalId && !isNaN(+goalId) ? +goalId : undefined;
 
   const startLoading = () => {
     startTopLoading();
@@ -26,8 +27,6 @@ const TaskList = () => {
     completeLoading();
   };
   const requestForTaskList = async () => {
-    let goalIdNum = goalId && !isNaN(+goalId) ? +goalId : undefined;
-
     startLoading();
 
     const resp = await getTaskList(goalIdNum);
@@ -42,11 +41,20 @@ const TaskList = () => {
   if (loading && taskList.length === 0) return <Skeleton />;
 
   return (
-    <TaskContextProvider updateTaskList={requestForTaskList}>
+    <TaskContextProvider
+      isGoalFiltered={Boolean(goalIdNum)}
+      updateTaskList={requestForTaskList}
+    >
       <div className={"flex w-full flex-col gap-y-3"}>
-        {taskList.map(({ id, done, index, title }, i) => (
+        {taskList.map(({ id, done, index, title, indexInGoal }, i) => (
           <div key={id}>
-            <Task id={id} done={done} title={title} index={index} />
+            <Task
+              id={id}
+              done={done}
+              title={title}
+              indexInGoal={indexInGoal}
+              index={index}
+            />
             {taskList.length - 1 !== i && <hr className="mt-2" />}
           </div>
         ))}

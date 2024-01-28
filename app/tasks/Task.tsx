@@ -15,12 +15,13 @@ interface Props {
   done: boolean;
   index?: number;
   onSaved?: () => void;
+  indexInGoal?: number;
 }
 
-const Task = ({ done, title, id, index, onSaved }: Props) => {
+const Task = ({ done, title, id, index, onSaved, indexInGoal }: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
-  const { updateTaskList } = useContext(TaskContext);
+  const { updateTaskList, isGoalFiltered } = useContext(TaskContext);
   const [goalId, setGoalId] = useState<number>();
   const {
     loading,
@@ -37,6 +38,8 @@ const Task = ({ done, title, id, index, onSaved }: Props) => {
     id,
     index,
     goalId,
+    indexInGoal,
+    isGoalFiltered,
     status,
     text,
   });
