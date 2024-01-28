@@ -1,6 +1,5 @@
 "use client";
 import { FaUser } from "react-icons/fa";
-
 import { signOut, useSession } from "next-auth/react";
 
 const Account = () => {
@@ -8,10 +7,10 @@ const Account = () => {
   const image = data?.user?.image;
   if (!image) return null;
   return (
-    <div className="dropdown dropdown-end ">
-      <div tabIndex={0} role="button">
-        <div className="avatar pr-2 pt-1">
-          <FaUser size={20} />
+    <div className="dropdown dropdown-top sm:dropdown-end min-h-0 h-4 sm:h-auto ">
+      <div tabIndex={0} role="button ">
+        <div className="avatar pr-2 sm:pt-1 ">
+          <FaUser className="sm:w-5 sm:h-5" />
         </div>
       </div>
       <ul
