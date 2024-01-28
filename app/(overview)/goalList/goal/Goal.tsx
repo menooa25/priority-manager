@@ -7,6 +7,7 @@ import { GoalContext } from "../GoalContextProvider";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
 import { SaveBtn } from "@/app/components/goalAndTask/actionButtons";
+import LinkToTask from "./LinkToTask";
 
 interface Props {
   id?: number;
@@ -60,8 +61,9 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
         itsNew={status.itsNew}
       />
       {id && (
-        <div className="flex ">
+        <div className="flex gap-x-1">
           <GoalDetail goalId={id} goalIsDone={done} />
+          <LinkToTask goalId={id} goalIsDone={done} />
         </div>
       )}
       <div className="flex w-full gap-x-1 mt-1">
