@@ -11,10 +11,7 @@ const TaskGoal = ({ goalTitle }: Props) => {
   const { modalId, openModal } = useModal();
   return (
     <div>
-      <button
-        onClick={() => openModal()}
-        className="btn btn-sm rounded-lg rounded-t-none font-normal"
-      >
+      <button onClick={() => openModal()} className="tag-button">
         هدف
       </button>
       <Modal id={modalId}>

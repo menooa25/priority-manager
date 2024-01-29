@@ -36,6 +36,7 @@ model Task {
   done        Boolean @default(false)
   index       Int     @default(0)
   indexInGoal Int     @default(0)
+  day         Int?
   goal        Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
   goalId      Int
 }

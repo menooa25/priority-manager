@@ -9,6 +9,7 @@ import { TaskContext } from "../TaskContextProvider";
 import SelectGoal from "./SelectGoal";
 import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 import TaskGoal from "./TaskGoal";
+import AttachToDay from "./AttachToDay";
 
 interface Props {
   id?: number;
@@ -18,6 +19,7 @@ interface Props {
   onSaved?: () => void;
   indexInGoal?: number;
   goalTitle?: string;
+  currentDay: null | number;
 }
 
 const Task = ({
@@ -28,6 +30,7 @@ const Task = ({
   onSaved,
   indexInGoal,
   goalTitle,
+  currentDay,
 }: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
@@ -59,6 +62,7 @@ const Task = ({
       itsEdited: text !== title,
     });
   }, [title, text]);
+
   return (
     <div>
       <TextareaIndexChng
@@ -76,8 +80,13 @@ const Task = ({
         }}
         itsNew={status.itsNew}
       />
-      {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
-      {!status.itsNew && goalTitle && <TaskGoal goalTitle={goalTitle} />}
+      <div className="flex gap-x-1 ">
+        {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
+        {!status.itsNew && goalTitle && <TaskGoal goalTitle={goalTitle} />}
+        {!status.itsNew && (
+          <AttachToDay currentDay={currentDay} taskTitle={title} />
+        )}
+      </div>
       <div className="flex w-full gap-x-1 mt-1">
         <DeleteTask title={title} onClick={onDelete} display={done} />
         <ResumeTaskBtn

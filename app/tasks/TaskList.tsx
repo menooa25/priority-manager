@@ -40,26 +40,28 @@ const TaskList = () => {
     requestForTaskList();
   }, [goalId]);
   if (loading && taskList.length === 0) return <Skeleton />;
-
   return (
     <TaskContextProvider
       isGoalFiltered={Boolean(goalIdNum)}
       updateTaskList={requestForTaskList}
     >
       <div className={"flex w-full flex-col gap-y-3"}>
-        {taskList.map(({ id, done, index, title, indexInGoal, goal }, i) => (
-          <div key={id}>
-            <Task
-              id={id}
-              done={done}
-              title={title}
-              indexInGoal={indexInGoal}
-              index={index}
-              goalTitle={goal.title}
-            />
-            {taskList.length - 1 !== i && <hr className="mt-2" />}
-          </div>
-        ))}
+        {taskList.map(
+          ({ id, done, index, title, indexInGoal, goal, day }, i) => (
+            <div key={id}>
+              <Task
+                currentDay={day ?? null}
+                id={id}
+                done={done}
+                title={title}
+                indexInGoal={indexInGoal}
+                index={index}
+                goalTitle={goal.title}
+              />
+              {taskList.length - 1 !== i && <hr className="mt-2" />}
+            </div>
+          )
+        )}
         <AddTask />
       </div>
     </TaskContextProvider>

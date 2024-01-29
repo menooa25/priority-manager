@@ -31,9 +31,7 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
           openModal();
           fetchDetail();
         }}
-        className={`bg-base-200 rounded-b-lg rounded-t-none  px-7 ${
-          goalIsDone && "bg-base-300"
-        }`}
+        className={`tag-button ${goalIsDone && "bg-base-300"}`}
       >
         جزئیات
       </button>

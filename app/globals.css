@@ -35,6 +35,11 @@
     width: 0px;
   }
 }
+
+.tag-button {
+  @apply btn rounded-lg rounded-t-none btn-sm font-normal text-base h-6 min-h-6 px-7;
+}
+
 /* goal detail */
 .open-options {
   animation: open-gear 1s;

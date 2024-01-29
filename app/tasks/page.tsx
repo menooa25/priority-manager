@@ -1,10 +1,14 @@
 import PageContainer from "../components/PageContainer";
+import Filters from "./Filters";
 import TaskList from "./TaskList";
 
 const TasksPage = () => {
   return (
     <PageContainer>
-      <TaskList />
+      <div className="flex flex-col w-full gap-y-3">
+        <Filters />
+        <TaskList />
+      </div>
     </PageContainer>
   );
 };

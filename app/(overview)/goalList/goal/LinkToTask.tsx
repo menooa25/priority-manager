@@ -12,10 +12,7 @@ const LinkToTask = ({ goalIsDone, goalId }: Props) => {
     "bg-base-300": goalIsDone,
   });
   return (
-    <Link
-      href={`/tasks?goal=${goalId}`}
-      className={"bg-base-200 rounded-b-lg rounded-t-none  px-7 " + btnClass}
-    >
+    <Link href={`/tasks?goal=${goalId}`} className={"tag-button " + btnClass}>
       فعالیت ها
     </Link>
   );
