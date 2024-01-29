@@ -8,6 +8,7 @@ import { getDetail } from "../../actions";
 import DetailForm from "./DetailForm/DetailForm";
 import Eskeleton from "./DetailForm/Eskeleton";
 import AllowedOptionsProvider from "./AllowedOptionsProvider";
+import classNames from "classnames";
 
 interface Props {
   goalId: number;
@@ -17,7 +18,9 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
   const { modalId, openModal, closeModal, isOpen } = useModal();
   const [lastDetail, setLastDetail] = useState<Detail | null>(null);
   const [onFetching, setOnFetching] = useState(false);
-
+  const openModalBtnClass = classNames({
+    "!bg-base-300 !border-base-300": goalIsDone,
+  });
   const fetchDetail = async () => {
     setOnFetching(true);
     const savedDetails = await getDetail(goalId);
@@ -31,7 +34,7 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
           openModal();
           fetchDetail();
         }}
-        className={`tag-button ${goalIsDone && "bg-base-300"}`}
+        className={`tag-button ` + openModalBtnClass}
       >
         جزئیات
       </button>

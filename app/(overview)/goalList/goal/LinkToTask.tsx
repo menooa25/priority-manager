@@ -9,7 +9,7 @@ interface Props {
 
 const LinkToTask = ({ goalIsDone, goalId }: Props) => {
   const btnClass = classNames({
-    "bg-base-300": goalIsDone,
+    "!bg-base-300 !border-base-300": goalIsDone,
   });
   return (
     <Link href={`/tasks?goal=${goalId}`} className={"tag-button " + btnClass}>
