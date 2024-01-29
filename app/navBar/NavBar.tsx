@@ -13,7 +13,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <div className="btm-nav btm-nav-sm bg-base-200 sm:hidden">
+      <div className="btm-nav btm-nav-md bg-base-200 sm:hidden">
         <NavLinks />
       </div>
     </>
