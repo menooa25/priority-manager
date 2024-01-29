@@ -48,6 +48,7 @@ export const getGoalList = async () => {
 };
 
 export const increaseTaskIndex = async (id: number, currentIndex: number) => {
+  console.log("increaseTaskIndex");
   const userId = await getUserId();
   if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
@@ -73,6 +74,8 @@ export const increaseTaskGoalIndex = async (
   id: number,
   currentGoalIndex: number
 ) => {
+  console.log("increaseTaskGoalIndex");
+
   const userId = await getUserId();
   if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
@@ -95,6 +98,8 @@ export const increaseTaskGoalIndex = async (
 };
 
 export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
+  console.log("decreaseTaskIndex");
+
   const userId = await getUserId();
   if (!userId) return null;
   const downerTask = await prisma.task.findFirst({
@@ -118,6 +123,8 @@ export const decreaseTaskGoalIndex = async (
   id: number,
   currentGoalIndex: number
 ) => {
+  console.log("decreaseTaskGoalIndex");
+
   const userId = await getUserId();
   if (!userId) return null;
   const downerTask = await prisma.task.findFirst({

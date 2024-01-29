@@ -27,8 +27,7 @@ interface Props {
   goalId?: number;
   updateList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
-  isGoalFiltered?: boolean;
-  indexInGoal?: number;
+
 }
 
 const useTaskGoalActions = ({
@@ -40,8 +39,7 @@ const useTaskGoalActions = ({
   updateList,
   goalId,
   model,
-  isGoalFiltered,
-  indexInGoal,
+
 }: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
@@ -96,28 +94,30 @@ const useTaskGoalActions = ({
     }
   };
 
-  const onIncreaseIndex = async () => {
+  const onIncreaseIndex = async (
+    taskFunc?: (id: number, index: number) => Promise<any>,
+    customIndex?: number
+  ) => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
       if (model === "goal") await increaseGoalIndex(id, index);
-      else {
-        if (isGoalFiltered && indexInGoal !== undefined)
-          await increaseTaskGoalIndex(id, indexInGoal);
-        else await increaseTaskIndex(id, index);
+      else if (taskFunc && customIndex !== undefined) {
+        await taskFunc(id, customIndex);
       }
       setLoading({ ...loading, increaseIndex: false });
 
       updateList();
     }
   };
-  const onDecreaseIndex = async () => {
+  const onDecreaseIndex = async (
+    taskFunc?: (id: number, index: number) => Promise<any>,
+    customIndex?: number
+  ) => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
       if (model === "goal") await decreaseGoalIndex(id, index);
-      else {
-        if (isGoalFiltered && indexInGoal !== undefined)
-          await decreaseTaskGoalIndex(id, indexInGoal);
-        else await decreaseTaskIndex(id, index);
+      else if (taskFunc && customIndex !== undefined) {
+        await taskFunc(id, customIndex);
       }
       setLoading({ ...loading, decreaseIndex: false });
 

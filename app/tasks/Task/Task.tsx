@@ -10,6 +10,12 @@ import SelectGoal from "./SelectGoal";
 import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 import TaskGoal from "./TaskGoal";
 import AttachToDay from "./AttachToDay";
+import {
+  decreaseTaskGoalIndex,
+  decreaseTaskIndex,
+  increaseTaskGoalIndex,
+  increaseTaskIndex,
+} from "../actions";
 
 interface Props {
   id?: number;
@@ -51,11 +57,19 @@ const Task = ({
     id,
     index,
     goalId,
-    indexInGoal,
-    isGoalFiltered,
     status,
     text,
   });
+  const getIncreseIndexFuncArgs = () => {
+    if (isGoalFiltered && indexInGoal !== undefined)
+      return { func: increaseTaskGoalIndex, index: indexInGoal };
+    return { func: increaseTaskIndex, index: index };
+  };
+  const getDecreaseIndexFuncArgs = () => {
+    if (isGoalFiltered && indexInGoal !== undefined)
+      return { func: decreaseTaskGoalIndex, index: indexInGoal };
+    return { func: decreaseTaskIndex, index: index };
+  };
   useEffect(() => {
     setStatus({
       itsNew: title === "",
@@ -75,8 +89,16 @@ const Task = ({
           increase: loading.increaseIndex,
         }}
         onClick={{
-          decrease: onDecreaseIndex,
-          increase: onIncreaseIndex,
+          decrease: () =>
+            onDecreaseIndex(
+              getDecreaseIndexFuncArgs().func,
+              getDecreaseIndexFuncArgs().index
+            ),
+          increase: () =>
+            onIncreaseIndex(
+              getIncreseIndexFuncArgs().func,
+              getIncreseIndexFuncArgs().index
+            ),
         }}
         itsNew={status.itsNew}
       />

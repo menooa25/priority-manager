@@ -38,7 +38,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
       <>
         <div
           dir={direction(goalTitle ?? "")}
-          className="btn flex justify-center min-w-56 max-w-[80%] overflow-auto text-right btn-sm rounded-lg  rounded-t-none align-middle h-6 min-h-6 font-normal text-base"
+          className="btn flex justify-center min-w-56 max-w-[80%] overflow-hidden text-right btn-sm rounded-lg  rounded-t-none align-middle h-6 min-h-6 font-normal text-base"
         >
           {goalTitle}
         </div>
