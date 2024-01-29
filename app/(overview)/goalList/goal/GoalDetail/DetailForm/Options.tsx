@@ -60,7 +60,7 @@ const Options = () => {
         </label>
         <label className="label cursor-pointer p-0">
           <span className="label-text text-nowrap flex items-start ">
-            جه زمانی
+            چه زمانی
             <input
               checked={allowedOptions.when}
               onChange={({ target: { checked } }) => allow("when", checked)}
