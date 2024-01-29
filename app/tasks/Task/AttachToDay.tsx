@@ -4,14 +4,25 @@ import Modal from "@/app/components/Modal";
 import useModal from "@/app/hooks/useModal";
 import { useState } from "react";
 import { dayOptions } from "../Filters";
+import { attachTaskToDay } from "../actions";
 
 interface Props {
   taskTitle: string;
   currentDay: null | number;
+  taskId: number;
 }
-const AttachToDay = ({ taskTitle, currentDay }: Props) => {
-  const { openModal, modalId } = useModal();
+const AttachToDay = ({ taskTitle, currentDay, taskId }: Props) => {
+  const { openModal, modalId, closeModal } = useModal();
+  const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState(currentDay || -1);
+  const submitText = currentDay === null ? "ثبت" : "ثبت تغییرات";
+  const onSubmit = async () => {
+    setLoading(true);
+    await attachTaskToDay(taskId, selected);
+    setLoading(false);
+    closeModal();
+  };
+
   return (
     <div>
       <button onClick={openModal} className="tag-button">
@@ -42,8 +53,18 @@ const AttachToDay = ({ taskTitle, currentDay }: Props) => {
             ))}
           </select>
           {currentDay !== +selected && (
-            <button className="btn btn-sm mt-2 btn-primary w-full">
-              {currentDay === null ? "ثبت" : "ثبت تغییرات"}
+            <button
+              disabled={loading}
+              onClick={onSubmit}
+              className={`btn btn-sm mt-2 btn-primary w-full ${
+                loading && "!cursor-not-allowed"
+              }`}
+            >
+              {loading ? (
+                <span className="loading loading-xs loading-spinner" />
+              ) : (
+                submitText
+              )}
             </button>
           )}
         </div>

@@ -159,3 +159,9 @@ export const changeTaskTitle = async (id: number, title: string) => {
     data: { title },
   });
 };
+
+export const attachTaskToDay = async (id: number, day: number) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  await prisma.task.update({ where: { id }, data: { day } });
+};

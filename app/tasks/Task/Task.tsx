@@ -83,8 +83,8 @@ const Task = ({
       <div className="flex gap-x-1 ">
         {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
         {!status.itsNew && goalTitle && <TaskGoal goalTitle={goalTitle} />}
-        {!status.itsNew && (
-          <AttachToDay currentDay={currentDay} taskTitle={title} />
+        {!status.itsNew && id && (
+          <AttachToDay taskId={id} currentDay={currentDay} taskTitle={title} />
         )}
       </div>
       <div className="flex w-full gap-x-1 mt-1">
