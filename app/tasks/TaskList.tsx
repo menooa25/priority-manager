@@ -9,6 +9,7 @@ import AddTask from "./Task/AddTask";
 import TaskContextProvider from "./TaskContextProvider";
 import Task from "./Task/Task";
 import { useSearchParams } from "next/navigation";
+import useFilters from "./useFilters";
 
 const TaskList = () => {
   const [taskList, setTaskList] = useState<
@@ -17,8 +18,7 @@ const TaskList = () => {
   const [loading, setLoading] = useState(true);
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
-  const goalId = useSearchParams().get("goal");
-  const goalIdNum = goalId && !isNaN(+goalId) ? +goalId : undefined;
+  const { dayFilterNum, goalIdNum } = useFilters();
   const startLoading = () => {
     startTopLoading();
     setLoading(true);
@@ -30,7 +30,7 @@ const TaskList = () => {
   const requestForTaskList = async () => {
     startLoading();
 
-    const resp = await getTaskList(goalIdNum);
+    const resp = await getTaskList(goalIdNum, dayFilterNum);
     if (resp) {
       setTaskList(resp);
       endLoading();
@@ -38,7 +38,7 @@ const TaskList = () => {
   };
   useEffect(() => {
     requestForTaskList();
-  }, [goalId]);
+  }, [goalIdNum, dayFilterNum]);
   if (loading && taskList.length === 0) return <Skeleton />;
   return (
     <TaskContextProvider

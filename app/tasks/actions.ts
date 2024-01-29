@@ -3,14 +3,17 @@ import prisma from "@/prisma/client";
 import { getUserId } from "../actions";
 import { Prisma } from "@prisma/client";
 
-export const getTaskList = async (goalId: number | undefined = undefined) => {
+export const getTaskList = async (
+  goalId: number | undefined = undefined,
+  day: number | undefined
+) => {
   const userId = await getUserId();
   if (!userId) return null;
   const orderBy: Prisma.TaskOrderByWithRelationInput = goalId
     ? { indexInGoal: "desc" }
     : { index: "desc" };
   return await prisma.task.findMany({
-    where: { goal: { userId }, goalId },
+    where: { goal: { userId }, goalId, day },
     orderBy: [{ done: "asc" }, { ...orderBy }],
     include: { goal: { select: { title: true } } },
   });

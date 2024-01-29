@@ -18,7 +18,9 @@ const AttachToDay = ({ taskTitle, currentDay, taskId }: Props) => {
   const submitText = currentDay === null ? "ثبت" : "ثبت تغییرات";
   const onSubmit = async () => {
     setLoading(true);
-    await attachTaskToDay(taskId, selected);
+    let cleanedDayNum = selected;
+    if (selected === -1) cleanedDayNum = new Date().getDay();
+    await attachTaskToDay(taskId, cleanedDayNum);
     setLoading(false);
     closeModal();
   };
