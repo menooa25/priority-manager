@@ -38,7 +38,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
       <>
         <div
           dir={direction(goalTitle ?? "")}
-          className="btn flex flex-col justify-center min-w-56 max-w-[80%] overflow-auto text-right btn-sm rounded-lg font-normal rounded-t-none p-1 align-middle "
+          className="btn flex justify-center min-w-56 max-w-[80%] overflow-auto text-right btn-sm rounded-lg  rounded-t-none align-middle h-6 min-h-6 font-normal text-base"
         >
           {goalTitle}
         </div>
@@ -46,8 +46,15 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
     );
   return (
     <>
-      <div className={"dropdown dropdown-top md:dropdown-left "}>
-        <div
+      {/* <div className={"dropdown dropdown-top md:dropdown-left  "}> */}
+      <select className="bg-base-200 select select-sm rounded-lg rounded-t-none h-6 min-h-6 font-normal text-base min-w-56 max-w-[80%] overflow-auto focus-visible:outline-none focus-visible:border-none">
+        {goalList?.map(({ id, title }) => (
+          <option className="text-center" key={id} value={id}>
+            {title}
+          </option>
+        ))}
+      </select>
+      {/* <div
           dir={direction(goalTitle ?? "")}
           tabIndex={0}
           role="button"
@@ -64,8 +71,8 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
               <span onClick={() => setGoalId(id)}>{title}</span>
             </li>
           ))}
-        </ul>
-      </div>
+        </ul> */}
+      {/* </div> */}
     </>
   );
 };
