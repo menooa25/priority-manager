@@ -5,6 +5,7 @@ import useModal from "@/app/hooks/useModal";
 import { useState } from "react";
 import { dayOptions } from "../Filters";
 import { attachTaskToDay } from "../actions";
+import { getNearestDayOfWeek } from "@/app/utils";
 
 interface Props {
   taskTitle: string;
@@ -20,6 +21,7 @@ const AttachToDay = ({ taskTitle, currentDay, taskId }: Props) => {
     setLoading(true);
     let cleanedDayNum = selected;
     if (selected === -1) cleanedDayNum = new Date().getDay();
+    console.log(getNearestDayOfWeek(cleanedDayNum));
     await attachTaskToDay(taskId, cleanedDayNum);
     setLoading(false);
     closeModal();
