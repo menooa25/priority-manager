@@ -15,3 +15,13 @@ export const getNearestDayOfWeek = (targetDay: number) => {
 
   return nearestDate;
 };
+
+export const scrollToPageBottom = () => {
+  const pageBottomElement = document.getElementById("page-bottom");
+
+  if (pageBottomElement) {
+    pageBottomElement.scrollIntoView({ behavior: "smooth" });
+  } else {
+    console.error("Element with id 'page-bottom' not found.");
+  }
+};

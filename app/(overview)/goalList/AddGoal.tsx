@@ -2,6 +2,7 @@
 import useClickedOutside from "@/app/hooks/useClickedOutside";
 import { useState } from "react";
 import Goal from "./goal/Goal";
+import { scrollToPageBottom } from "@/app/utils";
 
 const AddGoal = () => {
   const [newClicked, setNewClicked] = useState(false);
@@ -20,7 +21,10 @@ const AddGoal = () => {
       )}
       {!newClicked && (
         <button
-          onClick={() => setNewClicked(!newClicked)}
+          onClick={() => {
+            setNewClicked(!newClicked);
+            setTimeout(scrollToPageBottom, 100);
+          }}
           className="btn  btn-outline btn-sm w-full"
         >
           افزودن هدف

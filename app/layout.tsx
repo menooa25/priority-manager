@@ -26,6 +26,7 @@ export default function RootLayout({
             {children}
           </TopLoading>
         </AuthContainer>
+        <div id="page-bottom" />
       </body>
     </html>
   );
