@@ -46,10 +46,14 @@ const TaskList = () => {
     >
       <div className={"flex w-full flex-col gap-y-3"}>
         {taskList.map(
-          ({ id, done, index, title, indexInGoal, goal, day,selectedDay }, i) => (
+          (
+            { id, done, index, title, indexInGoal, goal, day, selectedDay },
+            i
+          ) => (
             <div key={id}>
               <Task
-              selectedDay={selectedDay ?? null}
+              dayFilterDate={dayFilterDate}
+                selectedDay={selectedDay ?? null}
                 currentDay={day ?? null}
                 id={id}
                 done={done}

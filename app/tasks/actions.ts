@@ -47,14 +47,18 @@ export const getGoalList = async () => {
   return goalList;
 };
 
-export const increaseTaskIndex = async (id: number, currentIndex: number) => {
-  console.log("increaseTaskIndex");
+export const increaseTaskIndex = async (
+  id: number,
+  currentIndex: number,
+  day: Date | undefined = undefined
+) => {
   const userId = await getUserId();
   if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
     where: {
       goal: { userId },
       index: { gt: currentIndex },
+      day: day?.toISOString(),
     },
     orderBy: { index: "asc" },
   });
@@ -72,16 +76,16 @@ export const increaseTaskIndex = async (id: number, currentIndex: number) => {
 
 export const increaseTaskGoalIndex = async (
   id: number,
-  currentGoalIndex: number
+  currentGoalIndex: number,
+  day: Date | undefined = undefined
 ) => {
-  console.log("increaseTaskGoalIndex");
-
   const userId = await getUserId();
   if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
     where: {
       goal: { userId },
       indexInGoal: { gt: currentGoalIndex },
+      day: day?.toISOString(),
     },
     orderBy: { indexInGoal: "asc" },
   });
@@ -97,13 +101,19 @@ export const increaseTaskGoalIndex = async (
   }
 };
 
-export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
-  console.log("decreaseTaskIndex");
-
+export const decreaseTaskIndex = async (
+  id: number,
+  currentIndex: number,
+  day: Date | undefined = undefined
+) => {
   const userId = await getUserId();
   if (!userId) return null;
   const downerTask = await prisma.task.findFirst({
-    where: { index: { lt: currentIndex, not: -1 }, goal: { userId } },
+    where: {
+      index: { lt: currentIndex, not: -1 },
+      goal: { userId },
+      day: day?.toISOString(),
+    },
     orderBy: { index: "desc" },
   });
 
@@ -121,14 +131,17 @@ export const decreaseTaskIndex = async (id: number, currentIndex: number) => {
 
 export const decreaseTaskGoalIndex = async (
   id: number,
-  currentGoalIndex: number
+  currentGoalIndex: number,
+  day: Date | undefined = undefined
 ) => {
-  console.log("decreaseTaskGoalIndex");
-
   const userId = await getUserId();
   if (!userId) return null;
   const downerTask = await prisma.task.findFirst({
-    where: { indexInGoal: { lt: currentGoalIndex, not: -1 }, goal: { userId } },
+    where: {
+      indexInGoal: { lt: currentGoalIndex, not: -1 },
+      goal: { userId },
+      day: day?.toISOString(),
+    },
     orderBy: { indexInGoal: "desc" },
   });
 

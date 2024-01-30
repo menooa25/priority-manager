@@ -26,6 +26,7 @@ interface Props {
   indexInGoal?: number;
   goalTitle?: string;
   currentDay: null | Date;
+  dayFilterDate?: Date;
   selectedDay: null | number;
 }
 
@@ -37,8 +38,8 @@ const Task = ({
   onSaved,
   indexInGoal,
   goalTitle,
-  currentDay,
-  selectedDay
+  dayFilterDate,
+  selectedDay,
 }: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
@@ -64,13 +65,13 @@ const Task = ({
   });
   const getIncreseIndexFuncArgs = () => {
     if (isGoalFiltered && indexInGoal !== undefined)
-      return { func: increaseTaskGoalIndex, index: indexInGoal };
-    return { func: increaseTaskIndex, index: index };
+      return { func: increaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
+    return { func: increaseTaskIndex, index: index, dayFilterDate };
   };
   const getDecreaseIndexFuncArgs = () => {
     if (isGoalFiltered && indexInGoal !== undefined)
-      return { func: decreaseTaskGoalIndex, index: indexInGoal };
-    return { func: decreaseTaskIndex, index: index };
+      return { func: decreaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
+    return { func: decreaseTaskIndex, index: index, dayFilterDate };
   };
   useEffect(() => {
     setStatus({
@@ -94,12 +95,14 @@ const Task = ({
           decrease: () =>
             onDecreaseIndex(
               getDecreaseIndexFuncArgs().func,
-              getDecreaseIndexFuncArgs().index
+              getDecreaseIndexFuncArgs().index,
+              getDecreaseIndexFuncArgs().dayFilterDate,
             ),
           increase: () =>
             onIncreaseIndex(
               getIncreseIndexFuncArgs().func,
-              getIncreseIndexFuncArgs().index
+              getIncreseIndexFuncArgs().index,
+              getIncreseIndexFuncArgs().dayFilterDate,
             ),
         }}
         itsNew={status.itsNew}
@@ -110,7 +113,11 @@ const Task = ({
           <TaskGoal taskIsDone={done} goalTitle={goalTitle} />
         )}
         {!status.itsNew && id && !done && (
-          <AttachToDay taskId={id} selectedDay={selectedDay} taskTitle={title} />
+          <AttachToDay
+            taskId={id}
+            selectedDay={selectedDay}
+            taskTitle={title}
+          />
         )}
       </div>
       <div className="flex w-full gap-x-1 mt-1">

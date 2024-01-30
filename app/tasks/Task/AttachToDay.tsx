@@ -23,7 +23,6 @@ const AttachToDay = ({ taskTitle, selectedDay, taskId }: Props) => {
   const onSubmit = async () => {
     setLoading(true);
 
-    console.log(new Date(getNearestDayOfWeek(cleanedDayNum).toUTCString()));
     await attachTaskToDay(
       taskId,
       getNearestDayOfWeek(cleanedDayNum),
