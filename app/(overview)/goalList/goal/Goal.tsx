@@ -57,7 +57,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
           increase: loading.increaseIndex,
         }}
         onClick={{ decrease: onDecreaseIndex, increase: onIncreaseIndex }}
-        className={id ? "rounded-bl-none" : ""}
+        className={!id ? "rounded-bl-2xl" : ""}
         itsNew={status.itsNew}
       />
       {id && (
