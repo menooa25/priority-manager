@@ -38,13 +38,14 @@ const GoalList = () => {
   return (
     <GoalContextProvider updateGoalList={requestForGoalList}>
       <div className={"flex  w-full flex-col gap-y-3 "}>
+        <AddGoal />
+
         {goalList.map((t, i) => (
           <div key={t.id}>
             <Goal done={t.done} id={t.id} index={t.index} title={t.title} />
             {goalList.length - 1 !== i && <hr className="mt-2" />}
           </div>
         ))}
-        <AddGoal />
       </div>
     </GoalContextProvider>
   );

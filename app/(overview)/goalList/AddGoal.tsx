@@ -23,7 +23,6 @@ const AddGoal = () => {
         <button
           onClick={() => {
             setNewClicked(!newClicked);
-            setTimeout(scrollToPageBottom, 100);
           }}
           className="btn  btn-outline btn-sm w-full"
         >

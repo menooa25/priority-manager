@@ -45,6 +45,8 @@ const TaskList = () => {
       updateTaskList={requestForTaskList}
     >
       <div className={"flex w-full flex-col gap-y-3"}>
+        <AddTask />
+
         {taskList.map(
           (
             { id, done, index, title, indexInGoal, goal, day, selectedDay },
@@ -52,7 +54,7 @@ const TaskList = () => {
           ) => (
             <div key={id}>
               <Task
-              dayFilterDate={dayFilterDate}
+                dayFilterDate={dayFilterDate}
                 selectedDay={selectedDay ?? null}
                 currentDay={day ?? null}
                 id={id}
@@ -66,7 +68,6 @@ const TaskList = () => {
             </div>
           )
         )}
-        <AddTask />
       </div>
     </TaskContextProvider>
   );
