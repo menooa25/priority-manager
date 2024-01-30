@@ -79,7 +79,6 @@ const Task = ({
       itsEdited: text !== title,
     });
   }, [title, text]);
-
   return (
     <div>
       <TextareaIndexChng
@@ -96,13 +95,13 @@ const Task = ({
             onDecreaseIndex(
               getDecreaseIndexFuncArgs().func,
               getDecreaseIndexFuncArgs().index,
-              getDecreaseIndexFuncArgs().dayFilterDate,
+              getDecreaseIndexFuncArgs().dayFilterDate
             ),
           increase: () =>
             onIncreaseIndex(
               getIncreseIndexFuncArgs().func,
               getIncreseIndexFuncArgs().index,
-              getIncreseIndexFuncArgs().dayFilterDate,
+              getIncreseIndexFuncArgs().dayFilterDate
             ),
         }}
         itsNew={status.itsNew}
@@ -142,7 +141,9 @@ const Task = ({
       </div>
       <div className={status.itsEdited ? "mt-1" : ""}>
         <SaveBtn
-          disabled={Boolean(!goalId && !id)}
+          disabled={
+            !Boolean((!status.itsNew || goalId) && (status.itsNew || id))
+          }
           loading={loading.save}
           display={status.itsEdited || status.itsNew}
           onClick={() => onSave(onSaved)}
