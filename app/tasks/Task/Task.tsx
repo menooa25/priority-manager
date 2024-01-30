@@ -25,7 +25,8 @@ interface Props {
   onSaved?: () => void;
   indexInGoal?: number;
   goalTitle?: string;
-  currentDay: null | number;
+  currentDay: null | Date;
+  selectedDay: null | number;
 }
 
 const Task = ({
@@ -37,6 +38,7 @@ const Task = ({
   indexInGoal,
   goalTitle,
   currentDay,
+  selectedDay
 }: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
@@ -108,7 +110,7 @@ const Task = ({
           <TaskGoal taskIsDone={done} goalTitle={goalTitle} />
         )}
         {!status.itsNew && id && !done && (
-          <AttachToDay taskId={id} currentDay={currentDay} taskTitle={title} />
+          <AttachToDay taskId={id} selectedDay={selectedDay} taskTitle={title} />
         )}
       </div>
       <div className="flex w-full gap-x-1 mt-1">

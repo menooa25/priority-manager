@@ -5,7 +5,7 @@ export const getNearestDayOfWeek = (targetDay: number) => {
   let difference = targetDay - today;
 
   // If the target day is before today, add 7 to get the positive difference
-  if (difference <= 0) {
+  if (difference < 0) {
     difference += 7;
   }
 

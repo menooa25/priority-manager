@@ -8,7 +8,6 @@ import Skeleton from "../components/goalAndTask/Skeleton";
 import AddTask from "./Task/AddTask";
 import TaskContextProvider from "./TaskContextProvider";
 import Task from "./Task/Task";
-import { useSearchParams } from "next/navigation";
 import useFilters from "./useFilters";
 
 const TaskList = () => {
@@ -18,7 +17,7 @@ const TaskList = () => {
   const [loading, setLoading] = useState(true);
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);
-  const { dayFilterNum, goalIdNum } = useFilters();
+  const { dayFilterDate, goalIdNum, dayFilter } = useFilters();
   const startLoading = () => {
     startTopLoading();
     setLoading(true);
@@ -30,7 +29,7 @@ const TaskList = () => {
   const requestForTaskList = async () => {
     startLoading();
 
-    const resp = await getTaskList(goalIdNum, dayFilterNum);
+    const resp = await getTaskList(goalIdNum, dayFilterDate);
     if (resp) {
       setTaskList(resp);
       endLoading();
@@ -38,7 +37,7 @@ const TaskList = () => {
   };
   useEffect(() => {
     requestForTaskList();
-  }, [goalIdNum, dayFilterNum]);
+  }, [goalIdNum, dayFilter]);
   if (loading && taskList.length === 0) return <Skeleton />;
   return (
     <TaskContextProvider
@@ -47,9 +46,10 @@ const TaskList = () => {
     >
       <div className={"flex w-full flex-col gap-y-3"}>
         {taskList.map(
-          ({ id, done, index, title, indexInGoal, goal, day }, i) => (
+          ({ id, done, index, title, indexInGoal, goal, day,selectedDay }, i) => (
             <div key={id}>
               <Task
+              selectedDay={selectedDay ?? null}
                 currentDay={day ?? null}
                 id={id}
                 done={done}

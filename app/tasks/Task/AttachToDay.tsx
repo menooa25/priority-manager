@@ -2,36 +2,49 @@
 
 import Modal from "@/app/components/Modal";
 import useModal from "@/app/hooks/useModal";
-import { useState } from "react";
-import { dayOptions } from "../Filters";
-import { attachTaskToDay } from "../actions";
 import { getNearestDayOfWeek } from "@/app/utils";
+import { useContext, useEffect, useState } from "react";
+import { dayOptions } from "../Filters";
+import { TaskContext } from "../TaskContextProvider";
+import { attachTaskToDay } from "../actions";
 
 interface Props {
   taskTitle: string;
-  currentDay: null | number;
+  selectedDay: null | number;
   taskId: number;
 }
-const AttachToDay = ({ taskTitle, currentDay, taskId }: Props) => {
+const AttachToDay = ({ taskTitle, selectedDay, taskId }: Props) => {
+  const { updateTaskList } = useContext(TaskContext);
   const { openModal, modalId, closeModal } = useModal();
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState(currentDay || -1);
-  const submitText = currentDay === null ? "ثبت" : "ثبت تغییرات";
+  const [selected, setSelected] = useState(-1);
+  const [cleanedDayNum, setCleanedDayNum] = useState(-1);
+  const submitText = selectedDay === null ? "ثبت" : "ثبت تغییرات";
   const onSubmit = async () => {
     setLoading(true);
-    let cleanedDayNum = selected;
-    if (selected === -1) cleanedDayNum = new Date().getDay();
-    console.log(getNearestDayOfWeek(cleanedDayNum));
-    await attachTaskToDay(taskId, cleanedDayNum);
+
+    console.log(new Date(getNearestDayOfWeek(cleanedDayNum).toUTCString()));
+    await attachTaskToDay(
+      taskId,
+      getNearestDayOfWeek(cleanedDayNum),
+      cleanedDayNum
+    );
     setLoading(false);
     closeModal();
+    updateTaskList();
   };
+  useEffect(() => {
+    let cleanedDayNum = selected;
+    if (selected === -1) cleanedDayNum = new Date().getDay();
+    setCleanedDayNum(cleanedDayNum);
+  }, [selected]);
 
   return (
     <div>
       <button onClick={openModal} className="tag-button">
         برنامه ریزی
       </button>
+
       <Modal id={modalId}>
         <div>
           <p className="flex flex-col items-center" dir="rtl">
@@ -56,7 +69,7 @@ const AttachToDay = ({ taskTitle, currentDay, taskId }: Props) => {
               </option>
             ))}
           </select>
-          {currentDay !== +selected && (
+          {selectedDay !== cleanedDayNum && (
             <button
               disabled={loading}
               onClick={onSubmit}

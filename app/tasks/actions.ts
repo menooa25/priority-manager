@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 
 export const getTaskList = async (
   goalId: number | undefined = undefined,
-  day: number | undefined
+  day: Date | undefined
 ) => {
   const userId = await getUserId();
   if (!userId) return null;
@@ -13,7 +13,7 @@ export const getTaskList = async (
     ? { indexInGoal: "desc" }
     : { index: "desc" };
   return await prisma.task.findMany({
-    where: { goal: { userId }, goalId, day },
+    where: { goal: { userId }, goalId, day: day?.toISOString() },
     orderBy: [{ done: "asc" }, { ...orderBy }],
     include: { goal: { select: { title: true } } },
   });
@@ -170,8 +170,18 @@ export const changeTaskTitle = async (id: number, title: string) => {
   });
 };
 
-export const attachTaskToDay = async (id: number, day: number) => {
+export const attachTaskToDay = async (
+  id: number,
+  day: Date,
+  selectedDay: number
+) => {
   const userId = await getUserId();
   if (!userId) return null;
-  await prisma.task.update({ where: { id }, data: { day } });
+  await prisma.task.update({
+    where: { id },
+    data: {
+      day: day.toISOString(),
+      selectedDay,
+    },
+  });
 };
