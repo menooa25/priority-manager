@@ -14,6 +14,8 @@ const AddTask = () => {
     <div ref={ref}>
       {newClicked && (
         <Task
+          currentDay={null}
+          selectedDay={null}
           done={false}
           onSaved={() => setNewClicked(!newClicked)}
           title=""
