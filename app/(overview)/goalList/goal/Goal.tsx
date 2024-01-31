@@ -3,12 +3,12 @@ import TextareaIndexChng from "@/app/components/goalAndTask/TextareaIndexChng";
 import { direction } from "direction";
 import { useContext, useEffect, useState } from "react";
 
+import { SaveBtn } from "@/app/components/goalAndTask/actionButtons";
 import { GoalContext } from "../GoalContextProvider";
+import useGoalOperations from "../useGoalOperations";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
-import { SaveBtn } from "@/app/components/goalAndTask/actionButtons";
 import Link from "./Link";
-import useGoalOperations from "../useGoalOperations";
 
 interface Props {
   id?: number;

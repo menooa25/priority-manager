@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  changeGoalTitle,
-  createGoal,
-  decreaseGoalIndex,
-  deleteGoal,
-  doneGoal,
-  increaseGoalIndex,
-  resumeGoal,
-} from "../(overview)/goalList/actions";
+
 import {
   createTask,
   decreaseTaskIndex,
@@ -17,9 +9,8 @@ import {
   increaseTaskGoalIndex,
   decreaseTaskGoalIndex,
   changeTaskTitle,
-} from "../tasks/actions";
+} from "./actions";
 interface Props {
-  model: "goal" | "task";
   id?: number;
   done: boolean;
   index?: number;
@@ -29,7 +20,7 @@ interface Props {
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
-const useTaskGoalActions = ({
+const useTaskOperations = ({
   done,
   id,
   index,
@@ -37,7 +28,6 @@ const useTaskGoalActions = ({
   text,
   updateList,
   goalId,
-  model,
 }: Props) => {
   const [loading, setLoading] = useState({
     increaseIndex: false,
@@ -47,20 +37,15 @@ const useTaskGoalActions = ({
     save: false,
   });
   const onSave = async (callBack?: () => void) => {
-    if (status.itsNew && text) {
+    if (status.itsNew && text && goalId) {
       setLoading({ ...loading, save: true });
-      if (model === "task") {
-        if (goalId) await createTask(text, goalId);
-      } else await createGoal(text);
+      await createTask(text, goalId);
       setLoading({ ...loading, save: false });
-
       updateList();
       callBack && callBack();
     } else if (id && !done) {
       setLoading({ ...loading, save: true });
-      if (model === "task") {
-        await changeTaskTitle(id, text);
-      } else await changeGoalTitle(id, text);
+      await changeTaskTitle(id, text);
       setLoading({ ...loading, save: false });
       updateList();
     }
@@ -68,8 +53,7 @@ const useTaskGoalActions = ({
   const onResume = async () => {
     if (done && id) {
       setLoading({ ...loading, resume: true });
-      if (model === "task") await changeTaskDone(id, false);
-      else await resumeGoal(id);
+      await changeTaskDone(id, false);
       setLoading({ ...loading, resume: false });
 
       updateList();
@@ -78,55 +62,38 @@ const useTaskGoalActions = ({
   const onDone = async () => {
     if (id && !done) {
       setLoading({ ...loading, done: true });
-      if (model === "task") await changeTaskDone(id, true);
-      else await doneGoal(id);
+      await changeTaskDone(id, true);
       setLoading({ ...loading, done: false });
       updateList();
     }
   };
   const onDelete = async () => {
     if (id) {
-      if (model === "task") await deleteTask(id);
-      else await deleteGoal(id);
+      await deleteTask(id);
       updateList();
     }
   };
 
   const onIncreaseIndex = async (
-    taskFunc?: (
-      id: number,
-      index: number,
-      dayFilterDate?: Date
-    ) => Promise<any>,
-    customIndex?: number,
+    taskFunc: (id: number, index: number, dayFilterDate?: Date) => Promise<any>,
+    customIndex: number,
     dayFilterDate?: Date
   ) => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
-      if (model === "goal") await increaseGoalIndex(id, index);
-      else if (taskFunc && customIndex !== undefined) {
-        await taskFunc(id, customIndex, dayFilterDate);
-      }
+      await taskFunc(id, customIndex, dayFilterDate);
       setLoading({ ...loading, increaseIndex: false });
-
       updateList();
     }
   };
   const onDecreaseIndex = async (
-    taskFunc?: (
-      id: number,
-      index: number,
-      dayFilterDate?: Date
-    ) => Promise<any>,
-    customIndex?: number,
+    taskFunc: (id: number, index: number, dayFilterDate?: Date) => Promise<any>,
+    customIndex: number,
     dayFilterDate?: Date
   ) => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
-      if (model === "goal") await decreaseGoalIndex(id, index);
-      else if (taskFunc && customIndex !== undefined) {
-        await taskFunc(id, customIndex, dayFilterDate);
-      }
+      await taskFunc(id, customIndex, dayFilterDate);
       setLoading({ ...loading, decreaseIndex: false });
 
       updateList();
@@ -143,4 +110,4 @@ const useTaskGoalActions = ({
   };
 };
 
-export default useTaskGoalActions;
+export default useTaskOperations;

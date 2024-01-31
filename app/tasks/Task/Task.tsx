@@ -1,21 +1,22 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import useTaskGoalActions from "../../hooks/useTaskGoalActions";
-import TextareaIndexChng from "../../components/goalAndTask/TextareaIndexChng";
+
 import { direction } from "direction";
+import TextareaIndexChng from "../../components/goalAndTask/TextareaIndexChng";
 import { SaveBtn } from "../../components/goalAndTask/actionButtons";
 import { TaskContext } from "../TaskContextProvider";
-import SelectGoal from "./SelectGoal";
-import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
-import TaskGoal from "./TaskGoal";
-import AttachToDay from "./AttachToDay";
 import {
   decreaseTaskGoalIndex,
   decreaseTaskIndex,
   increaseTaskGoalIndex,
   increaseTaskIndex,
 } from "../actions";
+import useTaskOperations from "../useTaskOperations";
+import AttachToDay from "./AttachToDay";
+import SelectGoal from "./SelectGoal";
+import TaskGoal from "./TaskGoal";
+import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 
 interface Props {
   id?: number;
@@ -53,8 +54,7 @@ const Task = ({
     onDelete,
     onDecreaseIndex,
     onIncreaseIndex,
-  } = useTaskGoalActions({
-    model: "task",
+  } = useTaskOperations({
     updateList: updateTaskList,
     done,
     id,
@@ -66,12 +66,12 @@ const Task = ({
   const getIncreseIndexFuncArgs = () => {
     if (isGoalFiltered && indexInGoal !== undefined)
       return { func: increaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
-    return { func: increaseTaskIndex, index: index, dayFilterDate };
+    return { func: increaseTaskIndex, index: index as number, dayFilterDate };
   };
   const getDecreaseIndexFuncArgs = () => {
     if (isGoalFiltered && indexInGoal !== undefined)
       return { func: decreaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
-    return { func: decreaseTaskIndex, index: index, dayFilterDate };
+    return { func: decreaseTaskIndex, index: index as number, dayFilterDate };
   };
   useEffect(() => {
     setStatus({
@@ -142,7 +142,9 @@ const Task = ({
       <div className={status.itsEdited ? "mt-1" : ""}>
         <SaveBtn
           disabled={
-            !Boolean((!status.itsNew || goalId) && (status.itsNew || id))
+            !Boolean(
+              (!status.itsNew || goalId) && (status.itsNew || id) && text
+            )
           }
           loading={loading.save}
           display={status.itsEdited || status.itsNew}
