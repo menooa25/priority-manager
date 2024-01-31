@@ -91,6 +91,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
         />
       </div>
       <SaveBtn
+        disabled={!Boolean(text)}
         loading={loading.save}
         display={status.itsEdited || status.itsNew}
         onClick={() => onSave(onSaved)}
