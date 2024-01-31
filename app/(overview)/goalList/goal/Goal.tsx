@@ -2,12 +2,13 @@
 import TextareaIndexChng from "@/app/components/goalAndTask/TextareaIndexChng";
 import { direction } from "direction";
 import { useContext, useEffect, useState } from "react";
-import useTaskGoalActions from "../../../hooks/useTaskGoalActions";
+
 import { GoalContext } from "../GoalContextProvider";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
 import { SaveBtn } from "@/app/components/goalAndTask/actionButtons";
-import LinkToTask from "./LinkToTask";
+import Link from "./Link";
+import useGoalOperations from "../useGoalOperations";
 
 interface Props {
   id?: number;
@@ -29,8 +30,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
     onDelete,
     onDecreaseIndex,
     onIncreaseIndex,
-  } = useTaskGoalActions({
-    model: "goal",
+  } = useGoalOperations({
     updateList: updateGoalList,
     done,
     id,
@@ -63,7 +63,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
       {id && (
         <div className="flex gap-x-1">
           <GoalDetail goalId={id} goalIsDone={done} />
-          <LinkToTask goalId={id} goalIsDone={done} />
+          <Link goalId={id} goalIsDone={done} />
         </div>
       )}
       <div className="flex w-full gap-x-1 mt-2">
