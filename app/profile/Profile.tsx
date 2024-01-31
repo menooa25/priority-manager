@@ -14,7 +14,7 @@ const Profile = () => {
   return (
     <div className="flex flex-col h-full justify-between w-full px-3">
       {nameOfUser && (
-        <p dir="rtl" className="text-right w-full">
+        <p dir="rtl" className="text-center w-full">
           {data?.user?.name} عزیز خوش آمدید 😊
         </p>
       )}
