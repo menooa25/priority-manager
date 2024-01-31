@@ -13,7 +13,11 @@ const Profile = () => {
   }, [image]);
   return (
     <div className="flex flex-col h-full justify-between w-full px-3">
-      {nameOfUser && <p dir="rtl">{data?.user?.name} عزیز خوش آمدید 😊</p>}
+      {nameOfUser && (
+        <p dir="rtl" className="text-right w-full">
+          {data?.user?.name} عزیز خوش آمدید 😊
+        </p>
+      )}
       {image && !hideImage && (
         <div className="avatar w-full flex justify-center mt-3">
           <div className="w-24 rounded-full">
