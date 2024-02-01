@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import NavBar from "./navBar/NavBar";
@@ -9,7 +9,11 @@ const vazirmatn = Vazirmatn({ subsets: ["latin", "arabic", "latin-ext"] });
 
 export const metadata: Metadata = {
   title: "Priority Manager",
-  description: "Priority manager with time management",
+  description: "Priority manager",
+  manifest: "manifest.json",
+};
+export const viewport: Viewport = {
+  themeColor: "#faf7f5",
 };
 
 export default function RootLayout({
