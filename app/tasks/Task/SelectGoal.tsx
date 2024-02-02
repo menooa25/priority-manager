@@ -38,7 +38,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
       <>
         <div
           dir={direction(goalTitle ?? "")}
-          className="btn flex justify-center min-w-56 max-w-[80%] overflow-hidden text-right btn-sm rounded-lg  rounded-t-none align-middle h-6 min-h-6 font-normal text-base"
+          className="btn flex justify-center min-w-56 max-w-[80%] overflow-hidden text-right btn-sm rounded-lg  rounded-t-none align-middle h-8 min-h-8 text-sm font-semibold"
         >
           {goalTitle}
         </div>
@@ -48,7 +48,7 @@ const SelectGoal = ({ setGoalId, goalId }: Props) => {
     <>
       <select
         onChange={({ target: { value } }) => setGoalId(+value)}
-        className="bg-base-200 select select-sm rounded-lg rounded-t-none h-6 min-h-6 font-normal text-base min-w-56 max-w-[80%] overflow-auto focus-visible:outline-none focus-visible:border-none"
+        className="bg-base-200 select select-sm rounded-lg rounded-t-none h-8 min-h-8 text-sm font-semibold min-w-56 max-w-[80%] overflow-auto focus-visible:outline-none focus-visible:border-none"
       >
         <option className="text-center" value={0}>
           هدفی را برای این فعالیت انتخاب کنید
