@@ -1,9 +1,9 @@
 "use client";
-import TextareaIndexChng from "@/app/components/goalAndTask/TextareaIndexChng";
+import TextareaIndexChng from "@/app/ui/goalAndTask/TextareaIndexChng";
 import { direction } from "direction";
 import { useContext, useEffect, useState } from "react";
 
-import { SaveBtn } from "@/app/components/goalAndTask/actionButtons";
+import { SaveBtn } from "@/app/ui/goalAndTask/actionButtons";
 import { GoalContext } from "../GoalContextProvider";
 import useGoalOperations from "../useGoalOperations";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
@@ -62,7 +62,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
       />
       {id && (
         <div className="flex gap-x-1">
-          <GoalDetail goalId={id} goalIsDone={done} />
+          <GoalDetail goalTitle={title} goalId={id} goalIsDone={done} />
           <Link goalId={id} goalIsDone={done} />
         </div>
       )}

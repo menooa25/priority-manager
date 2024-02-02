@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
-import NavBar from "./navBar/NavBar";
-import AuthContainer from "./AuthContainer";
-import TopLoading from "./components/TopLoading";
+import NavBar from "./ui/navBar/NavBar";
+import AuthContainer from "./ui/AuthContainer";
+import TopLoading from "./ui/TopLoading";
 
 const vazirmatn = Vazirmatn({ subsets: ["latin", "arabic", "latin-ext"] });
 

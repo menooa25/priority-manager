@@ -5,8 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { Goal as GoalSchima } from "@prisma/client";
 import { getGoalList } from "./actions";
 import GoalContextProvider from "./GoalContextProvider";
-import Skeleton from "../../components/goalAndTask/Skeleton";
-import { TopLoadingContext } from "@/app/components/TopLoading";
+import Skeleton from "../../ui/goalAndTask/Skeleton";
+import { TopLoadingContext } from "@/app/ui/TopLoading";
 
 const GoalList = () => {
   const [goalList, setGoalList] = useState<GoalSchima[]>([]);

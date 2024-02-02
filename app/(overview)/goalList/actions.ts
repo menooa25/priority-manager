@@ -1,5 +1,5 @@
 "use server";
-import { getUserId } from "@/app/actions";
+import { getUserId } from "@/app/lib/actions";
 import prisma from "@/prisma/client";
 
 export const createGoal = async (title: string) => {

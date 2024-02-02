@@ -1,5 +1,5 @@
 "use client";
-import useNoScroll from "@/app/hooks/useNoScroll";
+import useNoScroll from "@/app/lib/hooks/useNoScroll";
 import { direction } from "direction";
 import { useRef } from "react";
 

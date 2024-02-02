@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-import useNoScroll from "../../hooks/useNoScroll";
+import useNoScroll from "../../lib/hooks/useNoScroll";
 import classNames from "classnames";
 import { DecreaseIndexBtn, IncreaseIndexBtn } from "./actionButtons";
 

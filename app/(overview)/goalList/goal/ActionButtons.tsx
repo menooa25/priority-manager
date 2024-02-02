@@ -1,7 +1,7 @@
 "use client";
 
-import Modal from "@/app/components/Modal";
-import useModal from "@/app/hooks/useModal";
+import Modal from "@/app/ui/Modal";
+import useModal from "@/app/lib/hooks/useModal";
 
 interface ButtonsProps {
   display: boolean;
@@ -21,7 +21,6 @@ export const ResumeGoalBtn = ({ display, onClick, loading }: ButtonsProps) => {
     </button>
   );
 };
-
 
 export const DoneGoal = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return null;

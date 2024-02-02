@@ -1,8 +1,8 @@
 "use client";
-import useClickedOutside from "@/app/hooks/useClickedOutside";
+import useClickedOutside from "@/app/lib/hooks/useClickedOutside";
 import { useState } from "react";
 import Goal from "./goal/Goal";
-import { scrollToPageBottom } from "@/app/utils";
+import { scrollToPageBottom } from "@/app/lib/utils";
 
 const AddGoal = () => {
   const [newClicked, setNewClicked] = useState(false);

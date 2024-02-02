@@ -1,4 +1,4 @@
-import PageContainer from "../components/PageContainer";
+import PageContainer from "../ui/PageContainer";
 import Profile from "./Profile";
 
 const ProfilePage = () => {

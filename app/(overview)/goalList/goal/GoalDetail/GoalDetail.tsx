@@ -1,7 +1,7 @@
 "use client";
 
-import Modal from "@/app/components/Modal";
-import useModal from "@/app/hooks/useModal";
+import Modal from "@/app/ui/Modal";
+import useModal from "@/app/lib/hooks/useModal";
 import { Detail } from "@prisma/client";
 import { useState } from "react";
 import { getDetail } from "../../actions";
@@ -13,8 +13,9 @@ import classNames from "classnames";
 interface Props {
   goalId: number;
   goalIsDone: boolean;
+  goalTitle: string;
 }
-const GoalDetail = ({ goalId, goalIsDone }: Props) => {
+const GoalDetail = ({ goalId, goalIsDone, goalTitle }: Props) => {
   const { modalId, openModal, closeModal, isOpen } = useModal();
   const [lastDetail, setLastDetail] = useState<Detail | null>(null);
   const [onFetching, setOnFetching] = useState(false);
@@ -45,6 +46,7 @@ const GoalDetail = ({ goalId, goalIsDone }: Props) => {
           <>
             {isOpen && (
               <AllowedOptionsProvider>
+                <span className="block text-center">{goalTitle}</span>
                 <DetailForm
                   closeModal={closeModal}
                   init={lastDetail}

@@ -1,5 +1,5 @@
 import { useSearchParams } from "next/navigation";
-import { getNearestDayOfWeek } from "../utils";
+import { getNearestDayOfWeek } from "../lib/utils";
 
 const useFilters = () => {
   const goalId = useSearchParams().get("goal");
