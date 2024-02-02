@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-const useNoScroll = (elemRef: any) => {
+const useNoScroll = (elemRef: any, itsParent = false) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   useEffect(() => {
-    if (elemRef?.current) {
-      const newHeight = elemRef.current.scrollHeight + scrollPosition;
-      elemRef.current.style.height = `${newHeight}px`;
+    let elem: any = elemRef?.current;
+    const childElem = elem?.childNodes?.[0];
+    if (itsParent && childElem) elem = childElem;
+    if (elem) {
+      const newHeight = elem.scrollHeight + scrollPosition;
+      elem.style.height = `${newHeight}px`;
     }
   }, [scrollPosition]);
   const onScroll = (e: any) => {
