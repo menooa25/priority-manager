@@ -9,28 +9,26 @@ const AddTask = () => {
     setShowTextarea(false);
   };
   const { ref } = useClickedOutside(onOutsdieClick);
-
+  if (showTextarea)
+    <div ref={ref}>
+      <Task
+        currentDay={null}
+        selectedDay={null}
+        done={false}
+        onSaved={() => setShowTextarea(!showTextarea)}
+        title=""
+      />
+    </div>;
   return (
     <div ref={ref}>
-      {showTextarea && (
-        <Task
-          currentDay={null}
-          selectedDay={null}
-          done={false}
-          onSaved={() => setShowTextarea(!showTextarea)}
-          title=""
-        />
-      )}
-      {!showTextarea && (
-        <button
-          onClick={() => {
-            setShowTextarea(!showTextarea);
-          }}
-          className="btn  btn-outline btn-sm w-full"
-        >
-          افزودن فعالیت
-        </button>
-      )}
+      <button
+        onClick={() => {
+          setShowTextarea(!showTextarea);
+        }}
+        className="btn  btn-outline btn-sm w-full"
+      >
+        افزودن فعالیت
+      </button>
     </div>
   );
 };
