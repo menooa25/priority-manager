@@ -1,4 +1,5 @@
 import Filters from "./ui/Filters";
+import TaskContextProvider from "./ui/TaskContextProvider";
 import TaskList from "./ui/TaskList";
 
 const TasksPage = () => {
@@ -6,7 +7,11 @@ const TasksPage = () => {
     <div className="page-container ">
       <div className="flex flex-col w-full gap-y-3">
         <Filters />
-        <TaskList />
+        <TaskContextProvider>
+          <div>
+            <TaskList />
+          </div>
+        </TaskContextProvider>
       </div>
     </div>
   );
