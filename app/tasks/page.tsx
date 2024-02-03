@@ -1,5 +1,5 @@
-import Filters from "./Filters";
-import TaskList from "./TaskList";
+import Filters from "./ui/Filters";
+import TaskList from "./ui/TaskList";
 
 const TasksPage = () => {
   return (

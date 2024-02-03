@@ -3,15 +3,15 @@
 import { useContext, useEffect, useState } from "react";
 
 import { direction } from "direction";
-import TextareaIndexChng from "../../ui/goalAndTaskTextarea/TextareaIndexChng";
-import { SaveBtn } from "../../ui/goalAndTaskTextarea/actionButtons";
+import TextareaIndexChng from "../../../ui/goalAndTaskTextarea/TextareaIndexChng";
+import { SaveBtn } from "../../../ui/goalAndTaskTextarea/actionButtons";
 import { TaskContext } from "../TaskContextProvider";
 import {
   decreaseTaskGoalIndex,
   decreaseTaskIndex,
   increaseTaskGoalIndex,
   increaseTaskIndex,
-} from "../actions";
+} from "../../lib/actions";
 import useTaskOperations from "../useTaskOperations";
 import AttachToDay from "./AttachToDay";
 import SelectGoal from "./SelectGoal";

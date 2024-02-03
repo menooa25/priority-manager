@@ -70,17 +70,6 @@ const Filters = () => {
           </option>
         ))}
       </select>
-      {/* <div role="tablist" className="tabs tabs-boxed tabs-sm">
-        <span role="tab" className="tab ">
-          شنبه
-        </span>
-        <span role="tab" className="tab ">
-          یک‌شنبه
-        </span>
-        <span role="tab" className="tab">
-          دو‌شنبه
-        </span>
-      </div> */}
     </>
   );
 };

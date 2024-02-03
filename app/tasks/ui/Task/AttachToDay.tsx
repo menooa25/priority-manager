@@ -6,7 +6,7 @@ import { getNearestDayOfWeek } from "@/app/lib/utils";
 import { useContext, useEffect, useState } from "react";
 import { dayOptions } from "../Filters";
 import { TaskContext } from "../TaskContextProvider";
-import { attachTaskToDay } from "../actions";
+import { attachTaskToDay } from "../../lib/actions";
 
 interface Props {
   taskTitle: string;

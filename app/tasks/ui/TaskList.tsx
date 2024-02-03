@@ -2,9 +2,9 @@
 
 import { Task as TaskSchema } from "@prisma/client";
 import { useContext, useEffect, useState } from "react";
-import { TopLoadingContext } from "../ui/TopLoading";
-import { getTaskList } from "./actions";
-import Skeleton from "../ui/goalAndTaskTextarea/Skeleton";
+import { TopLoadingContext } from "../../ui/TopLoading";
+import { getTaskList } from "../lib/actions";
+import Skeleton from "../../ui/goalAndTaskTextarea/Skeleton";
 import AddTask from "./Task/AddTask";
 import TaskContextProvider from "./TaskContextProvider";
 import Task from "./Task/Task";

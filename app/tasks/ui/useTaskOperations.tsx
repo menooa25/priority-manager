@@ -9,7 +9,7 @@ import {
   increaseTaskGoalIndex,
   decreaseTaskGoalIndex,
   changeTaskTitle,
-} from "./actions";
+} from "../lib/actions";
 interface Props {
   id?: number;
   done: boolean;

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Task from "./Task";
-import useClickedOutside from "../../lib/hooks/useClickedOutside";
+import useClickedOutside from "../../../lib/hooks/useClickedOutside";
 import { scrollToPageBottom } from "@/app/lib/utils";
 
 const AddTask = () => {

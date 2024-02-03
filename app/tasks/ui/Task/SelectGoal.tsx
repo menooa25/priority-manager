@@ -3,8 +3,9 @@
 import { Goal } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getGoalList } from "../actions";
+
 import { direction } from "direction";
+import { getGoalList } from "../../lib/actions";
 
 interface Props {
   setGoalId: (id: number) => void;

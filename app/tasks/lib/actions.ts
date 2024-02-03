@@ -1,6 +1,6 @@
 "use server";
+import { getUserId } from "@/app/lib/actions";
 import prisma from "@/prisma/client";
-import { getUserId } from "../lib/actions";
 import { Prisma } from "@prisma/client";
 
 export const getTaskList = async (
