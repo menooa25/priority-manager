@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   changeGoalTitle,
   createGoal,
@@ -7,14 +7,13 @@ import {
   doneGoal,
   increaseGoalIndex,
   resumeGoal,
-} from "./actions";
+} from "../../../lib/actions";
+import { GoalContext } from "../GoalContextProvider";
 interface Props {
   id?: number;
   done: boolean;
   index?: number;
   text: string;
-  goalId?: number;
-  updateList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
@@ -24,9 +23,8 @@ const useGoalOperations = ({
   index,
   status,
   text,
-  updateList,
-  goalId,
 }: Props) => {
+  const {  updateGoalList } = useContext(GoalContext);
   const [loading, setLoading] = useState({
     increaseIndex: false,
     decreaseIndex: false,
@@ -40,13 +38,13 @@ const useGoalOperations = ({
       await createGoal(text);
       setLoading({ ...loading, save: false });
 
-      updateList();
+      updateGoalList();
       callBack && callBack();
     } else if (id && !done) {
       setLoading({ ...loading, save: true });
       await changeGoalTitle(id, text);
       setLoading({ ...loading, save: false });
-      updateList();
+      updateGoalList();
     }
   };
   const onResume = async () => {
@@ -55,7 +53,7 @@ const useGoalOperations = ({
       await resumeGoal(id);
       setLoading({ ...loading, resume: false });
 
-      updateList();
+      updateGoalList();
     }
   };
   const onDone = async () => {
@@ -63,13 +61,13 @@ const useGoalOperations = ({
       setLoading({ ...loading, done: true });
       await doneGoal(id);
       setLoading({ ...loading, done: false });
-      updateList();
+      updateGoalList();
     }
   };
   const onDelete = async () => {
     if (id) {
       await deleteGoal(id);
-      updateList();
+      updateGoalList();
     }
   };
 
@@ -80,7 +78,7 @@ const useGoalOperations = ({
 
       setLoading({ ...loading, increaseIndex: false });
 
-      updateList();
+      updateGoalList();
     }
   };
   const onDecreaseIndex = async () => {
@@ -90,7 +88,7 @@ const useGoalOperations = ({
 
       setLoading({ ...loading, decreaseIndex: false });
 
-      updateList();
+      updateGoalList();
     }
   };
   return {

@@ -40,6 +40,9 @@
   @apply btn rounded-lg rounded-t-none btn-sm  h-8 min-h-6 px-7;
 }
 
+.page-container {
+  @apply flex px-2 pb-9 mb-10 mt-5 sm:w-96 mx-auto justify-center;
+}
 /* goal detail */
 .open-options {
   animation: open-gear 1s;

@@ -3,10 +3,10 @@ import { Detail } from "@prisma/client";
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaGear } from "react-icons/fa6";
-import { updateGoalDetail } from "../../../actions";
 import DetailInput from "../DetailInput";
 import Options from "./Options";
 import { AllowedOptionsContext } from "../AllowedOptionsProvider";
+import { updateGoalDetail } from "@/app/goals/lib/actions";
 type Inputs = {
   why: string | null;
   how: string | null;

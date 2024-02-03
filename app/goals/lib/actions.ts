@@ -92,8 +92,7 @@ export const deleteGoal = async (id: number) => {
 
 export const getGoalList = async () => {
   const userId = await getUserId();
-  if (!userId) return null;
-
+  if (!userId) return [];
   return await prisma.goal.findMany({
     where: { userId },
     orderBy: [{ done: "asc" }, { index: "desc" }],

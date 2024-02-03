@@ -3,6 +3,6 @@ import { BiTask, BiUser } from "react-icons/bi";
 
 export const routes = [
   { title: "فعالیت ها", href: "/tasks", Icon: <BiTask /> },
-  { title: "هدف ها", href: "/", Icon: <GoGoal /> },
+  { title: "هدف ها", href: "/goals", Icon: <GoGoal /> },
   { title: "حساب کاربری", href: "/profile", Icon: <BiUser /> },
 ];

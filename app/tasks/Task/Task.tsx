@@ -3,8 +3,8 @@
 import { useContext, useEffect, useState } from "react";
 
 import { direction } from "direction";
-import TextareaIndexChng from "../../ui/goalAndTask/TextareaIndexChng";
-import { SaveBtn } from "../../ui/goalAndTask/actionButtons";
+import TextareaIndexChng from "../../ui/goalAndTaskTextarea/TextareaIndexChng";
+import { SaveBtn } from "../../ui/goalAndTaskTextarea/actionButtons";
 import { TaskContext } from "../TaskContextProvider";
 import {
   decreaseTaskGoalIndex,

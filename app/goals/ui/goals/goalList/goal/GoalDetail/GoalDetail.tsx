@@ -3,28 +3,25 @@
 import Modal from "@/app/ui/Modal";
 import useModal from "@/app/lib/hooks/useModal";
 import { Detail } from "@prisma/client";
-import { useState } from "react";
-import { getDetail } from "../../actions";
+import { useContext, useState } from "react";
 import DetailForm from "./DetailForm/DetailForm";
 import Eskeleton from "./DetailForm/Eskeleton";
 import AllowedOptionsProvider from "./AllowedOptionsProvider";
 import classNames from "classnames";
+import { getDetail } from "@/app/goals/lib/actions";
+import { SingleGoalContext } from "../../SingleGoalContextProvider";
 
-interface Props {
-  goalId: number;
-  goalIsDone: boolean;
-  goalTitle: string;
-}
-const GoalDetail = ({ goalId, goalIsDone, goalTitle }: Props) => {
+const GoalDetail = () => {
+  const {id,done,title} = useContext(SingleGoalContext)!
   const { modalId, openModal, closeModal, isOpen } = useModal();
   const [lastDetail, setLastDetail] = useState<Detail | null>(null);
   const [onFetching, setOnFetching] = useState(false);
   const openModalBtnClass = classNames({
-    "!bg-base-300 !border-base-300": goalIsDone,
+    "!bg-base-300 !border-base-300": done,
   });
   const fetchDetail = async () => {
     setOnFetching(true);
-    const savedDetails = await getDetail(goalId);
+    const savedDetails = await getDetail(id);
     setLastDetail(savedDetails);
     setOnFetching(false);
   };
@@ -46,11 +43,11 @@ const GoalDetail = ({ goalId, goalIsDone, goalTitle }: Props) => {
           <>
             {isOpen && (
               <AllowedOptionsProvider>
-                <span className="block text-center">{goalTitle}</span>
+                <span className="block text-center">{title}</span>
                 <DetailForm
                   closeModal={closeModal}
                   init={lastDetail}
-                  goalId={goalId}
+                  goalId={id}
                 />
               </AllowedOptionsProvider>
             )}

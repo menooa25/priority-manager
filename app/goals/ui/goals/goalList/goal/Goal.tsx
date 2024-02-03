@@ -1,10 +1,9 @@
 "use client";
-import TextareaIndexChng from "@/app/ui/goalAndTask/TextareaIndexChng";
+import TextareaIndexChng from "@/app/ui/goalAndTaskTextarea/TextareaIndexChng";
 import { direction } from "direction";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { SaveBtn } from "@/app/ui/goalAndTask/actionButtons";
-import { GoalContext } from "../GoalContextProvider";
+import { SaveBtn } from "@/app/ui/goalAndTaskTextarea/actionButtons";
 import useGoalOperations from "../useGoalOperations";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
@@ -21,7 +20,6 @@ interface Props {
 const Goal = ({ title, onSaved, done, id, index }: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
-  const { updateGoalList } = useContext(GoalContext);
   const {
     loading,
     onSave,
@@ -31,7 +29,6 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
     onDecreaseIndex,
     onIncreaseIndex,
   } = useGoalOperations({
-    updateList: updateGoalList,
     done,
     id,
     index,
@@ -62,8 +59,8 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
       />
       {id && (
         <div className="flex gap-x-1">
-          <GoalDetail goalTitle={title} goalId={id} goalIsDone={done} />
-          <Link goalId={id} goalIsDone={done} />
+          <GoalDetail />
+          <Link />
         </div>
       )}
       <div className="flex w-full gap-x-1 mt-2">

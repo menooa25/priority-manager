@@ -2,27 +2,27 @@
 import useClickedOutside from "@/app/lib/hooks/useClickedOutside";
 import { useState } from "react";
 import Goal from "./goal/Goal";
-import { scrollToPageBottom } from "@/app/lib/utils";
+
 
 const AddGoal = () => {
-  const [newClicked, setNewClicked] = useState(false);
+  const [showTextarea, setShowTextarea] = useState(false);
   const onOutsdieClick = () => {
-    setNewClicked(false);
+    setShowTextarea(false);
   };
   const { ref } = useClickedOutside(onOutsdieClick);
   return (
     <div ref={ref}>
-      {newClicked && (
+      {showTextarea && (
         <Goal
           done={false}
-          onSaved={() => setNewClicked(!newClicked)}
+          onSaved={() => setShowTextarea(!showTextarea)}
           title=""
         />
       )}
-      {!newClicked && (
+      {!showTextarea && (
         <button
           onClick={() => {
-            setNewClicked(!newClicked);
+            setShowTextarea(!showTextarea);
           }}
           className="btn  btn-outline btn-sm w-full"
         >

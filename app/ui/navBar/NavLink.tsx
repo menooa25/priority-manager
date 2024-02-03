@@ -11,11 +11,12 @@ interface Props {
 }
 const NavLink = ({ href, title, Icon }: Props) => {
   const pathName = usePathname();
+  const isActive = pathName.startsWith(href);
   const linkCasses = classNames({
-    "tab-active font-bold": pathName === href,
+    "tab-active font-bold": isActive,
   });
   const buttomLinkClass = classNames({
-    "active font-bold": pathName === href,
+    "active font-bold": isActive,
   });
   return (
     <>
