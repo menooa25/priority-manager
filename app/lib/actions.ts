@@ -12,3 +12,7 @@ export const getUserId = async () => {
 
   return user?.id;
 };
+
+export const getServerTime = async () => {
+  return new Date();
+};

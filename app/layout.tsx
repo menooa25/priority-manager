@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./ui/navBar/NavBar";
 import AuthContainer from "./ui/AuthContainer";
 import TopLoading from "./ui/TopLoading";
+import NetworkError from "./ui/NetworkError";
 
 const vazirmatn = Vazirmatn({ subsets: ["latin", "arabic", "latin-ext"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={vazirmatn.className}>
+        <NetworkError />
         <AuthContainer>
           <TopLoading>
             <NavBar />
