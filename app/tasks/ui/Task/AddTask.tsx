@@ -6,7 +6,13 @@ import useClickedOutside from "../../../lib/hooks/useClickedOutside";
 const AddTask = () => {
   const [showTextarea, setShowTextarea] = useState(false);
   const onOutsdieClick = () => {
-    setShowTextarea(false);
+    const elem = ref.current;
+    if (elem) {
+      const firstTextarea = elem.querySelector("textarea");
+      const textareaValue = firstTextarea ? firstTextarea.value : "";
+
+      setShowTextarea(textareaValue !== "");
+    }
   };
   const { ref } = useClickedOutside(onOutsdieClick);
   if (showTextarea)
@@ -20,16 +26,14 @@ const AddTask = () => {
       />
     </div>;
   return (
-    <div ref={ref}>
-      <button
-        onClick={() => {
-          setShowTextarea(!showTextarea);
-        }}
-        className="btn  btn-outline btn-sm w-full"
-      >
-        افزودن فعالیت
-      </button>
-    </div>
+    <button
+      onClick={() => {
+        setShowTextarea(true);
+      }}
+      className="btn  btn-outline btn-sm w-full"
+    >
+      افزودن فعالیت
+    </button>
   );
 };
 
