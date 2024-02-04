@@ -16,15 +16,17 @@ const AddTask = () => {
   };
   const { ref } = useClickedOutside(onOutsdieClick);
   if (showTextarea)
-    <div ref={ref}>
-      <Task
-        currentDay={null}
-        selectedDay={null}
-        done={false}
-        onSaved={() => setShowTextarea(!showTextarea)}
-        title=""
-      />
-    </div>;
+    return (
+      <div ref={ref}>
+        <Task
+          currentDay={null}
+          selectedDay={null}
+          done={false}
+          onSaved={() => setShowTextarea(!showTextarea)}
+          title=""
+        />
+      </div>
+    );
   return (
     <button
       onClick={() => {
