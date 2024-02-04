@@ -17,6 +17,7 @@ import AttachToDay from "./AttachToDay";
 import SelectGoal from "./SelectGoal";
 import TaskGoal from "./TaskGoal";
 import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
+import Renderer from "@/app/ui/Renderer";
 
 interface Props {
   id?: number;
@@ -107,17 +108,19 @@ const Task = ({
         itsNew={status.itsNew}
       />
       <div className="flex gap-x-1 ">
-        {status.itsNew && <SelectGoal goalId={goalId} setGoalId={setGoalId} />}
-        {!status.itsNew && goalTitle && (
-          <TaskGoal taskIsDone={done} goalTitle={goalTitle} />
-        )}
-        {!status.itsNew && id && !done && (
+        <Renderer condition={Boolean(status.itsNew)}>
+          <SelectGoal goalId={goalId} setGoalId={setGoalId} />
+        </Renderer>
+        <Renderer condition={Boolean(!status.itsNew && goalTitle)}>
+          <TaskGoal taskIsDone={done} goalTitle={goalTitle!} />
+        </Renderer>
+        <Renderer condition={Boolean(!status.itsNew && id && !done)}>
           <AttachToDay
-            taskId={id}
+            taskId={id!}
             selectedDay={selectedDay}
             taskTitle={title}
           />
-        )}
+        </Renderer>
       </div>
       <div className="flex w-full gap-x-1 mt-1">
         <DeleteTask title={title} onClick={onDelete} display={done} />
