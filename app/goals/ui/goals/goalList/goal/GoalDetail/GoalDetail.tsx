@@ -10,9 +10,10 @@ import AllowedOptionsProvider from "./AllowedOptionsProvider";
 import classNames from "classnames";
 import { getDetail } from "@/app/goals/lib/actions";
 import { SingleGoalContext } from "../../SingleGoalContextProvider";
+import { direction } from "direction";
 
 const GoalDetail = () => {
-  const {id,done,title} = useContext(SingleGoalContext)!
+  const { id, done, title } = useContext(SingleGoalContext)!;
   const { modalId, openModal, closeModal, isOpen } = useModal();
   const [lastDetail, setLastDetail] = useState<Detail | null>(null);
   const [onFetching, setOnFetching] = useState(false);
@@ -43,7 +44,9 @@ const GoalDetail = () => {
           <>
             {isOpen && (
               <AllowedOptionsProvider>
-                <span className="block text-center">{title}</span>
+                <span dir={direction(title)} className="block text-center">
+                  {title}
+                </span>
                 <DetailForm
                   closeModal={closeModal}
                   init={lastDetail}
