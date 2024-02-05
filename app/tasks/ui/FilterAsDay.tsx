@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import useQueryParams from "./useQueryParams";
 
 export const dayOptions = [
   {
@@ -35,24 +35,13 @@ export const dayOptions = [
 ];
 
 const FilterAsDay = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { changeSearchParams, searchParams } = useQueryParams();
   const initDay = () =>
     searchParams.get("day") !== null ? +searchParams.get("day")! : -1;
   const [selected, setSelected] = useState(initDay);
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
   useEffect(() => {
-    router.push(pathname + "?" + createQueryString("day", selected.toString()));
+    changeSearchParams("day", selected.toString());
   }, [selected]);
   return (
     <>

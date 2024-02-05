@@ -5,21 +5,14 @@ import useFilters from "./useFilters";
 import { Goal } from "@prisma/client";
 import { getGoalList } from "../lib/actions";
 import { direction } from "direction";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useQueryParams from "./useQueryParams";
 
 const FilterAsGoal = () => {
   const { goalIdNum } = useFilters();
-  const router = useRouter();
-  const pathname = usePathname();
 
   const [selectedGoal, setSelectedGoal] = useState(0);
   const [goalList, setGoalList] = useState<Goal[]>([]);
-  const searchParams = useSearchParams();
-  const changeSearchParams = (name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(name, value);
-    router.push(pathname + "?" + params);
-  };
+  const { changeSearchParams } = useQueryParams();
   const onChange = (value: number) => {
     if (value === 0) {
       changeSearchParams("goal", "");
