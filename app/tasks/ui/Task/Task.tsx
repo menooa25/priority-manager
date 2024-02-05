@@ -18,9 +18,14 @@ import SelectGoal from "./SelectGoal";
 import TaskGoal from "./TaskGoal";
 import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 import Renderer from "@/app/ui/Renderer";
+import Time from "./Time";
 
 interface Props {
   id?: number;
+  Time: {
+    from: string;
+    to: string;
+  } | null;
   title: string;
   done: boolean;
   index?: number;
@@ -37,6 +42,7 @@ const Task = ({
   title,
   id,
   index,
+  Time: taskTime,
   onSaved,
   indexInGoal,
   goalTitle,
@@ -82,6 +88,10 @@ const Task = ({
   }, [title, text]);
   return (
     <div>
+      <Renderer condition={Boolean(id)}>
+        <Time id={id!} taskTime={taskTime} />
+      </Renderer>
+
       <TextareaIndexChng
         defaultValue={title}
         dir={direction(text)}
@@ -122,6 +132,7 @@ const Task = ({
           />
         </Renderer>
       </div>
+
       <div className="flex w-full gap-x-1 mt-1">
         <DeleteTask title={title} onClick={onDelete} display={done} />
         <ResumeTaskBtn

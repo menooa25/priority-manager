@@ -15,7 +15,10 @@ export const getTaskList = async (
   return await prisma.task.findMany({
     where: { goal: { userId }, goalId, day: day?.toISOString() },
     orderBy: [{ done: "asc" }, { ...orderBy }],
-    include: { goal: { select: { title: true } } },
+    include: {
+      goal: { select: { title: true } },
+      Time: { select: { from: true, to: true } },
+    },
   });
 };
 
@@ -191,10 +194,44 @@ export const attachTaskToDay = async (
   const userId = await getUserId();
   if (!userId) return null;
   await prisma.task.update({
-    where: { id },
+    where: { id, goal: { userId } },
     data: {
       day: day.toISOString(),
       selectedDay,
+    },
+  });
+};
+
+export const setTimeForTask = async (id: number, from: string, to: string) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const time = await prisma.time.findUnique({
+    where: { taskId: id, task: { goal: { userId } } },
+  });
+  if (time)
+    return await prisma.time.update({
+      where: { taskId: id, task: { goal: { userId } } },
+      data: { from, to },
+    });
+  return await prisma.time.create({
+    data: { from, to, taskId: id },
+  });
+};
+
+export const deleteTime = async (id: number) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const time = await prisma.time.count({
+    where: {
+      task: { goal: { userId } },
+      taskId: id,
+    },
+  });
+  if (time === 0) return null;
+  return await prisma.time.delete({
+    where: {
+      task: { goal: { userId } },
+      taskId: id,
     },
   });
 };

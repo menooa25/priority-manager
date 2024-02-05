@@ -9,7 +9,9 @@ import { Task } from "@prisma/client";
 interface ContextType {
   updateTaskList: () => void;
   isGoalFiltered: boolean;
-  taskList: (Task & { goal: { title: string } })[];
+  taskList: (Task & { goal: { title: string } } & {
+    Time: { from: string; to: string } | null;
+  })[];
   loading: boolean;
 }
 
@@ -25,7 +27,9 @@ interface Props {
 const TaskContextProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(true);
   const [taskList, setTaskList] = useState<
-    (Task & { goal: { title: string } })[]
+    (Task & { goal: { title: string } } & {
+      Time: { from: string; to: string } | null;
+    })[]
   >([]);
   const { completeLoading, startLoading: startTopLoading } =
     useContext(TopLoadingContext);

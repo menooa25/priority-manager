@@ -30,6 +30,14 @@ model Detail {
   goalId Int     @unique
 }
 
+model Time {
+  id     Int    @id @default(autoincrement())
+  from   String
+  to     String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId Int    @unique
+}
+
 model Task {
   id          Int       @id @default(autoincrement())
   title       String    @db.Text
@@ -40,6 +48,8 @@ model Task {
   selectedDay Int?
   goal        Goal      @relation(fields: [goalId], references: [id], onDelete: Cascade)
   goalId      Int
+
+  Time Time?
 }
 
 // NextAuth

@@ -7,7 +7,7 @@ const TasksPage = () => {
   return (
     <div className="page-container ">
       <div className="flex flex-col w-full gap-y-3">
-        <FilterAsGoal/>
+        <FilterAsGoal />
         <FilterAsDay />
         <TaskContextProvider>
           <div>
