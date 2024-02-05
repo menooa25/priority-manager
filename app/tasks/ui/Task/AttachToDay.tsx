@@ -4,7 +4,7 @@ import Modal from "@/app/ui/Modal";
 import useModal from "@/app/lib/hooks/useModal";
 import { getNearestDayOfWeek } from "@/app/lib/utils";
 import { useContext, useEffect, useState } from "react";
-import { dayOptions } from "../Filters";
+import { dayOptions } from "../FilterAsDay";
 import { TaskContext } from "../TaskContextProvider";
 import { attachTaskToDay } from "../../lib/actions";
 

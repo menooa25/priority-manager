@@ -34,7 +34,7 @@ export const dayOptions = [
   },
 ];
 
-const Filters = () => {
+const FilterAsDay = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -74,4 +74,4 @@ const Filters = () => {
   );
 };
 
-export default Filters;
+export default FilterAsDay;
