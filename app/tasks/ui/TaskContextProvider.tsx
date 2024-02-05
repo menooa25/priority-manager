@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, createContext, useContext, useState } from "react";
-import useFilters from "./useFilters";
+import useFilters from "../hook/task/useFilters";
 import { TopLoadingContext } from "@/app/ui/TopLoading";
 import { getTaskList } from "../lib/actions";
 import { Task } from "@prisma/client";
@@ -9,7 +9,7 @@ import { Task } from "@prisma/client";
 interface ContextType {
   updateTaskList: () => void;
   isGoalFiltered: boolean;
-  taskList: (Task & { goal: { title: string } })[]
+  taskList: (Task & { goal: { title: string } })[];
   loading: boolean;
 }
 

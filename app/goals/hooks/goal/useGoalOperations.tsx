@@ -7,8 +7,8 @@ import {
   doneGoal,
   increaseGoalIndex,
   resumeGoal,
-} from "../../../lib/actions";
-import { GoalContext } from "../GoalContextProvider";
+} from "../../lib/actions";
+import { GoalContext } from "../../ui/goals/GoalContextProvider";
 interface Props {
   id?: number;
   done: boolean;
@@ -17,14 +17,8 @@ interface Props {
   status: { itsNew: boolean; itsEdited: boolean };
 }
 
-const useGoalOperations = ({
-  done,
-  id,
-  index,
-  status,
-  text,
-}: Props) => {
-  const {  updateGoalList } = useContext(GoalContext);
+const useGoalOperations = ({ done, id, index, status, text }: Props) => {
+  const { updateGoalList } = useContext(GoalContext);
   const [loading, setLoading] = useState({
     increaseIndex: false,
     decreaseIndex: false,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useQueryParams from "./useQueryParams";
+import useQueryParams from "../../hook/useQueryParams";
 
 export const dayOptions = [
   {

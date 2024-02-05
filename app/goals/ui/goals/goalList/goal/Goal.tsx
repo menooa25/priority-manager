@@ -4,7 +4,7 @@ import { direction } from "direction";
 import { useEffect, useState } from "react";
 
 import { SaveBtn } from "@/app/ui/goalAndTaskTextarea/actionButtons";
-import useGoalOperations from "../useGoalOperations";
+import useGoalOperations from "../../../../hooks/goal/useGoalOperations";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
 import Link from "./Link";

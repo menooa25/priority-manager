@@ -12,7 +12,7 @@ import {
   increaseTaskGoalIndex,
   increaseTaskIndex,
 } from "../../lib/actions";
-import useTaskOperations from "../useTaskOperations";
+import useTaskOperations from "../../hook/task/useTaskOperations";
 import AttachToDay from "./AttachToDay";
 import SelectGoal from "./SelectGoal";
 import TaskGoal from "./TaskGoal";

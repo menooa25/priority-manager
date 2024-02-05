@@ -5,7 +5,7 @@ import Skeleton from "../../ui/goalAndTaskTextarea/Skeleton";
 import AddTask from "./Task/AddTask";
 import Task from "./Task/Task";
 import { TaskContext } from "./TaskContextProvider";
-import useFilters from "./useFilters";
+import useFilters from "../hook/task/useFilters";
 
 const TaskList = () => {
   const { dayFilterDate, goalIdNum, dayFilter } = useFilters();

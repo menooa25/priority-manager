@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useFilters from "./useFilters";
+import useFilters from "../hook/task/useFilters";
 import { Goal } from "@prisma/client";
 import { getGoalList } from "../lib/actions";
 import { direction } from "direction";
-import useQueryParams from "./useQueryParams";
+import useQueryParams from "../../hook/useQueryParams";
 
 const FilterAsGoal = () => {
   const { goalIdNum } = useFilters();
