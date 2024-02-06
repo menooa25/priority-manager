@@ -31,7 +31,7 @@ const TextareaIndexChng = ({
   const textareaClass = classNames({
     "textarea rounded-2xl": true,
     "rounded-r-none": !done && !itsNew,
-    "overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered rounded-bl-none":
+    "overflow-hidden w-full min-h-[97px] focus:outline-none textarea-bordered rounded-bl-none rounded-br-none":
       true,
     [className ?? ""]: className,
   });

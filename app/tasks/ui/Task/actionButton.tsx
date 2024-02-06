@@ -1,5 +1,7 @@
 import Modal from "@/app/ui/Modal";
 import useModal from "@/app/lib/hooks/useModal";
+import { MdDeleteForever } from "react-icons/md";
+import { GoCheck } from "react-icons/go";
 
 interface ButtonsProps {
   display: boolean;
@@ -15,7 +17,7 @@ export const DoneTask = ({ display, onClick, loading }: ButtonsProps) => {
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (
-        "انجام دادم"
+        <GoCheck size={20} />
       )}
     </button>
   );
@@ -27,7 +29,7 @@ export const ResumeTaskBtn = ({ display, onClick, loading }: ButtonsProps) => {
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (
-        "ادامه دادن فعالیت"
+        "ادامه"
       )}
     </button>
   );
@@ -44,7 +46,7 @@ export const DeleteTask = ({
   return (
     <>
       <button onClick={() => openModal()} className="tag-button !btn-accent ">
-        حذف
+        <MdDeleteForever size={20} />
       </button>
       <Modal id={modalId}>
         <div className="text-right">

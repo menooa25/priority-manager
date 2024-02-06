@@ -117,7 +117,6 @@ const Task = ({
               getIncreseIndexFuncArgs().dayFilterDate
             ),
         }}
-        className="rounded-br-none"
         itsNew={status.itsNew}
       />
       <div className="flex gap-x-1 ">

@@ -8,6 +8,7 @@ import useGoalOperations from "../../../../hooks/goal/useGoalOperations";
 import { DeleteGoal, DoneGoal, ResumeGoalBtn } from "./ActionButtons";
 import GoalDetail from "./GoalDetail/GoalDetail";
 import Link from "./Link";
+import Renderer from "@/app/ui/Renderer";
 
 interface Props {
   id?: number;
@@ -54,39 +55,43 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
           increase: loading.increaseIndex,
         }}
         onClick={{ decrease: onDecreaseIndex, increase: onIncreaseIndex }}
-        className={!id ? "!rounded-bl-2xl" : ""}
         itsNew={status.itsNew}
       />
-      {id && (
+      <Renderer condition={Boolean(id)}>
         <div className="flex gap-x-1">
           <GoalDetail />
           <Link />
+          <div
+            className={`flex justify-end flex-1 gap-x-1  ${
+              !done && "pr-[30px]"
+            }`}
+          >
+            <ResumeGoalBtn
+              loading={loading.resume}
+              display={done}
+              onClick={onResume}
+            />
+            <DeleteGoal title={title} onClick={onDelete} display={done} />
+            <DoneGoal
+              loading={loading.done}
+              onClick={onDone}
+              display={!done && !status.itsNew}
+            />
+            <DeleteGoal
+              title={title}
+              onClick={onDelete}
+              display={!done && !status.itsNew}
+            />
+          </div>
         </div>
-      )}
-      <div className="flex w-full gap-x-1 mt-2">
-        <DeleteGoal title={title} onClick={onDelete} display={done} />
-        <ResumeGoalBtn
-          loading={loading.resume}
-          display={done}
-          onClick={onResume}
-        />
-      </div>
+      </Renderer>
+
+      <div className="flex w-full gap-x-1 mt-2"></div>
       <div
         className={`flex w-full gap-x-1 ${
           (status.itsEdited || status.itsNew) && "mb-1"
         }`}
-      >
-        <DeleteGoal
-          title={title}
-          onClick={onDelete}
-          display={!done && !status.itsNew}
-        />
-        <DoneGoal
-          loading={loading.done}
-          onClick={onDone}
-          display={!done && !status.itsNew}
-        />
-      </div>
+      ></div>
       <SaveBtn
         disabled={!Boolean(text)}
         loading={loading.save}
