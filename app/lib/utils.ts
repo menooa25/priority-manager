@@ -25,3 +25,38 @@ export const scrollToPageBottom = () => {
     console.error("Element with id 'page-bottom' not found.");
   }
 };
+
+export const extractTimeAndTranslate = (text: string) => {
+  // Regular expression to match time in Persian format
+  const timeRegex = /([۰-۹]+:[۰-۹]+)/g;
+
+  // Executing the regular expression on the text
+  const matches = text.match(timeRegex);
+
+  if (matches) {
+    const translatedTimes = matches.map((time) => {
+      // Translate Persian digits to English digits
+      const translatedTime = time.replace(/[۰-۹]/g, (d) =>
+        String.fromCharCode(
+          d.charCodeAt(0) - "۰".charCodeAt(0) + "0".charCodeAt(0)
+        )
+      );
+
+      // Split hours and minutes
+      const [hour, minute] = translatedTime.split(":");
+
+      // Ensure hour and minute have two digits
+      const formattedTime = [
+        hour.padStart(2, "0"),
+        minute.padStart(2, "0"),
+      ].join(":");
+
+      return formattedTime;
+    });
+
+    return translatedTimes;
+  }
+
+  // If no matches found, return null
+  return null;
+};

@@ -13,7 +13,7 @@ interface Props {
   } | null;
 }
 const Time = ({ taskTime, id }: Props) => {
-  const { modalId, openModal, closeModal, isOpen } = useModal();
+  const { modalId, openModal, closeModal } = useModal();
   const [toTime, setToTime] = useState(taskTime?.to ?? "");
   const { updateTaskList } = useContext(TaskContext);
   const [fromTime, setFromTime] = useState(taskTime?.from ?? "");

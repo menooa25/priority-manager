@@ -19,7 +19,7 @@ const AddTask = () => {
     return (
       <div ref={ref}>
         <Task
-          time={null}
+          Time={null}
           currentDay={null}
           selectedDay={null}
           done={false}

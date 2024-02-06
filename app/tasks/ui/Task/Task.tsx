@@ -19,6 +19,7 @@ import TaskGoal from "./TaskGoal";
 import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 import Renderer from "@/app/ui/Renderer";
 import Time from "./Time";
+import useTimeFromText from "../../hook/task/useTimeFromText";
 
 interface Props {
   id?: number;
@@ -70,6 +71,7 @@ const Task = ({
     status,
     text,
   });
+  id && useTimeFromText(id, title);
   const getIncreseIndexFuncArgs = () => {
     if (isGoalFiltered && indexInGoal !== undefined)
       return { func: increaseTaskGoalIndex, index: indexInGoal, dayFilterDate };

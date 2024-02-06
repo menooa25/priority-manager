@@ -235,3 +235,31 @@ export const deleteTime = async (id: number) => {
     },
   });
 };
+
+export const updateTimeFromText = async (
+  id: number,
+  from: string,
+  to: string
+) => {
+  const userId = await getUserId();
+  if (!userId) return null;
+  const time = await prisma.time.findUnique({
+    where: { taskId: id, task: { goal: { userId } } },
+  });
+  if (time) {
+    if (from && !time.from)
+      return await prisma.time.update({
+        where: { taskId: id, task: { goal: { userId } } },
+        data: { from },
+      });
+    if (to && !time.to)
+      return await prisma.time.update({
+        where: { taskId: id, task: { goal: { userId } } },
+        data: { to },
+      });
+    return null;
+  }
+  return await prisma.time.create({
+    data: { from, to, taskId: id },
+  });
+};
