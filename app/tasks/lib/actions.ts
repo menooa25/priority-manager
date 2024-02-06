@@ -62,6 +62,7 @@ export const increaseTaskIndex = async (
       goal: { userId },
       index: { gt: currentIndex },
       day: day?.toISOString(),
+      done: false,
     },
     orderBy: { index: "asc" },
   });
@@ -80,15 +81,18 @@ export const increaseTaskIndex = async (
 export const increaseTaskGoalIndex = async (
   id: number,
   currentGoalIndex: number,
-  day: Date | undefined = undefined
+  day: Date | undefined,
+  goalId: number
 ) => {
   const userId = await getUserId();
   if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
     where: {
       goal: { userId },
+      goalId,
       indexInGoal: { gt: currentGoalIndex },
       day: day?.toISOString(),
+      done: false,
     },
     orderBy: { indexInGoal: "asc" },
   });
@@ -116,10 +120,10 @@ export const decreaseTaskIndex = async (
       index: { lt: currentIndex, not: -1 },
       goal: { userId },
       day: day?.toISOString(),
+      done: false,
     },
     orderBy: { index: "desc" },
   });
-
   if (downerTask) {
     await prisma.task.update({
       where: { id, goal: { userId } },
@@ -135,7 +139,8 @@ export const decreaseTaskIndex = async (
 export const decreaseTaskGoalIndex = async (
   id: number,
   currentGoalIndex: number,
-  day: Date | undefined = undefined
+  day: Date | undefined = undefined,
+  goalId: number
 ) => {
   const userId = await getUserId();
   if (!userId) return null;
@@ -143,7 +148,9 @@ export const decreaseTaskGoalIndex = async (
     where: {
       indexInGoal: { lt: currentGoalIndex, not: -1 },
       goal: { userId },
+      goalId,
       day: day?.toISOString(),
+      done: false,
     },
     orderBy: { indexInGoal: "desc" },
   });

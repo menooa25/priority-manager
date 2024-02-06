@@ -75,25 +75,39 @@ const useTaskOperations = ({
   };
 
   const onIncreaseIndex = async (
-    taskFunc: (id: number, index: number, dayFilterDate?: Date) => Promise<any>,
+    taskFunc: (
+      id: number,
+      index: number,
+      dayFilterDate?: Date,
+      goalId?: number
+    ) => Promise<any>,
     customIndex: number,
-    dayFilterDate?: Date
+    dayFilterDate?: Date,
+    goalId?: number
   ) => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, increaseIndex: true });
-      await taskFunc(id, customIndex, dayFilterDate);
+      if (goalId) await taskFunc(id, customIndex, dayFilterDate, goalId);
+      else await taskFunc(id, customIndex, dayFilterDate);
       setLoading({ ...loading, increaseIndex: false });
       updateList();
     }
   };
   const onDecreaseIndex = async (
-    taskFunc: (id: number, index: number, dayFilterDate?: Date) => Promise<any>,
+    taskFunc: (
+      id: number,
+      index: number,
+      dayFilterDate?: Date,
+      goalId?: number
+    ) => Promise<any>,
     customIndex: number,
-    dayFilterDate?: Date
+    dayFilterDate?: Date,
+    goalId?: number
   ) => {
     if (id && !done && index !== undefined) {
       setLoading({ ...loading, decreaseIndex: true });
-      await taskFunc(id, customIndex, dayFilterDate);
+      if (goalId) await taskFunc(id, customIndex, dayFilterDate, goalId);
+      else await taskFunc(id, customIndex, dayFilterDate);
       setLoading({ ...loading, decreaseIndex: false });
 
       updateList();

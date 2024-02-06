@@ -43,6 +43,7 @@ export const increaseGoalIndex = async (id: number, currentIndex: number) => {
     where: {
       userId,
       index: { gt: currentIndex },
+      done: false,
     },
     orderBy: { index: "asc" },
   });
@@ -61,7 +62,7 @@ export const decreaseGoalIndex = async (id: number, currentIndex: number) => {
   const userId = await getUserId();
   if (!userId) return null;
   const downerGoal = await prisma.goal.findFirst({
-    where: { index: { lt: currentIndex, not: -1 }, userId },
+    where: { index: { lt: currentIndex, not: -1 }, userId, done: false },
     orderBy: { index: "desc" },
   });
 

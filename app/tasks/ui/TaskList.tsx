@@ -21,11 +21,12 @@ const TaskList = () => {
 
       {taskList.map(
         (
-          { id, done, index, title, indexInGoal, goal, day, selectedDay, Time },
+          { id, done, index, title, indexInGoal, goal, day, selectedDay, Time ,goalId},
           i
         ) => (
           <div key={id}>
             <Task
+              taskGoalId={goalId}
               Time={Time}
               dayFilterDate={dayFilterDate}
               selectedDay={selectedDay ?? null}

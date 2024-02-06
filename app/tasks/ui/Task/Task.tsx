@@ -34,6 +34,7 @@ interface Props {
   indexInGoal?: number;
   goalTitle?: string;
   currentDay: null | Date;
+  taskGoalId?: number;
   dayFilterDate?: Date;
   selectedDay: null | number;
 }
@@ -49,6 +50,7 @@ const Task = ({
   goalTitle,
   dayFilterDate,
   selectedDay,
+  taskGoalId,
 }: Props) => {
   const [text, setText] = useState(title);
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
@@ -73,13 +75,23 @@ const Task = ({
   });
   useTimeFromText(id, title);
   const getIncreseIndexFuncArgs = () => {
-    if (isGoalFiltered && indexInGoal !== undefined)
-      return { func: increaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
+    if (isGoalFiltered && taskGoalId && indexInGoal !== undefined)
+      return {
+        func: increaseTaskGoalIndex,
+        index: indexInGoal,
+        dayFilterDate,
+        goalId: taskGoalId,
+      };
     return { func: increaseTaskIndex, index: index as number, dayFilterDate };
   };
   const getDecreaseIndexFuncArgs = () => {
-    if (isGoalFiltered && indexInGoal !== undefined)
-      return { func: decreaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
+    if (isGoalFiltered && taskGoalId && indexInGoal !== undefined)
+      return {
+        func: decreaseTaskGoalIndex,
+        index: indexInGoal,
+        dayFilterDate,
+        goalId: taskGoalId,
+      };
     return { func: decreaseTaskIndex, index: index as number, dayFilterDate };
   };
   useEffect(() => {
@@ -106,15 +118,17 @@ const Task = ({
         onClick={{
           decrease: () =>
             onDecreaseIndex(
-              getDecreaseIndexFuncArgs().func,
+              getDecreaseIndexFuncArgs().func as any,
               getDecreaseIndexFuncArgs().index,
-              getDecreaseIndexFuncArgs().dayFilterDate
+              getDecreaseIndexFuncArgs().dayFilterDate,
+              getDecreaseIndexFuncArgs().goalId
             ),
           increase: () =>
             onIncreaseIndex(
-              getIncreseIndexFuncArgs().func,
+              getIncreseIndexFuncArgs().func as any,
               getIncreseIndexFuncArgs().index,
-              getIncreseIndexFuncArgs().dayFilterDate
+              getIncreseIndexFuncArgs().dayFilterDate,
+              getIncreseIndexFuncArgs().goalId
             ),
         }}
         itsNew={status.itsNew}
