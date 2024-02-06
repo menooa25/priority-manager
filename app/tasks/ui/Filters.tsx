@@ -13,8 +13,8 @@ const Filters = () => {
       </button>
       <Modal id={modalId}>
         <div className="flex flex-col gap-y-2">
-          <FilterAsGoal />
           <FilterAsDay />
+          <FilterAsGoal />
         </div>
       </Modal>
     </>

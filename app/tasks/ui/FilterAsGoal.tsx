@@ -13,6 +13,7 @@ const FilterAsGoal = () => {
   const [selectedGoal, setSelectedGoal] = useState(0);
   const [goalList, setGoalList] = useState<Goal[]>([]);
   const { changeSearchParams } = useQueryParams();
+
   const onChange = (value: number) => {
     if (value === 0) {
       changeSearchParams("goal", "");
@@ -20,6 +21,7 @@ const FilterAsGoal = () => {
       changeSearchParams("goal", value.toString());
     }
     setSelectedGoal(value);
+    localStorage.setItem("goal", value.toString());
   };
   const fetchGoalList = async () => {
     const goals = await getGoalList();
@@ -27,8 +29,13 @@ const FilterAsGoal = () => {
   };
   useEffect(() => {
     fetchGoalList();
+    const goalIdLocalStorage = +(localStorage.getItem("goal") ?? "");
     if (goalIdNum) setSelectedGoal(goalIdNum);
-  }, []);
+    else if (goalIdLocalStorage) {
+      setSelectedGoal(goalIdLocalStorage);
+      changeSearchParams("goal", goalIdLocalStorage.toString());
+    }
+  }, [goalIdNum]);
   return (
     <select
       value={selectedGoal}
