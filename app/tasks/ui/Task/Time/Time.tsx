@@ -3,8 +3,9 @@
 import useModal from "@/app/lib/hooks/useModal";
 import Modal from "@/app/ui/Modal";
 import { useContext, useState } from "react";
-import { deleteTime, setTimeForTask } from "../../lib/actions";
-import { TaskContext } from "../TaskContextProvider";
+import { deleteTime, setTimeForTask } from "../../../lib/actions";
+import { TaskContext } from "../../TaskContextProvider";
+import ShowTime from "./ShowTime";
 interface Props {
   id: number;
   taskTime: {
@@ -43,9 +44,7 @@ const Time = ({ taskTime, id }: Props) => {
         onClick={openModal}
         className=" btn btn-xs btn-ghost text-center"
       >
-        {taskTime === null
-          ? "اضافه کردن زمان"
-          : `از ${taskTime.from} - تا ${taskTime.to}`}
+        <ShowTime from={taskTime?.from ?? ""} to={taskTime?.to ?? ""} />
       </button>
       <Modal id={modalId}>
         <div>
