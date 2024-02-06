@@ -48,17 +48,7 @@ const Time = ({ taskTime, id }: Props) => {
       </button>
       <Modal id={modalId}>
         <div>
-          <div className="flex flex-col-reverse sm:flex-row justify-center items-center sm:gap-x-1">
-            <div className="flex ">
-              <input
-                className="input input-sm focus-visible:outline-none"
-                type="time"
-                value={toTime}
-                onChange={({ target: { value } }) => onChange("to", value)}
-              />
-              <span className="flex items-center">تا ساعت</span>
-            </div>
-            <div className="divider divider-horizontal"></div>
+          <div className="flex  flex-col sm:flex-row-reverse justify-center items-center sm:gap-x-1">
             <div className="flex ">
               <input
                 className="input input-sm focus-visible:outline-none"
@@ -67,6 +57,16 @@ const Time = ({ taskTime, id }: Props) => {
                 value={fromTime}
               />
               <span className="flex items-center">از ساعت</span>
+            </div>
+            <div className="divider divider-horizontal"></div>
+            <div className="flex ">
+              <input
+                className="input input-sm focus-visible:outline-none"
+                type="time"
+                value={toTime}
+                onChange={({ target: { value } }) => onChange("to", value)}
+              />
+              <span className="flex items-center">تا ساعت</span>
             </div>
           </div>
           <div className="flex justify-center">

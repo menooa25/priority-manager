@@ -33,7 +33,7 @@ const FilterAsGoal = () => {
     <select
       value={selectedGoal}
       onChange={({ target: { value } }) => onChange(+value)}
-      className="select select-bordered select-sm w-full text-center"
+      className="select select-bordered select-sm w-full text-center focus-visible:outline-none"
     >
       <option className="w-full" dir="rtl" value={0}>
         فعالیت های همه هدف ها

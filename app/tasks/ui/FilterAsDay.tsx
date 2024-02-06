@@ -48,10 +48,10 @@ const FilterAsDay = () => {
       <select
         onChange={({ target: { value } }) => setSelected(+value)}
         value={selected}
-        className="select select-bordered select-sm w-full"
+        className="select select-bordered select-sm w-full focus-visible:outline-none"
       >
         <option className="text-center" value={"-1"}>
-          همه
+          همه روز ها
         </option>
         {dayOptions.map(({ searchParam, title }) => (
           <option className="text-center" key={searchParam} value={searchParam}>
