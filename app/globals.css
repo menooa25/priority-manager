@@ -37,7 +37,7 @@
 }
 
 .tag-button {
-  @apply btn rounded-lg rounded-t-none btn-sm  h-8 min-h-6 px-7;
+  @apply btn rounded-lg rounded-t-none btn-sm  h-8 min-h-6 px-3;
 }
 
 .page-container {

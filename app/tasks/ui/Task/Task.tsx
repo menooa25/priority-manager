@@ -71,7 +71,7 @@ const Task = ({
     status,
     text,
   });
-  id && useTimeFromText(id, title);
+  useTimeFromText(id, title);
   const getIncreseIndexFuncArgs = () => {
     if (isGoalFiltered && indexInGoal !== undefined)
       return { func: increaseTaskGoalIndex, index: indexInGoal, dayFilterDate };
@@ -90,7 +90,7 @@ const Task = ({
   }, [title, text]);
   return (
     <div>
-      <Renderer condition={Boolean(id)}>
+      <Renderer condition={Boolean(id && !done)}>
         <Time id={id!} taskTime={taskTime} />
       </Renderer>
 
@@ -117,6 +117,7 @@ const Task = ({
               getIncreseIndexFuncArgs().dayFilterDate
             ),
         }}
+        className="rounded-br-none"
         itsNew={status.itsNew}
       />
       <div className="flex gap-x-1 ">
@@ -133,28 +134,29 @@ const Task = ({
             taskTitle={title}
           />
         </Renderer>
+        <div
+          className={`flex justify-end flex-1 gap-x-1  ${!done && "pr-[30px]"}`}
+        >
+          <ResumeTaskBtn
+            loading={loading.resume}
+            display={done}
+            onClick={onResume}
+          />
+          <DoneTask
+            loading={loading.done}
+            onClick={onDone}
+            display={!done && !status.itsNew}
+          />
+          <DeleteTask
+            title={title}
+            onClick={onDelete}
+            display={!done && !status.itsNew}
+          />
+
+          <DeleteTask title={title} onClick={onDelete} display={done} />
+        </div>
       </div>
 
-      <div className="flex w-full gap-x-1 mt-1">
-        <DeleteTask title={title} onClick={onDelete} display={done} />
-        <ResumeTaskBtn
-          loading={loading.resume}
-          display={done}
-          onClick={onResume}
-        />
-      </div>
-      <div className={"flex w-full gap-x-1 mt-1"}>
-        <DeleteTask
-          title={title}
-          onClick={onDelete}
-          display={!done && !status.itsNew}
-        />
-        <DoneTask
-          loading={loading.done}
-          onClick={onDone}
-          display={!done && !status.itsNew}
-        />
-      </div>
       <div className={status.itsEdited ? "mt-1" : ""}>
         <SaveBtn
           disabled={

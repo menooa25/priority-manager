@@ -3,7 +3,7 @@ import { extractTimeAndTranslate } from "@/app/lib/utils";
 import { useEffect, useState } from "react";
 import { updateTimeFromText } from "../../lib/actions";
 
-const useTimeFromText = (id: number, text: string) => {
+const useTimeFromText = (id: number | undefined, text: string) => {
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
   const fromDetector = "از ساعت";
@@ -14,15 +14,19 @@ const useTimeFromText = (id: number, text: string) => {
     setToTime(extractTimeAndTranslate(text)?.[0] ?? "");
   const putTime = async () => {
     if (fromTime || toTime) {
-      await updateTimeFromText(id, fromTime, toTime);
+      await updateTimeFromText(id!, fromTime, toTime);
     }
   };
   useEffect(() => {
-    if (text.includes(fromDetector)) extractFromTime();
-    if (text.includes(toDetector)) extractToTime();
-  }, [text]);
+    if (id) {
+      if (text.includes(fromDetector)) extractFromTime();
+      if (text.includes(toDetector)) extractToTime();
+    }
+  }, [text, id]);
   useEffect(() => {
-    putTime();
+    if (id) {
+      putTime();
+    }
   }, [fromTime, toTime]);
   return null;
 };

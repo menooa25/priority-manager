@@ -11,7 +11,7 @@ export const DoneTask = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return null;
 
   return (
-    <button onClick={onClick} className="btn flex-1 btn-primary w-full btn-sm">
+    <button onClick={onClick} className="tag-button !btn-primary">
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (
@@ -23,7 +23,7 @@ export const DoneTask = ({ display, onClick, loading }: ButtonsProps) => {
 export const ResumeTaskBtn = ({ display, onClick, loading }: ButtonsProps) => {
   if (!display) return <></>;
   return (
-    <button onClick={onClick} className="btn btn-neutral flex-1  w-full btn-sm">
+    <button onClick={onClick} className="tag-button !btn-neutral">
       {loading ? (
         <span className="loading loading-xs loading-spinner" />
       ) : (
@@ -43,10 +43,7 @@ export const DeleteTask = ({
 
   return (
     <>
-      <button
-        onClick={() => openModal()}
-        className="btn flex-1  btn-accent w-full btn-sm"
-      >
+      <button onClick={() => openModal()} className="tag-button !btn-accent ">
         حذف
       </button>
       <Modal id={modalId}>
