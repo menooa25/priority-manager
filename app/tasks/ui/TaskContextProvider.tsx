@@ -46,7 +46,10 @@ const TaskContextProvider = ({ children }: Props) => {
   const updateTaskList = async () => {
     startLoading();
 
-    const resp = await getTaskList(goalIdNum, dayFilterDate);
+    const resp = await getTaskList(
+      goalIdNum,
+      dayFilterDate?.toLocaleDateString()
+    );
     if (resp) {
       setTaskList(resp);
       endLoading();

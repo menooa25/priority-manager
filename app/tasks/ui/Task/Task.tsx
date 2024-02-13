@@ -33,7 +33,7 @@ interface Props {
   onSaved?: () => void;
   indexInGoal?: number;
   goalTitle?: string;
-  currentDay: null | Date;
+  currentDay: null | String;
   taskGoalId?: number;
   dayFilterDate?: Date;
   selectedDay: null | number;

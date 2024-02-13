@@ -25,7 +25,7 @@ const AttachToDay = ({ taskTitle, selectedDay, taskId }: Props) => {
 
     await attachTaskToDay(
       taskId,
-      getNearestDayOfWeek(cleanedDayNum),
+      getNearestDayOfWeek(cleanedDayNum).toLocaleDateString(),
       cleanedDayNum
     );
     setLoading(false);

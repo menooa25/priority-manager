@@ -39,14 +39,14 @@ model Time {
 }
 
 model Task {
-  id          Int       @id @default(autoincrement())
-  title       String    @db.Text
-  done        Boolean   @default(false)
-  index       Int       @default(0)
-  indexInGoal Int       @default(0)
-  day         DateTime? @db.Date
+  id          Int     @id @default(autoincrement())
+  title       String  @db.Text
+  done        Boolean @default(false)
+  index       Int     @default(0)
+  indexInGoal Int     @default(0)
+  day         String?
   selectedDay Int?
-  goal        Goal      @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  goal        Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
   goalId      Int
 
   Time Time?
