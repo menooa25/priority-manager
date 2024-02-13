@@ -16,6 +16,8 @@ interface Props {
   index?: number;
   text: string;
   goalId?: number;
+  day?: string;
+  newSelectedDay?: number;
   updateList: () => void;
   status: { itsNew: boolean; itsEdited: boolean };
 }
@@ -23,6 +25,8 @@ interface Props {
 const useTaskOperations = ({
   done,
   id,
+  day,
+  newSelectedDay,
   index,
   status,
   text,
@@ -39,7 +43,7 @@ const useTaskOperations = ({
   const onSave = async (callBack?: () => void) => {
     if (status.itsNew && text && goalId) {
       setLoading({ ...loading, save: true });
-      await createTask(text, goalId);
+      await createTask(text, goalId, day,newSelectedDay);
       setLoading({ ...loading, save: false });
       updateList();
       callBack && callBack();

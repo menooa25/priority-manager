@@ -20,6 +20,7 @@ import { DeleteTask, DoneTask, ResumeTaskBtn } from "./actionButton";
 import Renderer from "@/app/ui/Renderer";
 import Time from "./Time/Time";
 import useTimeFromText from "../../hook/task/useTimeFromText";
+import SelectingDay from "./addTask/SelectingDay";
 
 interface Props {
   id?: number;
@@ -53,6 +54,9 @@ const Task = ({
   taskGoalId,
 }: Props) => {
   const [text, setText] = useState(title);
+  const [day, setDay] = useState<string>();
+  const [newSelectedDay, setNewSelectedDay] = useState<number>();
+
   const [status, setStatus] = useState({ itsNew: false, itsEdited: false });
   const { updateTaskList, isGoalFiltered } = useContext(TaskContext);
   const [goalId, setGoalId] = useState<number>();
@@ -67,6 +71,8 @@ const Task = ({
   } = useTaskOperations({
     updateList: updateTaskList,
     done,
+    day,
+    newSelectedDay,
     id,
     index,
     goalId,
@@ -169,7 +175,13 @@ const Task = ({
           <DeleteTask title={title} onClick={onDelete} display={done} />
         </div>
       </div>
-
+      <Renderer condition={Boolean(status.itsNew)}>
+        <div className="mt-1 mb-2">
+          <SelectingDay 
+          setNewSelectedDay={setNewSelectedDay}
+          setDay={setDay} />
+        </div>
+      </Renderer>
       <div className={status.itsEdited ? "mt-1" : ""}>
         <SaveBtn
           disabled={

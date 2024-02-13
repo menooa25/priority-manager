@@ -2,7 +2,7 @@
 
 import { useContext, useEffect } from "react";
 import Skeleton from "../../ui/goalAndTaskTextarea/Skeleton";
-import AddTask from "./Task/AddTask";
+import AddTask from "./Task/addTask/AddTask";
 import Task from "./Task/Task";
 import { TaskContext } from "./TaskContextProvider";
 import useFilters from "../hook/task/useFilters";

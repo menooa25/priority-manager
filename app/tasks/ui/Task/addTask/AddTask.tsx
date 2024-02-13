@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Task from "./Task";
-import useClickedOutside from "../../../lib/hooks/useClickedOutside";
+import Task from "../Task";
+import useClickedOutside from "../../../../lib/hooks/useClickedOutside";
 
 const AddTask = () => {
   const [showTextarea, setShowTextarea] = useState(false);

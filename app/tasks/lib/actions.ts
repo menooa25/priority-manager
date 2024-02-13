@@ -22,7 +22,12 @@ export const getTaskList = async (
   });
 };
 
-export const createTask = async (title: string, goalId: number) => {
+export const createTask = async (
+  title: string,
+  goalId: number,
+  day?: string,
+  selectedDay?: number
+) => {
   const userId = await getUserId();
   if (!userId) return null;
   const upperTask = await prisma.task.findFirst({
@@ -37,6 +42,8 @@ export const createTask = async (title: string, goalId: number) => {
     data: {
       title,
       goalId,
+      day,
+      selectedDay,
       index: upperTask ? upperTask.index + 1 : 0,
       indexInGoal: upperTaskInGoal ? upperTaskInGoal.indexInGoal + 1 : 0,
     },
