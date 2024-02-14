@@ -2,44 +2,14 @@
 
 import { useEffect, useState } from "react";
 import useQueryParams from "../../hook/useQueryParams";
-
-export const dayOptions = [
-  {
-    searchParam: "6",
-    title: "شنبه",
-  },
-  {
-    searchParam: "0",
-    title: "یک‌شنبه",
-  },
-  {
-    searchParam: "1",
-    title: "دو‌شنبه",
-  },
-  {
-    searchParam: "2",
-    title: "سه‌شنبه",
-  },
-  {
-    searchParam: "3",
-    title: "چهارشنبه",
-  },
-  {
-    searchParam: "4",
-    title: "پنج‌شنبه",
-  },
-  {
-    searchParam: "5",
-    title: "جمعه",
-  },
-];
+import useTodayInDayOptions from "../hook/task/useTodayInDayOptions";
 
 const FilterAsDay = () => {
   const { changeSearchParams, searchParams } = useQueryParams();
   const initDay = () =>
     searchParams.get("day") !== null ? +searchParams.get("day")! : -1;
   const [selected, setSelected] = useState(initDay);
-
+  const todayInDayOtions = useTodayInDayOptions();
   useEffect(() => {
     changeSearchParams("day", selected.toString());
   }, [selected]);
@@ -53,7 +23,7 @@ const FilterAsDay = () => {
         <option className="text-center" value={"-1"}>
           همه روز ها
         </option>
-        {dayOptions.map(({ searchParam, title }) => (
+        {todayInDayOtions.map(({ searchParam, title }) => (
           <option className="text-center" key={searchParam} value={searchParam}>
             {title}
           </option>

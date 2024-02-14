@@ -1,12 +1,12 @@
 "use client";
 
-import Modal from "@/app/ui/Modal";
 import useModal from "@/app/lib/hooks/useModal";
 import { getNearestDayOfWeek } from "@/app/lib/utils";
-import { useContext, useEffect, useState } from "react";
-import { dayOptions } from "../FilterAsDay";
-import { TaskContext } from "../TaskContextProvider";
+import Modal from "@/app/ui/Modal";
+import { useContext, useState } from "react";
+import useTodayInDayOptions from "../../hook/task/useTodayInDayOptions";
 import { attachTaskToDay } from "../../lib/actions";
+import { TaskContext } from "../TaskContextProvider";
 
 interface Props {
   taskTitle: string;
@@ -17,26 +17,24 @@ const AttachToDay = ({ taskTitle, selectedDay, taskId }: Props) => {
   const { updateTaskList } = useContext(TaskContext);
   const { openModal, modalId, closeModal } = useModal();
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState(-1);
-  const [cleanedDayNum, setCleanedDayNum] = useState(-1);
+  const [selected, setSelected] = useState(
+    selectedDay?.toString() || new Date().getDay().toString()
+  );
+  const todayInDayOtions = useTodayInDayOptions();
+
   const submitText = selectedDay === null ? "ثبت" : "ثبت تغییرات";
   const onSubmit = async () => {
     setLoading(true);
 
     await attachTaskToDay(
       taskId,
-      getNearestDayOfWeek(cleanedDayNum).toLocaleDateString(),
-      cleanedDayNum
+      getNearestDayOfWeek(+selected).toLocaleDateString(),
+      +selected
     );
     setLoading(false);
     closeModal();
     updateTaskList();
   };
-  useEffect(() => {
-    let cleanedDayNum = selected;
-    if (selected === -1) cleanedDayNum = new Date().getDay();
-    setCleanedDayNum(cleanedDayNum);
-  }, [selected]);
 
   return (
     <div>
@@ -51,14 +49,11 @@ const AttachToDay = ({ taskTitle, selectedDay, taskId }: Props) => {
             انجام دهید ؟
           </p>
           <select
-            onChange={({ target: { value } }) => setSelected(+value)}
+            onChange={({ target: { value } }) => setSelected(value)}
             value={selected}
             className="select select-bordered select-sm w-full mt-2 focus-visible:outline-none"
           >
-            <option className="text-right " value={"-1"}>
-              امروز
-            </option>
-            {dayOptions.map(({ searchParam, title }) => (
+            {todayInDayOtions.map(({ searchParam, title }) => (
               <option
                 className="text-right "
                 key={searchParam}
@@ -68,7 +63,7 @@ const AttachToDay = ({ taskTitle, selectedDay, taskId }: Props) => {
               </option>
             ))}
           </select>
-          {selectedDay !== cleanedDayNum && (
+          {selectedDay !== +selected && (
             <button
               disabled={loading}
               onClick={onSubmit}

@@ -1,23 +1,30 @@
 "use client";
 
 import { getNearestDayOfWeek } from "@/app/lib/utils";
-import { useState } from "react";
-import { dayOptions } from "../../FilterAsDay";
+import useTodayInDayOptions from "@/app/tasks/hook/task/useTodayInDayOptions";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 interface Props {
   setDay: (day: string) => void;
   setNewSelectedDay: (day: number) => void;
 }
 const SelectingDay = ({ setDay, setNewSelectedDay }: Props) => {
-  const [selected, setSelected] = useState("");
+  const dayFilter = useSearchParams().get("day");
+  const [selected, setSelected] = useState(
+    [null, "-1"].includes(dayFilter) ? "" : (dayFilter as string)
+  );
+  const todayInDayOtions = useTodayInDayOptions();
 
   const onChange = (value: string) => {
     setSelected(value);
-    if (value) {
-      const cleanedDayNum = +value;
+  };
+  useEffect(() => {
+    if (selected) {
+      const cleanedDayNum = +selected;
       setNewSelectedDay(cleanedDayNum);
       setDay(getNearestDayOfWeek(cleanedDayNum).toLocaleDateString());
     }
-  };
+  }, [selected]);
   return (
     <>
       <select
@@ -28,10 +35,8 @@ const SelectingDay = ({ setDay, setNewSelectedDay }: Props) => {
         <option className="text-right " value={""}>
           بدون روز مشخص
         </option>
-        <option className="text-right " value={"-1"}>
-          امروز
-        </option>
-        {dayOptions.map(({ searchParam, title }) => (
+
+        {todayInDayOtions.map(({ searchParam, title }) => (
           <option className="text-right " key={searchParam} value={searchParam}>
             {title}
           </option>
