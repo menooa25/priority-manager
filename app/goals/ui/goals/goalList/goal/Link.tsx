@@ -9,7 +9,11 @@ const Link = () => {
     "!bg-base-300 !border-base-300": done,
   });
   return (
-    <NextLink href={`/tasks?goal=${id}`} className={"tag-button " + btnClass}>
+    <NextLink
+      onClick={() => localStorage.setItem("goal", id.toString())}
+      href={`/tasks?goal=${id}`}
+      className={"tag-button " + btnClass}
+    >
       فعالیت ها
     </NextLink>
   );

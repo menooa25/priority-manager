@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useQueryParams from "../../hook/useQueryParams";
-import useTodayInDayOptions from "../hook/task/useTodayInDayOptions";
+import useQueryParams from "../../../../hook/useQueryParams";
+import useTodayInDayOptions from "../../../hook/task/useTodayInDayOptions";
 
 const FilterAsDay = () => {
   const { changeSearchParams, searchParams } = useQueryParams();
