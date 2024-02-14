@@ -56,6 +56,7 @@ const Goal = ({ title, onSaved, done, id, index }: Props) => {
         }}
         onClick={{ decrease: onDecreaseIndex, increase: onIncreaseIndex }}
         itsNew={status.itsNew}
+        className={status.itsNew ? "!rounded-b-2xl" : ""}
       />
       <Renderer condition={Boolean(id)}>
         <div className="flex gap-x-1">
